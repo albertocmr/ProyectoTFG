@@ -2,7 +2,7 @@
 
 # dependencies
 /node_modules
-/proyectotfg_react/node_modules
+proyectotfg_react/node_modules
 /.pnp
 .pnp.js
 
