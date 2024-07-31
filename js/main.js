@@ -36,9 +36,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     addGeoJSONToMap(bahia_cadiz)
     addGeoJSONToMap(cabo_de_gata_nijar)
-    addGeoJSONToMap(del_estrecho)   /* */
+    addGeoJSONToMap(del_estrecho)
     addGeoJSONToMap(despeniaperros)
-    addGeoJSONToMap(los_alcornocales) /* */
+    addGeoJSONToMap(los_alcornocales)
     addGeoJSONToMap(sierra_baza)
     addGeoJSONToMap(sierra_nevada)
     addGeoJSONToMap(sierra_huetor)
