@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 document.addEventListener('DOMContentLoaded', (event) => {
 
 
@@ -59,55 +58,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     addGeoJSONToMap(sierra_aracena)
     addGeoJSONToMap(sierra_cardenia_montoro)
 
-
-
-        
-
-
-
-
-
-
-
-
-/*
-
-    function loadGeoJSON(url) {
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                var geojsonLayer = L.geoJSON(data, {
-                    style: {
-                        color: 'blue',
-                        weight: 4,
-                        opacity: 0.7
-                    }
-                }).addTo(map);
-
-                // Ajusta el zoom del mapa para mostrar la ruta completa
-                map.fitBounds(geojsonLayer.getBounds());
-            })
-            .catch(error => console.error('Error al cargar el GeoJSON:', error));
-    }
-
-    // Cargar el archivo GeoJSON desde la carpeta 'coordenadas'
-    loadGeoJSON('coordenadas/sierra_baza.geojson');
-
-
-/*
-    // Crea el polígono
-    var polygon = L.polygon(polygonCoordinates, {
-        color: 'red', // Color del borde del polígono
-        fillColor: 'blue', // Color de relleno del polígono
-        fillOpacity: 0.5 // Opacidad del relleno del polígono
-    }).addTo(map);
-
-    // Ajusta el zoom del mapa para que encuadre el polígono
-    map.fitBounds(polygon.getBounds());
-*/
-
 });
-=======
 document.addEventListener('DOMContentLoaded', (event) => {
 
 
@@ -142,8 +93,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }).addTo(map);
     }
 
-
-
     addGeoJSONToMap(bahia_cadiz)
     addGeoJSONToMap(cabo_de_gata_nijar)
     addGeoJSONToMap(del_estrecho)
@@ -169,8 +118,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     addGeoJSONToMap(sierra_cardenia_montoro)
 
 
+});
 
         
+
 
 
 
@@ -215,5 +166,3 @@ document.addEventListener('DOMContentLoaded', (event) => {
     map.fitBounds(polygon.getBounds());
 */
 
-});
->>>>>>> d4698ec6ae2168979498ca5ae133bed74e797b33
