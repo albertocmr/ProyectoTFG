@@ -1,5 +1,5 @@
 #parques-naturales {
-    max-width: 900px;
+    max-width: 1000px;
     margin: auto;
     font-family: Arial, sans-serif;
   }
@@ -7,12 +7,17 @@
   .dropdown {
     margin-bottom: 10px;
   }
+
+  .dropdown:hover {
+    border-radius: 10px;
+    background-color: gray;
+    transition: background-color 1s;
+  }
   
   .dropdown-item {
-    background-color: #f1f1f1;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
