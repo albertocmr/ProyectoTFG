@@ -1,0 +1,6 @@
+# Fase 1 del proyecto
+Pequeño proyecto orientativo en el que se utilizan tecnologías básicas como son HTML puro, CSS puro y JavaScript Vanilla.
+
+En este mini-proyecto nos encontramos una web básica que cuenta con un header y un footer orientativos y, en el cuerpo de la aplicación web, nos encontramos un mapa de OpenStreetMap, en el que hemos utilizado la libreria Leaflet de JavaScript, que nos permite crear aplicaciones web con mapas interactivos. Sobre este mapa mudo, hemos conseguido sobreponer los perímetros de cada parque natural de Andalucía. Estos perímetros se han conseguido gracias a los filtros de OpenStreetMap, se profundizará sobre el tema en la memoria del proyecto una vez se realice.
+
+Para poder cargar las coordenadas de los perimetros, se nos presentó la dificultad de los archivos geoJSON. Al realizar la lectura de estos archivos, el programa no sobreponía los perímetros de los parques naturales. Puede que se deba a un error sintáctico. Sin embargo, encontré la solución de almacenar las coordenadas en archivos .js y cargar cada uno de ellos de forma individual con la función auxiliar addGeoJSONToMap. Para ello, es necesario que el archivo geoJSON se almacene en una variable var (esto ocurre en cada archivo de './coordenadas').
