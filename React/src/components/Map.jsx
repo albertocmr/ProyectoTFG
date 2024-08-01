@@ -25,15 +25,11 @@ import sierraHuetor from '../assets/coordenadas/sierra_huetor.js';
 import sierraMagina from '../assets/coordenadas/sierra_magina.js';
 import mariaLosVelez from '../assets/coordenadas/sierra_maria_los_velez.js';
 import sierraNevada from '../assets/coordenadas/sierra_nevada.js';
+import sierraNieves from '../assets/coordenadas/sierra_nieves.js';
 import sierraNorteSevilla from '../assets/coordenadas/sierra_norte_sevilla.js';
+import sierraTejeda from '../assets/coordenadas/sierra_tejeda.js'
 import sierrasSubbeticas from '../assets/coordenadas/sierras_subbeticas.js';
 
-
-const mapStyle = {
-  width: '100%',
-  height: '500px',
-  border: '1px solid black',
-};
 
 function Map() {
   useEffect(() => {
@@ -70,7 +66,9 @@ function Map() {
       sierraMagina,
       mariaLosVelez,
       sierraNevada,
+      sierraNieves,
       sierraNorteSevilla,
+      sierraTejeda,
       sierrasSubbeticas              
     ];
 
@@ -78,7 +76,7 @@ function Map() {
     const addGeoJSONToMap = (geojson) => {
       L.geoJSON(geojson, {
         style: {
-          color: '#000',
+          color: '#0000ff',
           weight: 2,
           opacity: 1
         },
@@ -102,7 +100,7 @@ function Map() {
   }, []);
 
   return (
-    <div id="map" style={mapStyle}></div>
+    <div id="map"></div>
   );
 }
 
