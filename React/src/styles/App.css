@@ -84,6 +84,10 @@ footer {
   color: #fff;
 }
 
+.parquesNaturales-container {
+  background-color: #fafafa;
+}
+
 /* Estilos para el contenedor del mapa */
 .map-container {
   margin: 2rem 0;
