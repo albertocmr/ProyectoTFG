@@ -5,30 +5,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css'; // Importa el CSS de Leaflet
 import '../styles/Map.css'; // Importa estilos específicos del mapa
 
-// Importamos los archivos "GeoJSON" directamente
-import bahiaCadiz from '../assets/coordenadas/bahia_cadiz.js';
-import caboDeGataNijar from '../assets/coordenadas/cabo_de_gata_nijar.js';
-import delEstrecho from '../assets/coordenadas/del_estrecho.js';
-import despeniaperros from '../assets/coordenadas/despeniaperros.js';
-import losAlcornocales from '../assets/coordenadas/los_alcornocales.js';
-import montesMalaga from '../assets/coordenadas/montes_malaga.js';
-import naturalDoniana from '../assets/coordenadas/natural_doniana.js';
-import sierraAndujar from '../assets/coordenadas/sierra_andujar.js';
-import sierraAracena from '../assets/coordenadas/sierra_aracena.js';
-import sierraBaza from '../assets/coordenadas/sierra_baza.js';
-import cardeniaMontoro from '../assets/coordenadas/sierra_cardenia_montoro.js';
-import sierraCastril from '../assets/coordenadas/sierra_castril.js';
-import sierraCazorla from '../assets/coordenadas/sierra_cazorla.js';
-import sierraGrazalema from '../assets/coordenadas/sierra_grazalema.js';
-import sierraHornachuelos from '../assets/coordenadas/sierra_hornachuelos.js';
-import sierraHuetor from '../assets/coordenadas/sierra_huetor.js';
-import sierraMagina from '../assets/coordenadas/sierra_magina.js';
-import mariaLosVelez from '../assets/coordenadas/sierra_maria_los_velez.js';
-import sierraNevada from '../assets/coordenadas/sierra_nevada.js';
-import sierraNieves from '../assets/coordenadas/sierra_nieves.js';
-import sierraNorteSevilla from '../assets/coordenadas/sierra_norte_sevilla.js';
-import sierraTejeda from '../assets/coordenadas/sierra_tejeda.js'
-import sierrasSubbeticas from '../assets/coordenadas/sierras_subbeticas.js';
+import geojsonData from '../assets/coordenadas/geojsonImports.js';
 
 
 function Map() {
@@ -44,33 +21,6 @@ function Map() {
 
     // Control de escala
     L.control.scale().addTo(map);
-
-    // Lista de datos GeoJSON importados
-    const geojsonData = [
-      bahiaCadiz,
-      caboDeGataNijar,
-      delEstrecho,
-      despeniaperros,
-      losAlcornocales,
-      montesMalaga,
-      naturalDoniana, 
-      sierraAndujar,
-      sierraAracena,   
-      sierraBaza,
-      cardeniaMontoro,
-      sierraCastril,
-      sierraCazorla,
-      sierraGrazalema ,
-      sierraHornachuelos,
-      sierraHuetor,
-      sierraMagina,
-      mariaLosVelez,
-      sierraNevada,
-      sierraNieves,
-      sierraNorteSevilla,
-      sierraTejeda,
-      sierrasSubbeticas              
-    ];
 
     // Función para añadir un GeoJSON al mapa
     const addGeoJSONToMap = (geojson) => {
@@ -88,8 +38,7 @@ function Map() {
       }).addTo(map);
     };
 
-    // Añadir cada archivo GeoJSON al mapa
-    geojsonData.forEach(data => {
+    Object.values(geojsonData).forEach(data => {
       addGeoJSONToMap(data);
     });
 
