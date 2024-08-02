@@ -38,11 +38,14 @@
       "last 1 safari version"
     ]
   },
-  "repository" :{
+  "repository": {
     "type": "git",
     "url": "git+https://github.com/albertocmr/ProyectoTFG.git"
   },
   "main": "index.js",
   "author": "Alberto Cámara Ortiz",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.4.7"
+  }
 }
