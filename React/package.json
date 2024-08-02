@@ -1,6 +1,7 @@
 {
   "name": "React",
   "version": "0.1.0",
+  "description": "Trabajo Fin de Grado 2024/25",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
@@ -37,8 +38,11 @@
       "last 1 safari version"
     ]
   },
+  "repository" :{
+    "type": "git",
+    "url": "git+https://github.com/albertocmr/ProyectoTFG.git"
+  },
   "main": "index.js",
   "author": "Alberto Cámara Ortiz",
-  "license": "ISC",
-  "description": ""
+  "license": "ISC"
 }
