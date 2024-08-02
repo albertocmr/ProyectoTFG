@@ -2,6 +2,7 @@ import React from 'react';
 import ParquesNaturales from './components/ParquesNaturales';
 import Map from './components/Map';
 import './styles/App.css';
+import Footer from './components/Footer'
 
 function App () {
   return (
@@ -18,10 +19,8 @@ function App () {
           <Map />
         </div>
       </main>
-
-      <footer>
-        <p>&copy; 2024 Parques Naturales de Andalucía</p>
-      </footer>
+      
+      <Footer />
     </div>
   );
 }
