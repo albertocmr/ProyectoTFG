@@ -26,7 +26,7 @@ function Map() {
     const addGeoJSONToMap = (geojson) => {
       L.geoJSON(geojson, {
         style: {
-          color: '#0000ff',
+          color: '#000000',
           weight: 2,
           opacity: 1
         },
