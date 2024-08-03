@@ -2,6 +2,9 @@
 
 # dependencies
 React/node_modules
+TFG_frontend/node_modules
+Fase1
+Fase1/*
 /.pnp
 .pnp.js
 .env

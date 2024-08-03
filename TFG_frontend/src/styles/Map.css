@@ -1,7 +1,8 @@
 /* Map.css */
 #map {
     width: 80%;
-    height: 600px;
+    height: 50vh;
+    max-width: 900px;
     border: 2px solid black;
 
   }

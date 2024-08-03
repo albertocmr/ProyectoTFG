@@ -2,7 +2,7 @@
 import React from 'react';
 
 
-function ParqueNatural (props) { 
+const ParqueNatural = (props) =>{ 
 
     return(
         <>
@@ -13,9 +13,10 @@ function ParqueNatural (props) {
                 <p>
                     Se encuentra en {props.ciudad}
                 </p>
-                <button >
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     Ir al parque
                 </button>
+
             </article>
         </>
     )
