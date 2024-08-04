@@ -8,11 +8,6 @@
     margin-bottom: 10px;
   }
 
-  .dropdown:hover {
-    border-radius: 10px;
-    background-color: gray;
-    transition: background-color 1s;
-  }
   
   .dropdown-item {
     padding: 10px;

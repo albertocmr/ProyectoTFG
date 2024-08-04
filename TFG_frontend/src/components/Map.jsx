@@ -49,7 +49,9 @@ function Map() {
   }, []);
 
   return (
-    <div id="map"></div>
+    <div className='map-container'>
+      <div id="map"></div>
+    </div>
   );
 }
 

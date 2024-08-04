@@ -93,13 +93,7 @@ footer {
   background-color: #fafafa;
 }
 
-/* Estilos para el contenedor del mapa */
-.map-container {
-  display: flex;
-  justify-content: center; /* Centra el mapa horizontalmente */
-  margin: 2rem 0;
-  margin-top: 20px; /* Espaciado superior */
-}
+
 
 
 
