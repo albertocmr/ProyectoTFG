@@ -4,6 +4,7 @@
   "description": "Trabajo Fin de Grado 2024/25",
   "private": true,
   "dependencies": {
+    "@mapbox/togeojson": "^0.16.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -43,7 +44,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/albertocmr/ProyectoTFG.git"
+    "url": "https://github.com/albertocmr/ProyectoTFG.git"
   },
   "main": "index.js",
   "author": "Alberto Cámara Ortiz",

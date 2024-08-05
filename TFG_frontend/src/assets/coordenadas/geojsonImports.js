@@ -18,7 +18,9 @@ import sierraMagina from './sierra_magina.js';
 import mariaLosVelez from './sierra_maria_los_velez.js';
 import sierraNevada from './sierra_nevada.js';
 import sierraNorteSevilla from './sierra_norte_sevilla.js';
+import sierraTejeda from './sierra_tejeda.js'
 import sierrasSubbeticas from './sierras_subbeticas.js';
+import sierraNieves from './sierra_nieves.js'
 
 const geojsonData = {
   bahiaCadiz,
@@ -40,7 +42,9 @@ const geojsonData = {
   sierraMagina,
   mariaLosVelez,
   sierraNevada,
+  sierraNieves,
   sierraNorteSevilla,
+  sierraTejeda,
   sierrasSubbeticas
 };
 
