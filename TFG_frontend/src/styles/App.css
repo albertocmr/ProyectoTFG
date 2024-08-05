@@ -35,17 +35,6 @@ header h1 {
   margin: 0;
 }
 
-/* Estilos principales */
-main {
-  flex: 1;
-  min-width: 60%;
-  max-width: 90%;
-  margin: 0 auto;
-  padding: 1.5rem;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
 
 /* Estilos para las secciones */
 section {
@@ -93,6 +82,11 @@ footer {
   background-color: #fafafa;
 }
 
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
 
 

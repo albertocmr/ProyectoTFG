@@ -1,5 +1,5 @@
-/* Map.css */
 #map {
+  
     width: 80%;
     height: 50vh;
     max-width: 900px;
@@ -7,10 +7,10 @@
 
 }
 
-/* Estilos para el contenedor del mapa */
+
 .map-container {
   display: flex;
-  justify-content: center; /* Centra el mapa horizontalmente */
+  justify-content: center;
   margin: 2rem 0;
-  margin-top: 20px; /* Espaciado superior */
+  margin-top: 20px;
 }

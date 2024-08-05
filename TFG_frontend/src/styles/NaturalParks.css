@@ -1,0 +1,33 @@
+.dropdown {
+  margin-bottom: 10px;
+}
+
+
+.dropdown-item {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-item h3 {
+  margin: 0;
+}
+
+.dropdown-content {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-content .parque {
+  margin-bottom: 10px;
+}
+  

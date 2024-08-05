@@ -1,36 +1,37 @@
 import React from 'react';
-import ParquesNaturales from './components/ParquesNaturales';
-import Map from './components/Map';
 import './styles/App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import ListParquesNaturales from './components/ListParquesNaturalesComponent'
-import AddParqueNaturalComponent from './components/AddParqueNaturalComponent'
-
 import Header from './components/Header'
+import NaturalParksComponent from './components/NaturalParks';
+import AddNaturalParkComponent from './components/AddNaturalParkComponent';
+import ListNaturalParksComponent from './components/ListNaturalParksComponent'
+import CreateTrack from './components/CreateTrack';
+import MapComponent from './components/MapComponent'
 import Footer from './components/Footer'
 
 function App () {
   return (
-    <div className="app-container">
+      <div className="app-container">
 
-      <BrowserRouter>
-        <Header />
-        <Routes>
-
-          <Route path='/parques-naturales' element={<ParquesNaturales/>}></Route>
-          <Route path='/map' element={<Map />}></Route>
-          <Route path='/add-parque' element={<AddParqueNaturalComponent />}></Route>
-          <Route path='/gestion' element={<ListParquesNaturales />}></Route>
-          <Route path='/edit-parque/:id' element={<AddParqueNaturalComponent />}></Route>
-          <Route path='/' element={<Map />}></Route>
-          
-        </Routes>
-        
-
-        <Footer />
-      </BrowserRouter>
-    </div>
+        <BrowserRouter>
+          <Header />
+          <main class="flex-1 min-w-full max-w-5xl mx-auto p-4 md:p-6 lg:p-8 bg-white rounded-lg shadow-md">
+          <Routes>
+            <Route path='/'/>
+            <Route path='/createTrack' element={<CreateTrack />} />
+            <Route path='/loadTrack' element={<MapComponent />} />
+            <Route path='/parques-naturales' element={<NaturalParksComponent />} />
+            <Route path='/add-parque' element={<AddNaturalParkComponent />} />
+            <Route path='/edit-parque/:id' element={<AddNaturalParkComponent />} />
+            <Route path='/gestion' element={<ListNaturalParksComponent />} />
+          </Routes>
+          </main>
+          <Footer />
+        </BrowserRouter>
+      </div>
   );
 }
 
 export default App;
+
+

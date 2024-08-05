@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <footer className="bg-white w-100">
-      <div className="container-fluid px-16 pb-2 pt-8">
+      <div className="container-fluid px-16 pb-2 pt-4">
         <div className="border-t border-gray-100 pt-4 d-flex flex-column flex-sm-row align-items-center justify-content-between">
           <ul className="list-inline text-center text-xs mb-0 d-flex flex-wrap justify-content-center justify-content-sm-end gap-4">
             <li className="list-inline-item">
