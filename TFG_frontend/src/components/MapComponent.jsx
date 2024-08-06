@@ -91,12 +91,14 @@ function Map() {
           type="button"
           className="btn btn-primary"
           value="Añadir perímetros"
+          
           onClick={() => Object.values(geojsonData).forEach(data => {addGeoJSONToMap(data);})}
         />
         <input
           type="button"
           className="btn btn-success"
           value="Eliminar perímetros"
+          disabled
         />
       </div>
     </div>

@@ -33,19 +33,19 @@ const NaturalParks = () => {
   }, {});
 
   return (
-    <section className="mx-5 my-2">
-      <h2>Parques Naturales</h2>
+    <section className="px-10 py-6 mx-auto max-w-7xl">
+      <h2 className="font-bold mb-4">Parques Naturales</h2>
 
       {Object.keys(groupedNaturalParks).map((province, index) => (
-      <div className="dropdown" key={index}>
-        <div className="dropdown-item" onClick={() => toggle(index)}>
-          <h3> { province } </h3>
+      <div className="dropdown mb-3" key={index}>
+        <div className="dropdown-item justify-between items-center p-2 rounded-lg shadow-sm cursor-pointer transition-colors duration-300 hover:bg-gray-200" onClick={() => toggle(index)}>
+          <h3 className='font-bold'>{ province } </h3>
           <span>{selected === index ? '-' : '+'}</span>
         </div>
         {selected === index && (
           <div className="dropdown-content">
             {groupedNaturalParks[province].map((naturalPark, idx) => (
-              <NaturalPark key={idx} name={naturalPark.name} province={naturalPark.province} file={naturalPark.perimeterFile} />
+              <NaturalPark key={idx} name={naturalPark.name} province={naturalPark.province} perimeterfile={naturalPark.perimeterfile} />
             ))}
           </div>
         )}

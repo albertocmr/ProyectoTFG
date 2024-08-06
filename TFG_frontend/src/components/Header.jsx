@@ -6,19 +6,16 @@ const Header = () => {
 
 
     return (
-        <div className="container-fluid rounded">
-            <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom rounded">
-
-
-                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <div >
+            <header class="d-flex flex-wrap justify-content-center py-4 mb-4 border-bottom rounded">
+                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none text-white">
                 {/* Podría añadir aquí un logo cuando lo tenga */}
-                <Link to={"/"} className="text-decoration-none ml-4">
+                <Link to={"/"} className="text-decoration-none ml-4 ">
                     <h1 className="m-0 h3 md-1">parkTracker webSite</h1>
                 </Link>
                 </a>
 
                 <nav className="d-none d-md-flex">
-
                     <ul className="nav nav-pills" >
                         <li className="nav-item">
                             <Link to="/" className="nav-link text-white" aria-current="page">Inicio</Link>
