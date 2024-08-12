@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const NATURALPARK_BASE_REST_API_URL = "http://localhost:8080/api/v1/parques-naturales";
+const NATURALPARK_BASE_REST_API_URL = "http://localhost:8080/api/v1/natural_parks";
 
 class NaturalParkService{
 
@@ -17,7 +17,7 @@ class NaturalParkService{
     }
 
     updateNaturalPark(naturalParkId, naturalPark) {
-        return axios.put(NATURALPARK_BASE_REST_API_URL + '/' +naturalParkId,naturalPark)
+        return axios.put(NATURALPARK_BASE_REST_API_URL + '/' +naturalParkId, naturalPark)
     }
 
     deleteNaturalPark(naturalParkId){

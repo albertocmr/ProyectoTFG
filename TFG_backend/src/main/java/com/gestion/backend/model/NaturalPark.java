@@ -14,8 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "parques-naturales")
-
+@Table(name = "natural_parks")
 public class NaturalPark {
     
     @Id

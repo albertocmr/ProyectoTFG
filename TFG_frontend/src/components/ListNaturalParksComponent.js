@@ -45,7 +45,6 @@ export const ListNaturalParksComponent = () => {
                         <th>ID</th>
                         <th>Nombre</th>
                         <th>Provincia</th>
-                        <th>Archivo perimetro</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -55,7 +54,6 @@ export const ListNaturalParksComponent = () => {
                             <td>{park.id}</td>
                             <td>{park.name}</td>
                             <td>{park.province}</td>
-                            <td>{park.perimeterfile}</td>
                             <td>
                                 <Link className='btn btn-info btn-sm' to={`/edit-parque/${park.id}`}>Modificar</Link>
                                 <button

@@ -33,12 +33,12 @@ public class NaturalParkController {
     @Autowired
     private NaturalParkRepository naturalParkRepository;
 
-    @GetMapping("/parques-naturales")
+    @GetMapping("/natural_parks")
     public List<NaturalPark> listNaturalParks() {
         return naturalParkRepository.findAll();
     }
 
-    @PostMapping("/parques-naturales")
+    @PostMapping("/natural_parks")
     public ResponseEntity<NaturalPark> saveNaturalPark(@RequestBody NaturalPark naturalPark){
     try {
         NaturalPark parkSaved = naturalParkRepository.save(naturalPark);
@@ -51,7 +51,7 @@ public class NaturalParkController {
 }
 
 
-    @GetMapping("/parques-naturales/{id}")
+    @GetMapping("/natural_parks/{id}")
     public ResponseEntity<NaturalPark> listNaturalParkById(@PathVariable Long id) {
         NaturalPark naturalPark = naturalParkRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Doesn't exist park with that ID : " + id));
@@ -59,7 +59,7 @@ public class NaturalParkController {
         return ResponseEntity.ok(naturalPark);
     }
 
-    @PutMapping("/parques-naturales/{id}")
+    @PutMapping("/natural_parks/{id}")
     public ResponseEntity<NaturalPark> updateNaturalPark(@PathVariable Long id, @RequestBody NaturalPark naturalParkRequest) {
         NaturalPark naturalPark = naturalParkRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Doesn't exist park with that ID : " + id));
@@ -74,7 +74,7 @@ public class NaturalParkController {
     }
 
 
-    @DeleteMapping("/parques-naturales/{id}")
+    @DeleteMapping("/natural_parks/{id}")
     public ResponseEntity<Map<String,Boolean>> deletePark(@PathVariable Long id) {
         NaturalPark park = naturalParkRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Doesn't exist park with that ID : " + id));
