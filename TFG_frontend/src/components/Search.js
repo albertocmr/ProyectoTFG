@@ -7,16 +7,16 @@ function Search({ onSearch }) {
     };
 
     return (
-        <div className="relative flex items-center max-w-[300px]">
+        <div className="position-relative d-flex align-items-center" style={{ maxWidth: '300px' }}>
             <input
                 type="text"
-                className="form-control w-full rounded-md border-gray-200 sm:text-sm pl-10 pr-12"
+                className="form-control"
                 placeholder="Buscar por nombre..."
                 onChange={handleSearch}
             />
-            <span className="absolute inset-y-0 right-0 flex items-center px-4 text-gray-500 pointer-events-none">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-4.35-4.35" />
+            <span className="position-absolute top-50 translate-middle-y end-0 pe-4 text-muted">
+                <svg xmlns="http://www.w3.org/2000/svg" className="bi bi-search" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.415l-3.85-3.85a1.007 1.007 0 0 0-.115-.098zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                 </svg>
             </span>
         </div>
