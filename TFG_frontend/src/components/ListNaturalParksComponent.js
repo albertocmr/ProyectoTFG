@@ -3,7 +3,7 @@ import NaturalParkService from '../service/NaturalParkService';
 import { Link } from 'react-router-dom';
 import Search from './Search';
 
-export const ListNaturalParksComponent = () => {
+const ListNaturalParksComponent = () => {
     const [naturalParks, setNaturalParks] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -59,8 +59,7 @@ export const ListNaturalParksComponent = () => {
                                 <button
                                     style={{ marginLeft: "10px" }}
                                     className='btn btn-danger btn-sm'
-                                    onClick={() => deleteNaturalPark(park.id)}
-                                >
+                                    onClick={() => deleteNaturalPark(park.id)}>
                                     Eliminar
                                 </button>
                             </td>

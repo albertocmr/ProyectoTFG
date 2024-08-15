@@ -2,7 +2,7 @@ import React, { useState,  useEffect } from "react";
 import NaturalParkService from "../service/NaturalParkService";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
-export const AddNaturalParkComponent = () => {
+const AddNaturalParkComponent = () => {
 
     const [name, setName] = useState('');
     const [province, setProvince] = useState('');
@@ -48,14 +48,13 @@ export const AddNaturalParkComponent = () => {
             return <h2 className="fs-3 text-center mb-2 mt-2"> <strong>Modificar parque natural</strong></h2>
         } else {
             return <h2 className="fs-3 text-center mb-2 mt-2"> <strong>Agregar parque natural</strong></h2>
-            
         }
     }
 
     return (
-        <div>
+        <div className="container border rounded pt-2 pb-4 shadow">
             <h1 className="fs-3">Registro de parques naturales</h1>
-            <p class="bg-gray-100 border-l-4 border-gray-500 p-4 rounded text-gray-600 text-lg my-4">
+            <p>
             ¡Bienvenido a la sección de creación de parques naturales!
             Completa el siguiente formulario con la información relevante para agregar un nuevo parque a nuestra base de datos. 
             Asegúrate de proporcionar detalles precisos para que podamos ofrecer a los visitantes la mejor experiencia posible.
@@ -67,50 +66,44 @@ export const AddNaturalParkComponent = () => {
                         <div className="card-body">
                             <form>
                                 <div className="form-group mb-2">
-                                    
                                     <label className="form-label">Nombre</label>
                                     <div class="form-floating mb-3">
-                                    <input 
-                                        type="text" name="name"
-                                        className="form-control"
-                                        placeholder=""
-                                        value={ name }
-                                        onChange={(e) => setName(e.target.value)}
-                                        ></input>
+                                        <input 
+                                            type="text" name="name"
+                                            placeholder="" className="form-control"
+                                            value={ name }
+                                            onChange={(e) => setName(e.target.value)}
+                                        />
                                         <label for="floatingInput">Nombre del parque natural</label>
-                                        </div>
+                                    </div>
                                 </div>
 
                                 <div className="form-group mb-2">
                                     <label className="form-label">Provincia</label>
                                     <div class="form-floating mb-3">
-                                    <input 
-                                        type="text" name="province"
-                                        placeholder="" className="form-control"
-                                        value={ province }
-                                        onChange={(e) => setProvince(e.target.value)}
-                                    ></input>
-                                    <label for="floatingInput">Provincia del parque natural</label>
+                                        <input 
+                                            type="text" name="province"
+                                            placeholder="" className="form-control"
+                                            value={ province }
+                                            onChange={(e) => setProvince(e.target.value)}
+                                        />
+                                        <label for="floatingInput">Provincia del parque natural</label>
+                                    </div>
                                 </div>
-                                </div>
-
 
                                 <div className="form-group mb-2">
                                     <label className="form-label">Perimetro</label>
                                     <div class="form-floating mb-3">
-                                    <input 
-                                        type="text" name="perimeterfile"
-                                        placeholder="" className="form-control"
-                                        value={ perimeterfile }
-                                        onChange={(e) => setPerimeterfile(e.target.value)}
-                                    ></input>
-                                    <label for="floatingInput">Nombre del archivo con el perimetro</label>
-                                
-                                </div>
-                                
-                                <button className="btn btn-success" onClick={(e) => saveOrUpdateNaturalPark(e)}>Guardar</button>
-                                &nbsp;&nbsp;
-                                <Link to='/gestion' className='btn btn-danger'>Cancelar</Link>
+                                        <input 
+                                            type="text" name="perimeterfile"
+                                            placeholder="" className="form-control"
+                                            value={ perimeterfile }
+                                            onChange={(e) => setPerimeterfile(e.target.value)}
+                                        />
+                                        <label for="floatingInput">Nombre del archivo con el perimetro</label>
+                                    </div>
+                                    <button className="btn btn-success" onClick={(e) => saveOrUpdateNaturalPark(e)}>Guardar</button> &nbsp;&nbsp;
+                                    <Link to='/gestion' className='btn btn-danger'>Cancelar</Link>
                                 </div>
                             </form>
                         </div>
@@ -118,15 +111,7 @@ export const AddNaturalParkComponent = () => {
                 </div>
             </div> 
         </div>
-
     )
 };
-
-
-
-
-
-
-
 
 export default AddNaturalParkComponent;

@@ -83,17 +83,19 @@ function Map() {
       <div className="mb-3 d-flex align-items-end">
         <input type="file" className="form-control" id="fileInput" accept=".gpx" onChange={addGPXToMap} />
       </div>
+
       <div className='map-container'>
-        <div id="map"></div>
+        <div id="map"/>
       </div>
+
       <div className='mt-3'>
         <input
           type="button"
           className="btn btn-primary"
           value="Añadir perímetros"
-          
           onClick={() => Object.values(geojsonData).forEach(data => {addGeoJSONToMap(data);})}
         />
+
         <input
           type="button"
           className="btn btn-success"

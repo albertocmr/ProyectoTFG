@@ -14,6 +14,7 @@ const Footer = () => {
               <a href="https://www.hyperui.dev/components/marketing/footers" className="text-muted text-decoration-none hover:opacity-75">Cookies</a>
             </li>
           </ul>
+          
           <ul className="list-inline mt-4 mt-sm-0 d-flex justify-content-center justify-content-sm-end gap-2">
             <li className="list-inline-item">
               <a

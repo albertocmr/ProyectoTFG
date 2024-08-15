@@ -22,7 +22,6 @@ class NaturalParkService{
 
     deleteNaturalPark(naturalParkId){
         return axios.delete(NATURALPARK_BASE_REST_API_URL + '/' + naturalParkId);
-
     }
 
 }
