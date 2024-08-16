@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 
 const NaturalParkComponent = (props) =>{ 
@@ -15,9 +16,8 @@ const NaturalParkComponent = (props) =>{
                 <p>
                     Su archivo de perimetro es {props.perimeterfile}
                 </p>
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Ir al parque
-                </button>
+                <Link class="btn btn-primary" to={`${props.perimeterfile}`}>Ir al parque</Link>
+                
                 
             </article>
         </div>

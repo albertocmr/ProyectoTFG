@@ -6,12 +6,15 @@ import 'leaflet/dist/leaflet.css'; // Importa el CSS de Leaflet
 import '../styles/Map.css'; // Importa estilos específicos del mapa
 import * as toGeoJSON from '@mapbox/togeojson';
 
-import geojsonData from '../assets/coordenadas/geojsonImports.js';
+import geojsonData from '../assets/coordinates/geojsonImports.js';
 
 
 function Map() {
 
   const [map, setMap] = useState(null);
+  const [perimeters, setPerimeters] = useState(false);
+  const [layerGroup, setLayerGroup] = useState(null);
+  
 
   useEffect(() => {
     // Inicializa el mapa cuando el componente se monta
@@ -22,6 +25,9 @@ function Map() {
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(initializedMap);
+
+    const lg = L.layerGroup().addTo(initializedMap);
+    setLayerGroup(lg);
 
     // Control de escala
     L.control.scale().addTo(initializedMap);
@@ -35,6 +41,7 @@ function Map() {
     };
   }, []);
 
+  // Function to convert a GPX file to GeoJSON file and add it to the map
   const addGPXToMap = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -55,11 +62,11 @@ function Map() {
     }
   }
 
-// Función para añadir un GeoJSON al mapa
+  // Function to add a GeoJSON to map
   const addGeoJSONToMap = (geojson) => {
-    if (map) {
+    if (map && layerGroup) {
       try {
-        L.geoJSON(geojson, {
+        const layer = L.geoJSON(geojson, {
           style: {
             color: '#000000',
             weight: 2,
@@ -71,15 +78,23 @@ function Map() {
             }
           }
         }).addTo(map);
+        layer.addTo(layerGroup);
       } catch (error) {
         console.error("Error al agregar GeoJSON al mapa:", error);
       }
     }
   };
 
+  // Function to remove all layers of the map
+  const removeGeoJSONToMap = () => {
+    if(layerGroup){
+      layerGroup.clearLayers();
+    }
+  };
+
   return (
     <div className='container mt-3'>
-      <h1>Subir un archivo de ruta (.GPX)</h1>
+      <h5>Subir un archivo de ruta (.GPX)</h5>
       <div className="mb-3 d-flex align-items-end">
         <input type="file" className="form-control" id="fileInput" accept=".gpx" onChange={addGPXToMap} />
       </div>
@@ -91,16 +106,26 @@ function Map() {
       <div className='mt-3'>
         <input
           type="button"
-          className="btn btn-primary"
+          className="btn btn-success"
           value="Añadir perímetros"
-          onClick={() => Object.values(geojsonData).forEach(data => {addGeoJSONToMap(data);})}
+          disabled={perimeters}
+          onClick={() => 
+            Object.values(geojsonData).forEach(data =>{
+              addGeoJSONToMap(data);
+              setPerimeters(true);
+            })
+          }
         />
 
         <input
           type="button"
-          className="btn btn-success"
+          className="btn btn-danger"
           value="Eliminar perímetros"
-          disabled
+          disabled={!perimeters}
+          onClick={ () => { 
+            removeGeoJSONToMap(); 
+            setPerimeters(false);
+          }}
         />
       </div>
     </div>
