@@ -14,7 +14,7 @@ const Header = () => {
                     </Link>
                 </a>
 
-                <nav className="d-none d-md-flex">
+                <nav className=" d-md-flex"> {/*d-none para responsive*/}
                     <ul className="nav nav-pills" >
                         <li className="nav-item">
                             <Link to="/" className="nav-link text-white" aria-current="page">Inicio</Link>
