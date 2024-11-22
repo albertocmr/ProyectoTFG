@@ -1,5 +1,3 @@
-// src/components/Map.jsx
-
 import React, { useEffect, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css'; // Importa el CSS de Leaflet
@@ -8,13 +6,12 @@ import * as toGeoJSON from '@mapbox/togeojson';
 
 import geojsonData from '../assets/coordinates/geojsonImports.js';
 
-
 function Map() {
-
   const [map, setMap] = useState(null);
   const [perimeters, setPerimeters] = useState(false);
   const [layerGroup, setLayerGroup] = useState(null);
-  
+  const [loadingScript, setLoadingScript] = useState(false); // Nuevo estado para manejo de carga
+  const [scriptOutput, setScriptOutput] = useState(""); // Nuevo estado para la salida del script
 
   useEffect(() => {
     // Inicializa el mapa cuando el componente se monta
@@ -32,8 +29,6 @@ function Map() {
     // Control de escala
     L.control.scale().addTo(initializedMap);
     setMap(initializedMap);
-    
-    
 
     // Limpieza del mapa cuando el componente se desmonte
     return () => {
@@ -60,7 +55,7 @@ function Map() {
 
       reader.readAsText(file);    
     }
-  }
+  };
 
   // Function to add a GeoJSON to map
   const addGeoJSONToMap = (geojson) => {
@@ -91,6 +86,33 @@ function Map() {
       layerGroup.clearLayers();
     }
   };
+
+  const executeScriptPython = async () => {
+    setLoadingScript(true); // Estado de carga
+    setScriptOutput(""); // Reset salida del script
+  
+    try {
+      // Solicitud GET al backend para ejecutar el script
+      const response = await fetch('http://localhost:8080/ejecutar-script');
+  
+      // Verificamos la respuesta
+      if (!response.ok) {
+        throw new Error(`Error HTTP: ${response.status}`);
+      }
+  
+      // Si la respuesta es exitosa, obtenemos el contenido
+      const data = await response.text(); // Salida script Python
+      setScriptOutput(data); // Guardamos salida script
+    } catch (error) {
+      console.error('Error al ejecutar el script:', error);
+      setScriptOutput(`Hubo un error al ejecutar el script: ${error.message}`);
+    } finally {
+      setLoadingScript(false); // Ocultar el estado de carga
+    }
+  };
+  
+  
+  
 
   return (
     <div className='container mt-3'>
@@ -127,6 +149,22 @@ function Map() {
             setPerimeters(false);
           }}
         />
+
+        <input
+          type="button"
+          className="btn btn-primary"
+          value={loadingScript ? "Ejecutando..." : "Ejecutar Script Python"}
+           onClick={executeScriptPython}
+          disabled={loadingScript} // Desactiva el botón mientras se ejecuta el script
+        />
+
+        {scriptOutput && (
+          <div className="mt-3">
+            <h6>Resultado del Script:</h6>
+            <pre>{scriptOutput}</pre>
+          </div>
+        )}
+        
       </div>
     </div>
   );

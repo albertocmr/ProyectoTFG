@@ -11,7 +11,7 @@ const HomeComponent = () => {
                     </h1>
                     <p>
                         En esta página web puedes consultar si la ruta que tienes pensado hacer incumple con las restricciones ambientales que contienen los parques naturales que atraviesa tu trayecto.
-                        Para ello, puedes utilizar nuestros menús que aparecen en el desplegable. 
+                        Para ello, puedes utilizar nuestros menús que aparecen en el desplegable.
                     </p>
                 </div>
 
@@ -20,7 +20,7 @@ const HomeComponent = () => {
                         id="home-image" 
                         alt="IMAGEN DE PRUEBA" 
                         className="img-fluid rounded" 
-                        src="https://twenergy.com/wp-content/uploads/2019/07/Parque_Nacional_Banff_Canada-1280x720.jpg"
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Andaluc%C3%ADa_parques.png/370px-Andaluc%C3%ADa_parques.png"
                     />
                 </div>
             </div>
