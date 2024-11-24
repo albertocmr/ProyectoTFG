@@ -17,7 +17,7 @@ function App () {
       <div className="app-container">
           <BrowserRouter>
             <Header />
-            <main class="d-flex flex-grow-1 w-100 mx-auto p-4 p-md-5 p-lg-4 bg-white rounded shadow-sm">
+            <main className="d-flex flex-grow-1 w-100 mx-auto p-4 p-md-5 p-lg-4 bg-white rounded shadow-sm">
               <Routes>
                 <Route path='/' element={<HomeComponent/>}/>
                 <Route path='/createTrack' element={<CreateTrack />} />

@@ -34,9 +34,9 @@ public class ScriptController {
             // Espera a que el script termine
             int exitCode = process.waitFor();
             if (exitCode == 0) {
-                return output.toString();  // Devuelve la salida del script
+                return output.toString(); // Devuelve la salida del script
             } else {
-                return "Hubo un error al ejecutar el script Python."; // Mensaje en caso de error
+                return "Hubo un error al ejecutar el script Python. Código de salida: " + exitCode + "\nSalida del script: " + output.toString();
             }
 
         } catch (IOException | InterruptedException e) {

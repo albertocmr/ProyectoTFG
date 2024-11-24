@@ -1,9 +1,7 @@
-import bahiaCadiz from './bahia_cadiz.js';
 import caboDeGataNijar from './cabo_de_gata_nijar.js';
 import delEstrecho from './del_estrecho.js';
 import despeniaperros from './despeniaperros.js';
 import losAlcornocales from './los_alcornocales.js';
-import montesMalaga from './montes_malaga.js';
 import naturalDoniana from './natural_doniana.js';
 import sierraAndujar from './sierra_andujar.js';
 import sierraAracena from './sierra_aracena.js';
@@ -23,12 +21,10 @@ import sierrasSubbeticas from './sierras_subbeticas.js';
 import sierraNieves from './sierra_nieves.js'
 
 const geojsonData = {
-  bahiaCadiz,
   caboDeGataNijar,
   delEstrecho,
   despeniaperros,
   losAlcornocales,
-  montesMalaga,
   naturalDoniana,
   sierraAndujar,
   sierraAracena,

@@ -164,7 +164,6 @@ function Map() {
             <pre>{scriptOutput}</pre>
           </div>
         )}
-        
       </div>
     </div>
   );

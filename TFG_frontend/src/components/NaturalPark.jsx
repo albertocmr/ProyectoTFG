@@ -16,7 +16,7 @@ const NaturalParkComponent = (props) =>{
                 <p>
                     Su archivo de perimetro es {props.perimeterfile}
                 </p>
-                <Link class="btn btn-primary" to={`${props.perimeterfile}`}>Ir al parque</Link>
+                <Link className="btn btn-primary" to={`${props.perimeterfile}`}>Ir al parque</Link>
                 
                 
             </article>

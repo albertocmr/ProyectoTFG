@@ -2,6 +2,7 @@ import geopandas as gpd
 import gpxpy
 import pandas as pd
 import os
+import execjs # JavaScript desde Python
 
 # Ruta al archivo GeoJSON del parque
 geojson_file = "D:/Escritorio/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/coordinates/montes_malaga.geojson"
