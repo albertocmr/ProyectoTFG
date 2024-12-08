@@ -2,47 +2,50 @@ import geopandas as gpd
 import gpxpy
 import pandas as pd
 import os
-import execjs # JavaScript desde Python
 
-# Ruta al archivo GeoJSON del parque
-geojson_file = "D:/Escritorio/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/coordinates/montes_malaga.geojson"
+# Path to the GPX file for the route
+gpx_file = "D:/Escritorio/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/routes/route.gpx"  # Change this path to the correct path of your GPX file
+gpx = gpxpy.parse(open(gpx_file, 'r'))  # Parse the GPX file
 
-# Verificar si el archivo existe
-if not os.path.exists(geojson_file):
-    raise FileNotFoundError(f"El archivo GeoJSON no se encuentra en la ruta: {geojson_file}")
-
-# Cargar el archivo GeoJSON
-gdf_park        = gpd.read_file(geojson_file)                                                                               #GeoPandas
-park_polygon    = gdf_park.geometry.union_all()  # Asegúrate de que sea un único polígono
-
-
-# Ruta al archivo GPX de la ruta
-gpx_file        = "D:/Escritorio/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/routes/route.gpx"                  # Cambia esta ruta a la ruta correcta de tu archivo GPX
-gpx             = gpxpy.parse(open(gpx_file, 'r'))      # Pasamos GPX a variable python con parse
-
-# Extraer los puntos de la ruta del archivo GPX     points[] = {[0,1],[2,1], ...}
+# Extract the points from the GPX route file
 points = []
 for track in gpx.tracks:
     for segment in track.segments:
         for point in segment.points:
             points.append((point.latitude, point.longitude))
 
-# Convertir los puntos a un GeoDataFrame
-df_points       = pd.DataFrame(points, columns=['latitude', 'longitude'])                                                 # Pandas
-gdf_points      = gpd.GeoDataFrame(df_points, geometry=gpd.points_from_xy(df_points.longitude, df_points.latitude))      # GeoPandas
-# print(gdf_points)
+# Convert the points to a GeoDataFrame
+df_points = pd.DataFrame(points, columns=['latitude', 'longitude'])  # Use pandas to create a dataframe
+gdf_points = gpd.GeoDataFrame(df_points, geometry=gpd.points_from_xy(df_points.longitude, df_points.latitude))  # Convert to GeoDataFrame
+gdf_points.crs = 'EPSG:4326'  # Ensure that the CRS is correctly defined
 
-# Asegúrate de que el sistema de referencia sea el mismo
-gdf_points.crs  = 'EPSG:4326'
-gdf_park.crs    = 'EPSG:4326'
+# Path to the directory containing the GeoJSON files
+geojson_dir = "D:/Escritorio/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/coordinates/"
 
-# Comprobar si algún punto está dentro del polígono
-gdf_points['within_perimeter'] = gdf_points.geometry.apply(lambda x: park_polygon.contains(x))
+# Check if the folder exists
+if not os.path.exists(geojson_dir):
+    raise FileNotFoundError(f"Error: The folder was not found at the path: {geojson_dir}")
 
-# Verificar si algún punto está dentro del polígono
-any_point_within = gdf_points['within_perimeter'].any()
+# Get the list of all .json files in the folder
+geojson_files = [f for f in os.listdir(geojson_dir) if f.endswith('.json')]
 
-if any_point_within:
-    print("Al menos un punto de la ruta está dentro del parque.")
-else:
-    print("Ningún punto de la ruta está dentro del parque.")
+# Iterate over all the GeoJSON files
+for geojson_file in geojson_files:
+    # Load
+    file_path = os.path.join(geojson_dir, geojson_file)
+    gdf_park = gpd.read_file(file_path)  # Load the JSON file
+    park_polygon = gdf_park.geometry.union_all()
+
+    # Ensure the CRS is the same
+    gdf_park.crs = 'EPSG:4326'
+
+    # Check if any point is inside the polygon
+    gdf_points['within_perimeter'] = gdf_points.geometry.apply(lambda x: park_polygon.contains(x))
+    
+    # Verify
+    any_point_within = gdf_points['within_perimeter'].any()
+
+    if any_point_within:
+        print("Al menos un punto de la ruta está dentro del parque.")
+    else:
+        print("Ningún punto de la ruta está dentro del parque.")

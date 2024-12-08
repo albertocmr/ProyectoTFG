@@ -47,7 +47,7 @@ function Map() {
         const geojson = toGeoJSON.gpx(xml);
 
         try {
-          addGeoJSONToMap (geojson);
+          addGeoJSONToMap (geojson, 'gpx');
         } catch (error) {
           console.error("Error al agregar el archivo GPX al mapa: ", error);
         }
@@ -58,12 +58,13 @@ function Map() {
   };
 
   // Function to add a GeoJSON to map
-  const addGeoJSONToMap = (geojson) => {
+  const addGeoJSONToMap = (geojson, type) => {
     if (map && layerGroup) {
       try {
+        const color = type === 'gpx' ? '#0000ff' : '#202020';
         const layer = L.geoJSON(geojson, {
           style: {
-            color: '#000000',
+            color: color,
             weight: 2,
             opacity: 1
           },
@@ -133,7 +134,7 @@ function Map() {
           disabled={perimeters}
           onClick={() => 
             Object.values(geojsonData).forEach(data =>{
-              addGeoJSONToMap(data);
+              addGeoJSONToMap(data, 'json');
               setPerimeters(true);
             })
           }
