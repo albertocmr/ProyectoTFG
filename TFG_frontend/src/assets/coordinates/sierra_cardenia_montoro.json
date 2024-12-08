@@ -1,4 +1,4 @@
-const sierra_cardenia_montoro = {
+{
   "type": "FeatureCollection",
   "generator": "overpass-turbo",
   "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
@@ -383,7 +383,4 @@ const sierra_cardenia_montoro = {
       "id": "way/374795655"
     }
   ]
-};
-
-
-export default sierra_cardenia_montoro;
+}

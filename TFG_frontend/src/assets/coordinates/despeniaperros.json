@@ -1,4 +1,4 @@
-const despeniaperros = {
+{
     "type": "FeatureCollection",
     "generator": "overpass-turbo",
     "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
@@ -122,7 +122,4 @@ const despeniaperros = {
         "id": "way/373823282"
       }
     ]
-};
-
-
-export default despeniaperros;
+}

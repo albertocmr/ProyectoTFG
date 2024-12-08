@@ -1,4 +1,4 @@
-const sierra_baza = {
+{
   "type": "FeatureCollection",
   "generator": "overpass-turbo",
   "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
@@ -1602,9 +1602,6 @@ const sierra_baza = {
                   [-2.7518492, 37.3991997],
                   [-2.7517031, 37.3932774],
                   [-2.7524962, 37.3808762]]
-          },
+          }
       }]
-};
-
-
-export default sierra_baza;
+}

@@ -1,4 +1,4 @@
-const sierra_maria_los_velez = {
+{
     "type": "FeatureCollection",
     "generator": "overpass-turbo",
     "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
@@ -1679,6 +1679,4 @@ const sierra_maria_los_velez = {
         "id": "way/277217943"
       }
     ]
-};
-
-export default sierra_maria_los_velez;
+}

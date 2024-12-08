@@ -1,4 +1,4 @@
-const sierra_magina = {
+{
     "type": "FeatureCollection",
     "generator": "overpass-turbo",
     "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
@@ -1802,7 +1802,4 @@ const sierra_magina = {
         "id": "way/277237872"
       }
     ]
-};
-
-
-export default sierra_magina;
+}
