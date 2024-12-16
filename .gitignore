@@ -5,6 +5,7 @@ TFG_frontend/node_modules
 /.pnp
 .pnp.js
 .env
+.vscode
 
 # testing
 /coverage
