@@ -3,16 +3,17 @@ import { Link } from 'react-router-dom';
 import '../styles/App.css';
 
 const Header = () => {
-    
+
     return (
         <div >
             <header className="d-flex flex-wrap justify-content-center py-4 mb-4 border-bottom rounded">
-                <a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto">
+                <Link to="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto">
                     {/* Podría añadir aquí un logo cuando lo tenga */}
-                    <Link to={"/"} className="ml-4 text-white">
-                        <h1 className="m-0 h3">parkTracker webSite</h1>
-                    </Link>
-                </a>
+
+                    <h1 className="m-0 h3 text-white">parkTracker webSite</h1>
+                
+                </Link>
+
 
                 <nav className=" d-md-flex"> {/*d-none para responsive*/}
                     <ul className="nav nav-pills" >
@@ -37,7 +38,6 @@ const Header = () => {
                         </li>
                     </ul>
                 </nav>
-
             </header>
         </div>
     );
