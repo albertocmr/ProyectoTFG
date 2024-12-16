@@ -5,13 +5,13 @@ const Footer = () => {
         <div className="border-top border-light pt-4 d-flex flex-column flex-sm-row align-items-center justify-content-between">
           <ul className="list-inline mb-0 d-flex flex-wrap justify-content-center justify-content-sm-end gap-4">
             <li className="list-inline-item">
-              <a href="https://www.hyperui.dev/components/marketing/footers" className="text-muted text-decoration-none hover:opacity-75">About us</a>
+              <a href="https://www.google.com" className="text-muted text-decoration-none hover:opacity-75">About us</a>
             </li>
             <li className="list-inline-item">
-              <a href="https://www.hyperui.dev/components/marketing/footers" className="text-muted text-decoration-none hover:opacity-75">Privacy Policy</a>
+              <a href="https://www.google.com" className="text-muted text-decoration-none hover:opacity-75">Privacy Policy</a>
             </li>
             <li className="list-inline-item">
-              <a href="https://www.hyperui.dev/components/marketing/footers" className="text-muted text-decoration-none hover:opacity-75">Cookies</a>
+              <a href="https://www.google.com" className="text-muted text-decoration-none hover:opacity-75">Cookies</a>
             </li>
           </ul>
           
