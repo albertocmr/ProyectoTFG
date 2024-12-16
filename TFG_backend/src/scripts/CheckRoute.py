@@ -45,7 +45,10 @@ for geojson_file in geojson_files:
     # Verify
     any_point_within = gdf_points['within_perimeter'].any()
 
+    # Extract the name of the park (the file name without the extension)
+    park_name = os.path.splitext(geojson_file)[0]
+
     if any_point_within:
-        print("Al menos un punto de la ruta está dentro del parque.")
+        print(f"Al menos un punto de la ruta está dentro del parque: {park_name}.")
     else:
-        print("Ningún punto de la ruta está dentro del parque.")
+        print(f"Ningún punto de la ruta está dentro del parque: {park_name}.")
