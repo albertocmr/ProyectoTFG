@@ -31,24 +31,27 @@ geojson_files = [f for f in os.listdir(geojson_dir) if f.endswith('.json')]
 
 # Iterate over all the GeoJSON files
 for geojson_file in geojson_files:
-    # Load
+    # Load the GeoJSON file
     file_path = os.path.join(geojson_dir, geojson_file)
     gdf_park = gpd.read_file(file_path)  # Load the JSON file
-    park_polygon = gdf_park.geometry.union_all()
+    park_polygon = gdf_park.geometry.union_all()  # Merge all the polygons in case of multiple
 
     # Ensure the CRS is the same
     gdf_park.crs = 'EPSG:4326'
 
-    # Check if any point is inside the polygon
+    # Check which points are inside the polygon
     gdf_points['within_perimeter'] = gdf_points.geometry.apply(lambda x: park_polygon.contains(x))
     
-    # Verify
-    any_point_within = gdf_points['within_perimeter'].any()
+    # Get the points that are inside the perimeter
+    points_within = gdf_points[gdf_points['within_perimeter']]
 
     # Extract the name of the park (the file name without the extension)
     park_name = os.path.splitext(geojson_file)[0]
 
-    if any_point_within:
-        print(f"Al menos un punto de la ruta está dentro del parque: {park_name}.")
+    # Print the points that are inside the perimeter
+    if not points_within.empty:
+        print(f"La ruta pasa por los siguientes puntos dentro del parque: {park_name}:")
+        for idx, row in points_within.iterrows():
+            print(f"Latitud: {row['latitude']}, Longitud: {row['longitude']}")
     else:
         print(f"Ningún punto de la ruta está dentro del parque: {park_name}.")

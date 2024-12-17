@@ -2,46 +2,82 @@ import geopandas as gpd
 import gpxpy
 import pandas as pd
 import os
+import mysql.connector
 
-# Ruta al archivo GPX de la ruta
-gpx_file        = "D:/Escritorio/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/routes/route.gpx" 
-gpx             = gpxpy.parse(open(gpx_file, 'r'))
+# # Conectar a la base de datos MySQL
+# db_connection = mysql.connector.connect(
+#     host="localhost",         # Cambia esto por tu host de la base de datos
+#     user="root",     # Tu nombre de usuario de MySQL
+#     password="Root2025", # Tu contraseña de MySQL
+#     database="parktrackerdb"  # El nombre de tu base de datos
+# )
 
-# Extraer los puntos de la ruta del archivo GPX
+
+# db_cursor = db_connection.cursor()
+
+# Path to the GPX file for the route
+gpx_file = "D:/Escritorio/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/routes/route.gpx"  # Change this path to the correct path of your GPX file
+gpx = gpxpy.parse(open(gpx_file, 'r'))  # Parse the GPX file
+
+# Extract the points from the GPX route file
 points = []
 for track in gpx.tracks:
     for segment in track.segments:
         for point in segment.points:
             points.append((point.latitude, point.longitude))
 
-# Convertir los puntos a un GeoDataFrame
-df_points       = pd.DataFrame(points, columns=['latitude', 'longitude'])
-gdf_points      = gpd.GeoDataFrame(df_points, geometry=gpd.points_from_xy(df_points.longitude, df_points.latitude))
-# print(gdf_points)
+# Convert the points to a GeoDataFrame
+df_points = pd.DataFrame(points, columns=['latitude', 'longitude'])  # Use pandas to create a dataframe
+gdf_points = gpd.GeoDataFrame(df_points, geometry=gpd.points_from_xy(df_points.longitude, df_points.latitude))  # Convert to GeoDataFrame
+gdf_points.crs = 'EPSG:4326'  # Ensure that the CRS is correctly defined
 
-# Ruta al archivo GeoJSON del parque
-geojson_file = "D:/Escritorio/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/coordinates/montes_malaga.json"
+# Path to the directory containing the GeoJSON files
+geojson_dir = "D:/Escritorio/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/coordinates/"
 
-# Verificar si el archivo existe
-if not os.path.exists(geojson_file):
-    raise FileNotFoundError(f"El archivo GeoJSON no se encuentra en la ruta: {geojson_file}")
+# Check if the folder exists
+if not os.path.exists(geojson_dir):
+    raise FileNotFoundError(f"Error: The folder was not found at the path: {geojson_dir}")
 
-# Cargar el archivo GeoJSON
-gdf_park        = gpd.read_file(geojson_file)
-park_polygon    = gdf_park.geometry.union_all()
+# Get the list of all .json files in the folder
+geojson_files = [f for f in os.listdir(geojson_dir) if f.endswith('.json')]
 
-# Asegúrate de que el sistema de referencia sea el mismo
-gdf_points.crs  = 'EPSG:4326'
-gdf_park.crs    = 'EPSG:4326'
+# Iterate over all the GeoJSON files
+for geojson_file in geojson_files:
+    # Load
+    file_path = os.path.join(geojson_dir, geojson_file)
+    gdf_park = gpd.read_file(file_path)  # Load the JSON file
+    park_polygon = gdf_park.geometry.union_all()
 
-# Comprobar si algún punto está dentro del polígono
-gdf_points['within_perimeter'] = gdf_points.geometry.apply(lambda x: park_polygon.contains(x))
-print(gdf_points['within_perimeter'])
+    # Ensure the CRS is the same
+    gdf_park.crs = 'EPSG:4326'
 
-# Verificar si algún punto está dentro del polígono
-any_point_within = gdf_points['within_perimeter'].any()
+    # Check if any point is inside the polygon
+    gdf_points['within_perimeter'] = gdf_points.geometry.apply(lambda x: park_polygon.contains(x))
+    
+    # Verify
+    any_point_within = gdf_points['within_perimeter'].any()
 
-if any_point_within:
-    print("Al menos un punto de la ruta está dentro del parque.")
-else:
-    print("Ningún punto de la ruta está dentro del parque.")
+    # Extract the name of the park (the file name without the extension)
+    park_name = os.path.splitext(geojson_file)[0]
+
+    # # Find park on db 
+    # query = "SELECT * FROM natural_parks WHERE perimeterfile = %s"
+    # db_cursor.execute(query, (park_name,))
+
+    # result = db_cursor.fetchall()
+    # if result:
+    #     print(f"El parque {park_name} está registrado en la base de datos.")
+    # else:
+    #     print(f"El parque {park_name} no está registrado en la base de datos.")
+
+    if any_point_within:
+        print(f"La ruta pasa por al menos un punto del parque: {park_name}.")
+
+    # if any_point_within:
+    #     print(f"Al menos un punto de la ruta está dentro del parque: {park_name}.")
+    # else:
+    #     print(f"Ningún punto de la ruta está dentro del parque: {park_name}.")
+
+# # Close db connection
+# db_cursor.close()
+# db_connection.close()
