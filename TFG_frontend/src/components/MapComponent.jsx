@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import L from 'leaflet';
-import 'leaflet/dist/leaflet.css'; // Importa el CSS de Leaflet
-import '../styles/Map.css'; // Importa estilos específicos del mapa
+import 'leaflet/dist/leaflet.css';
+import '../styles/Map.css';
 import * as toGeoJSON from '@mapbox/togeojson';
 
 import geojsonData from '../assets/coordinates/geojsonImports.js';
@@ -10,8 +10,9 @@ function Map() {
   const [map, setMap] = useState(null);
   const [perimeters, setPerimeters] = useState(false);
   const [layerGroup, setLayerGroup] = useState(null);
-  const [loadingScript, setLoadingScript] = useState(false); // Nuevo estado para manejo de carga
-  const [scriptOutput, setScriptOutput] = useState(""); // Nuevo estado para la salida del script
+  const [loadingScript, setLoadingScript] = useState(false);
+  const [scriptOutput, setScriptOutput] = useState("");
+
 
   useEffect(() => {
     // Inicializa el mapa cuando el componente se monta
@@ -47,7 +48,7 @@ function Map() {
         const geojson = toGeoJSON.gpx(xml);
 
         try {
-          addGeoJSONToMap (geojson, 'gpx');
+          addRouteToMap (geojson, 'ruta');
         } catch (error) {
           console.error("Error al agregar el archivo GPX al mapa: ", error);
         }
@@ -61,7 +62,7 @@ function Map() {
   const addGeoJSONToMap = (geojson, type) => {
     if (map && layerGroup) {
       try {
-        const color = type === 'gpx' ? '#0000ff' : '#202020';
+        const color = type === 'json' ? '#ff0000' : '#202020';
         const layer = L.geoJSON(geojson, {
           style: {
             color: color,
@@ -80,6 +81,29 @@ function Map() {
       }
     }
   };
+
+  const addRouteToMap = (geojson, type) => {
+    if (map && layerGroup) {
+      try {
+        const color = type === 'gpx' ? '#0000ff' : '#ff0000';
+        const layer = L.geoJSON(geojson, {
+          style: {
+            color: color,
+            weight: 2,
+            opacity: 1
+          },
+          onEachFeature: (feature, layer) => {
+            if (feature.properties && feature.properties.name) {
+              layer.bindPopup(feature.properties.name);
+            }
+          }
+        }).addTo(map);
+        layer.addTo(layerGroup);
+      } catch (error) {
+        console.error("Error al agregar la ruta GPX pasada a GeoJSON al mapa:", error);
+      }
+    }
+  }
 
   // Function to remove all layers of the map
   const removeGeoJSONToMap = () => {
@@ -143,7 +167,7 @@ function Map() {
         <input
           type="button"
           className="btn btn-danger"
-          value="Eliminar perímetros"
+          value="Limpiar capas"
           disabled={!perimeters}
           onClick={ () => { 
             removeGeoJSONToMap(); 
@@ -156,7 +180,7 @@ function Map() {
           className="btn btn-primary"
           value={loadingScript ? "Ejecutando..." : "Ejecutar Script Python"}
            onClick={executeScriptPython}
-          disabled={loadingScript} // Desactiva el botón mientras se ejecuta el script
+          disabled={loadingScript}
         />
 
         {scriptOutput && (
