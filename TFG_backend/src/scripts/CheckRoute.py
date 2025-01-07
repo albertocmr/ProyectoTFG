@@ -6,7 +6,7 @@ import os
 from datetime import datetime
 
 # Path to the GPX file for the route
-gpx_file = "D:/Escritorio/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/routes/route.gpx"  # Change this path to the correct path of your GPX file
+gpx_file = "D:/Escritorio/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/images/route.gpx"  # Change this path to the correct path of your GPX file
 gpx = gpxpy.parse(open(gpx_file, 'r'))  # Parse the GPX file
 
 # Extract the points from the GPX route file
@@ -70,7 +70,7 @@ for geojson_file in geojson_files:
         track.segments.append(segment)
 
         for idx, row in points_within.iterrows():
-            print(f"Latitud: {row['latitude']}, Longitud: {row['longitude']}")
+            #print(f"Latitud: {row['latitude']}, Longitud: {row['longitude']}")
             # Add point to track segment
             track_point = gpxpy.gpx.GPXTrackPoint(latitude=row['latitude'], longitude=row['longitude'])
             segment.points.append(track_point)
@@ -81,6 +81,6 @@ for geojson_file in geojson_files:
         with open(output_path, 'w') as f:
             f.write(gpx_output.to_xml())
         
-        print(f"Archivo GPX creado: {output_path}")
-    else:
-        print(f"Ningún punto de la ruta está dentro del parque: {park_name}.")
+        #print(f"Archivo GPX creado: {output_path}")
+    #else:
+       #print(f"Ningún punto de la ruta está dentro del parque: {park_name}.")
