@@ -5,7 +5,7 @@ const CreateTrack = () => {
   const createUrl = 'https://map.project-osrm.org/?z=8&center=37.175637%2C-4.493408&hl=es&alt=0&srv=0';
   /* https://maps.openrouteservice.org/#/place/@-4.355735778808595,36.981574967942514,6 */
   /* https://graphhopper.com/maps/?profile=car&layer=Omniscale  --- NO SE PUEDE IMPORTAR A LA WEB*/
-  
+
 
   return (
     <div className='container d-flex flex-wrap justify-content-center'>
@@ -15,9 +15,9 @@ const CreateTrack = () => {
         podrá calcular la ruta de manera efectiva. Para ello, debes marcar tanto el punto de inicio como el punto final de la ruta. Una vez hecho esto, debes exportar tu ruta a un archivo .GPX, cuentas con un botón
         para ello en el menú que se encuentra en la parte inferior izquierda del mapa. Una vez hecho esto, se exportará tu 'track' a un archivo .GPX que podrás cargar en <strong>'Carga una ruta'</strong>.
       </p>
-      <iframe 
+      <iframe
         src={createUrl}
-        style={{ width: '80%', height: '50vh', maxWidth: '900px', border: "2px solid black"}}
+        style={{ width: '80%', height: '50vh', maxWidth: '900px', border: "2px solid black" }}
         title="Mapa con OSRM"
         allowFullScreen
       />

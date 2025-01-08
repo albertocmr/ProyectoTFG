@@ -6,6 +6,6 @@ const geojsonDataA = {
     sierraHuetorA,
     sierraBazaA,
     sierraCastrilA
-    };
+};
 
 export default geojsonDataA;

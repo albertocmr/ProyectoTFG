@@ -1,4 +1,4 @@
-import React, { useState,  useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import NaturalParkService from "../service/NaturalParkService";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
@@ -8,15 +8,15 @@ const AddNaturalParkComponent = () => {
     const [province, setProvince] = useState('');
     const [perimeterfile, setPerimeterfile] = useState('');
     const navigate = useNavigate();
-    const {id} = useParams();
+    const { id } = useParams();
 
 
     const saveOrUpdateNaturalPark = (e) => {
         e.preventDefault();
-        const naturalPark = {name, province, perimeterfile};
-            
-        if(id){     // Existe
-            NaturalParkService.updateNaturalPark(id,naturalPark).then((response) => {
+        const naturalPark = { name, province, perimeterfile };
+
+        if (id) {     // Existe
+            NaturalParkService.updateNaturalPark(id, naturalPark).then((response) => {
                 console.log(response.data);
                 navigate('/gestion');
             }).catch(error => {
@@ -41,10 +41,10 @@ const AddNaturalParkComponent = () => {
         }).catch((error) => {
             console.log(error);
         })
-    },[id])
+    }, [id])
 
     const title = () => {
-        if(id) {
+        if (id) {
             return <h2 className="fs-3 text-center mb-2 mt-2"> <strong>Modificar parque natural</strong></h2>
         } else {
             return <h2 className="fs-3 text-center mb-2 mt-2"> <strong>Agregar parque natural</strong></h2>
@@ -55,23 +55,23 @@ const AddNaturalParkComponent = () => {
         <div className="container border rounded pt-2 pb-4 shadow">
             <h1 className="fs-3">Registro de parques naturales</h1>
             <p>
-            ¡Bienvenido a la sección de creación de parques naturales!
-            Completa el siguiente formulario con la información relevante para agregar un nuevo parque a nuestra base de datos. 
-            Asegúrate de proporcionar detalles precisos para que podamos ofrecer a los visitantes la mejor experiencia posible.
+                ¡Bienvenido a la sección de creación de parques naturales!
+                Completa el siguiente formulario con la información relevante para agregar un nuevo parque a nuestra base de datos.
+                Asegúrate de proporcionar detalles precisos para que podamos ofrecer a los visitantes la mejor experiencia posible.
             </p>
             <div className="container">
                 <div className="row">
                     <div className="card col-md-6 offset-md-3">
-                        <h2 className="text-center">  { title() }</h2>
+                        <h2 className="text-center">  {title()}</h2>
                         <div className="card-body">
                             <form>
                                 <div className="form-group mb-2">
                                     <label className="form-label">Nombre</label>
                                     <div class="form-floating mb-3">
-                                        <input 
+                                        <input
                                             type="text" name="name"
                                             placeholder="" className="form-control"
-                                            value={ name }
+                                            value={name}
                                             onChange={(e) => setName(e.target.value)}
                                         />
                                         <label for="floatingInput">Nombre del parque natural</label>
@@ -81,10 +81,10 @@ const AddNaturalParkComponent = () => {
                                 <div className="form-group mb-2">
                                     <label className="form-label">Provincia</label>
                                     <div class="form-floating mb-3">
-                                        <input 
+                                        <input
                                             type="text" name="province"
                                             placeholder="" className="form-control"
-                                            value={ province }
+                                            value={province}
                                             onChange={(e) => setProvince(e.target.value)}
                                         />
                                         <label for="floatingInput">Provincia del parque natural</label>
@@ -94,10 +94,10 @@ const AddNaturalParkComponent = () => {
                                 <div className="form-group mb-2">
                                     <label className="form-label">Perimetro</label>
                                     <div class="form-floating mb-3">
-                                        <input 
+                                        <input
                                             type="text" name="perimeterfile"
                                             placeholder="" className="form-control"
-                                            value={ perimeterfile }
+                                            value={perimeterfile}
                                             onChange={(e) => setPerimeterfile(e.target.value)}
                                         />
                                         <label for="floatingInput">Nombre del archivo con el perimetro</label>
@@ -109,7 +109,7 @@ const AddNaturalParkComponent = () => {
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
     )
 };
