@@ -37,19 +37,19 @@ const NaturalParks = () => {
         <h2 className="font-bold mb-4">Parques Naturales</h2>
 
         {Object.keys(groupedNaturalParks).map((province, index) => (
-        <div className="dropdown mb-3" key={index}>
-          <div className="dropdown-item justify-between items-center p-2 rounded-lg shadow-sm cursor-pointer transition-colors duration-300 hover:bg-gray-200" onClick={() => toggle(index)}>
-            <h3 className='font-bold'>{ province } </h3>
-            <span>{selected === index ? '-' : '+'}</span>
-          </div>
-          {selected === index && (
-            <div className="dropdown-content">
-              {groupedNaturalParks[province].map((naturalPark, idx) => (
-                <NaturalPark key={idx} name={naturalPark.name} province={naturalPark.province} perimeterfile={naturalPark.perimeterfile} />
-              ))}
+          <div className="dropdown mb-3" key={index}>
+            <div className="dropdown-item justify-between items-center p-2 rounded-lg shadow-sm cursor-pointer transition-colors duration-300 hover:bg-gray-200" onClick={() => toggle(index)}>
+              <h3 className='font-bold'>{province} </h3>
+              <span>{selected === index ? '-' : '+'}</span>
             </div>
-          )}
-        </div>
+            {selected === index && (
+              <div className="dropdown-content">
+                {groupedNaturalParks[province].map((naturalPark, idx) => (
+                  <NaturalPark key={idx} name={naturalPark.name} province={naturalPark.province} perimeterfile={naturalPark.perimeterfile} />
+                ))}
+              </div>
+            )}
+          </div>
         ))}
       </section>
     </div>

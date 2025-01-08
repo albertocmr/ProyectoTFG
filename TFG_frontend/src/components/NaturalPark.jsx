@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import '../styles/NaturalPark.css';
 
 
-const NaturalParkComponent = (props) =>{ 
+const NaturalParkComponent = (props) => {
 
-    return(
+    return (
         <div>
             <article>
                 <h3>
@@ -18,8 +18,8 @@ const NaturalParkComponent = (props) =>{
                     Su archivo de perimetro es {props.perimeterfile}
                 </p>
                 <Link className="btn btn-primary" to={`${props.perimeterfile}`}>Restricciones del parque </Link>
-                
-                
+
+
             </article>
         </div>
     )
