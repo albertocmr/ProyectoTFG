@@ -39,9 +39,8 @@ Esta aplicación, (***ParkTracker***), es el proyecto de Trabajo Fin de Grado qu
 ## TODO
 
 - Conexión frontend-backend para enviar el archivo .GPX
-- Realizar los perímetros de zona de cada parque natural, exceptuando Sierra de Huétor.
+- Realizar los perímetros de zona de cada parque natural.
 - Conexión de la base de datos y el front-end para el uso de restricciones y usuarios.
 - Creación de usuarios.
 - Escoger tecnología para registro y autenticación de usuarios (¿Auth.js?).
-- Documentar restricciones de cada parque natural y añadirlas a la base de datos.
-- Añadir/eliminar al mapa los perímetros únicamente necesarios. Actualmente contamos con añadir y eliminar todas a la vez.
+- Documentar restricciones de cada zona perimetral interna de los parques naturales.
