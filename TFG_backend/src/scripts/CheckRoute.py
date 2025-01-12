@@ -6,8 +6,8 @@ import os
 from datetime import datetime
 
 # Path to the GPX file for the route
-gpx_file = "D:/Escritorio/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/images/route.gpx"  # Change this path to the correct path of your GPX file
-gpx = gpxpy.parse(open(gpx_file, 'r'))  # Parse the GPX file
+gpx_file = "D:/Escritorio/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/images/route.gpx" 
+gpx = gpxpy.parse(open(gpx_file, 'r'))
 
 # Extract the points from the GPX route file
 points = []
@@ -18,12 +18,16 @@ for track in gpx.tracks:
 
 # Convert the points to a GeoDataFrame
 df_points = pd.DataFrame(points, columns=['latitude', 'longitude'])  # Use pandas to create a dataframe
-gdf_points = gpd.GeoDataFrame(df_points, geometry=gpd.points_from_xy(df_points.longitude, df_points.latitude))  # Convert to GeoDataFrame
+gdf_points = gpd.GeoDataFrame(df_points, geometry=gpd.points_from_xy(df_points.longitude, df_points.latitude))  # Convert to GeoDataFrame with GeoPandas
 gdf_points.crs = 'EPSG:4326'  # Ensure that the CRS is correctly defined
 
 # Path to the directory containing the GeoJSON files
 geojson_dir = "D:/Escritorio/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/coordinates/"
 routes_dir = "D:/Escritorio/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/routes/"
+
+# Remove content to routes_dir
+for file in os.listdir(routes_dir):
+    os.remove(os.path.join(routes_dir, file))
 
 # Check if the folder exists
 if not os.path.exists(geojson_dir):
@@ -81,6 +85,6 @@ for geojson_file in geojson_files:
         with open(output_path, 'w') as f:
             f.write(gpx_output.to_xml())
         
-        #print(f"Archivo GPX creado: {output_path}")
-    #else:
-       #print(f"Ningún punto de la ruta está dentro del parque: {park_name}.")
+        print(f"Archivo GPX creado: {output_path}")
+    else:
+       print(f"Ningún punto de la ruta está dentro del parque: {park_name}.")
