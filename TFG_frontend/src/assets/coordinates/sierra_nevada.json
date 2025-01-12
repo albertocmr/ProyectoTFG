@@ -1,8 +1,16 @@
 {
     "type": "FeatureCollection",
+    "timestamp": "2025-01-11T19:11:00Z",
     "features": [
         {
             "type": "Feature",
+            "properties": {
+                "leisure": "nature_reserve",
+                "name": "Parque Natural de Sierra Nevada",
+                "id": "ef68088a-3dc2-4f2f-a47e-0204cddd5e78",
+                "area_lon": "4522347.45 m2",
+                "options": {}
+            },
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -289,11 +297,6 @@
                         ]
                     ]
                 ]
-            },
-            "properties": {
-                "id": "029f0f29-2741-4874-9b37-17a28544738c",
-                "area_lon": "136809.71 m2",
-                "options": {}
             }
         },
         {
@@ -2188,11 +2191,6 @@
                         ]
                     ]
                 ]
-            },
-            "properties": {
-                "id": "ef68088a-3dc2-4f2f-a47e-0204cddd5e78",
-                "area_lon": "4522347.45 m2",
-                "options": {}
             }
         },
         {
