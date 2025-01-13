@@ -6,7 +6,8 @@ import os
 from datetime import datetime
 
 # Path to the GPX file for the route
-gpx_file = "D:/Escritorio/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/images/route.gpx" 
+# TORRE: gpx_file = "D:/Escritorio/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/images/route.gpx" 
+gpx_file = "C:/Users/HP/Desktop/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/images/route.gpx"
 gpx = gpxpy.parse(open(gpx_file, 'r'))
 
 # Extract the points from the GPX route file
@@ -22,8 +23,12 @@ gdf_points = gpd.GeoDataFrame(df_points, geometry=gpd.points_from_xy(df_points.l
 gdf_points.crs = 'EPSG:4326'  # Ensure that the CRS is correctly defined
 
 # Path to the directory containing the GeoJSON files
-geojson_dir = "D:/Escritorio/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/coordinates/"
-routes_dir = "D:/Escritorio/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/routes/"
+
+# TORRE: geojson_dir = "D:/Escritorio/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/coordinates/"
+# TORRE: routes_dir = "D:/Escritorio/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/routes/"
+
+geojson_dir = "C:/Users/HP/Desktop/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/coordinates"
+routes_dir = "C:/Users/HP/Desktop/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/routes"
 
 # Remove content to routes_dir
 for file in os.listdir(routes_dir):
@@ -87,4 +92,4 @@ for geojson_file in geojson_files:
         
         print(f"Archivo GPX creado: {output_path}")
     else:
-       print(f"Ningún punto de la ruta está dentro del parque: {park_name}.")
+       print(f"Ningun punto de la ruta esta dentro del parque: {park_name}.")
