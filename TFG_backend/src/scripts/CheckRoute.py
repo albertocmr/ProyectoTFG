@@ -7,7 +7,7 @@ from datetime import datetime
 
 # Path to the GPX file for the route
 # TORRE: gpx_file = "D:/Escritorio/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/images/route.gpx" 
-gpx_file = "C:/Users/HP/Desktop/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/images/route.gpx"
+gpx_file = "C:/Users/HP/Desktop/TrabajoFinDeGrado/Proyecto_TFG/TFG_backend/uploads/route.gpx"
 gpx = gpxpy.parse(open(gpx_file, 'r'))
 
 # Extract the points from the GPX route file
