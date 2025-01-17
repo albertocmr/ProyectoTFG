@@ -17,3 +17,18 @@
 .btn {
   margin-inline-end: 2px;
 }
+/* Map.css */
+
+/* Estilo del control de capas */
+.leaflet-control-layers {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Hover effect para los botones del control de capas */
+.leaflet-control-layers-overlays label:hover {
+  color: #007bff;
+  cursor: pointer;
+}
