@@ -26,7 +26,7 @@ import com.gestion.backend.repository.NaturalParkRepository;
 
 @CrossOrigin(origins = "http://localhost:8001/")
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api")
 public class NaturalParkController {
 
     @Autowired
