@@ -22,23 +22,20 @@ public class GpxUploadController {
     // Ruta donde se guardarán los archivos subidos
     private static final String UPLOAD_DIR = "uploads/";
 
-    @PostMapping("/api/gpx/upload")  // Asegúrate de que esta ruta esté bien escrita
-    public ResponseEntity<String> uploadGpxFile(@RequestParam("route") MultipartFile file) {
+    @PostMapping("/api/gpx/upload")
+    public ResponseEntity<String> uploadGpxfile(@RequestParam("route") MultipartFile file) {
         if (file.isEmpty()) {
             return new ResponseEntity<>("No se ha subido ningún archivo", HttpStatus.BAD_REQUEST);
         }
 
         try {
-            // Verificar o crear el directorio de destino
             File directory = new File(UPLOAD_DIR);
             if (!directory.exists()) {
                 directory.mkdirs();
             }
-
-            // Generar una ruta para el archivo subido
+            
             Path path = Paths.get(UPLOAD_DIR + file.getOriginalFilename());
 
-            // Guardar el archivo en el servidor
             Files.write(path, file.getBytes());
 
             return ResponseEntity.ok("Archivo GPX subido correctamente: " + file.getOriginalFilename());

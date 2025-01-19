@@ -14,12 +14,15 @@ public class ScriptController {
     @GetMapping("/ejecutar-script")
     public String ejecutarScript() {
         /* TORRE: "d:/Escritorio/TrabajoFinDeGrado/Proyecto_TFG/TFG_backend/src/scripts/CheckRoute.py"*/
-        String scriptPath = "C:/Users/HP/Desktop/TrabajoFinDeGrado/Proyecto_TFG/TFG_backend/src/scripts/CheckRoute.py"; // Asegúrate de que la ruta sea correcta
+        /* PORTATIL: "C:/Users/HP/Desktop/TrabajoFinDeGrado/Proyecto_TFG/TFG_backend/src/scripts/CheckRoute.py" */
+
+        String scriptPath = "src/scripts/CheckRoute.py";
         
         try {
             // Configura el comando para ejecutar el script
-            /* TORRE: "C:/Users/Alberto Cámara/AppData/Local/Microsoft/WindowsApps/python3.11.exe"*/
-            ProcessBuilder processBuilder = new ProcessBuilder("C:/Users/HP/AppData/Local/Microsoft/WindowsApps/python3.11.exe", scriptPath);
+            /* TORRE: "C:/Users/Alberto Cámara/AppData/Local/Microsoft/WindowsApps/python3.11.exe" */
+            /* PORTATIL: "C:/Users/HP/AppData/Local/Microsoft/WindowsApps/python3.11.exe" */
+            ProcessBuilder processBuilder = new ProcessBuilder("python3.11.exe", scriptPath);
             processBuilder.redirectErrorStream(true);
 
             // Ejecuta el script

@@ -7,6 +7,8 @@ import os
 for file in os.listdir("uploads"):
     if file.endswith(".gpx"):
         gpx_file = os.path.join("uploads", file)
+    else:
+        raise FileNotFoundError("Error: No se ha encontrado ningun archivo GPX en la carpeta uploads") 
 
 # gpx_file = "C:/Users/HP/Desktop/TrabajoFinDeGrado/Proyecto_TFG/TFG_backend/uploads/route.gpx"
 gpx = gpxpy.parse(open(gpx_file, 'r'))
