@@ -22,7 +22,7 @@ function Map() {
     }).addTo(initializedMap);
 
     const perimetersLayerGroup = L.layerGroup(
-      Object.values(geojsonData).map((data) => 
+      Object.values(geojsonData).map((data) =>
         L.geoJSON(data, {
           style: {
             color: '#000000',
@@ -33,16 +33,15 @@ function Map() {
     );
 
     const perimetersALayerGroup = L.layerGroup(
-    Object.values(geojsonDataA).map((data) => 
-      L.geoJSON(data, {
-        style: {
-          color: '#ff0000',
-          weight: 2
-        },
-      }),
-    ),
-  );
-
+      Object.values(geojsonDataA).map((data) =>
+        L.geoJSON(data, {
+          style: {
+            color: '#ff0000',
+            weight: 2
+          },
+        }),
+      ),
+    );
 
     L.control.layers(null, {
       "Perímetros Parques Naturales": perimetersLayerGroup,
@@ -102,20 +101,20 @@ function Map() {
       alert("Por favor selecciona un archivo GPX antes de subirlo.");
       return;
     }
-  
+
     const formData = new FormData();
-    formData.append("route", selectedGPXFile); // Coincidir con el nombre esperado por el backend
-  
+    formData.append("route", selectedGPXFile);
+
     try {
       const response = await fetch('http://localhost:8080/api/gpx/upload', {
         method: 'POST',
         body: formData,
       });
-  
+
       if (!response.ok) {
         throw new Error(`Error al subir el archivo: ${response.status}`);
       }
-  
+
       const data = await response.text();
       alert(`${data}`);
     } catch (error) {
@@ -123,11 +122,41 @@ function Map() {
       alert(`Error al subir el archivo: ${error.message}`);
     }
   };
-  
 
+
+  // Function to execute Python script
+  const executeScriptPython = async () => {
+    if (!selectedGPXFile) {
+      alert("Por favor selecciona un archivo GPX antes de ejecutar el script.");
+      return;
+    }
+    setLoadingScript(true); // Estado de carga
+    setScriptOutput(""); // Reset salida del script
+
+    try {
+      const response = await fetch('http://localhost:8080/ejecutar-script');
+
+      if (!response.ok) {
+        throw new Error(`Error HTTP: ${response.status}`);
+      }
+
+      const data = await response.text();
+      setScriptOutput(data);
+      alert('Script ejecutado correctamente.');
+    } catch (error) {
+      console.error('Error al ejecutar el script:', error);
+      setScriptOutput(`Hubo un error al ejecutar el script: ${error.message}`);
+    } finally {
+      setLoadingScript(false);
+    }
+  };
 
   const fetchAndAddGPXFiles = () => {
-    // Ruta relativa donde se encuentran los archivos GPX
+    if (!selectedGPXFile) {
+      alert("Por favor ejecuta el script para generar las intersecciones.");
+      return;
+    }
+
     const routesPath = require.context('../assets/routes', false, /\.gpx$/);
 
     routesPath.keys().forEach((file) => {
@@ -155,41 +184,11 @@ function Map() {
     });
   };
 
-  // Function to execute Python script
-  const executeScriptPython = async () => {
-    if (!selectedGPXFile) return;
-    setLoadingScript(true); // Estado de carga
-    setScriptOutput(""); // Reset salida del script
-
-
-    try {
-      // Solicitud GET al backend para ejecutar el script
-      const response = await fetch('http://localhost:8080/ejecutar-script');
-
-      // Verificamos la respuesta
-      if (!response.ok) {
-        throw new Error(`Error HTTP: ${response.status}`);
-      }
-
-      // Si la respuesta es exitosa, obtenemos el contenido
-      const data = await response.text(); // Salida script Python
-      setScriptOutput(data); // Guardamos salida script
-    } catch (error) {
-      console.error('Error al ejecutar el script:', error);
-      setScriptOutput(`Hubo un error al ejecutar el script: ${error.message}`);
-    } finally {
-      setLoadingScript(false); // Ocultar el estado de carga
-    }
-  };
-
-  // Function to remove GPX layers
   const removeGPXLayers = () => {
-    // Remove GPX layers from the map
     gpxLayers.forEach((layer) => {
       map.removeLayer(layer);
     });
 
-    // Clear the stored GPX layers
     setGpxLayers([]);
   };
 
@@ -213,28 +212,28 @@ function Map() {
       <div className="buttons-container">
         <input
           type="button"
-          className="btn btn-primary mr-2"
+          className="btn btn-success"
+          value="Cargar archivo GPX en backend"
+          onClick={uploadGPXFile}
+        />
+        <input
+          type="button"
+          className="btn btn-primary"
           value={loadingScript ? "Ejecutando..." : "Ejecutar Script Python"}
           onClick={executeScriptPython}
           disabled={loadingScript}
         />
         <input
           type="button"
-          className="btn btn-danger"
-          value="Eliminar capas GPX"
-          onClick={removeGPXLayers}
-        />
-        <input
-          type="button"
-          className="btn btn-success ml-2"
+          className="btn btn-info"
           value="Generar intersecciones"
           onClick={fetchAndAddGPXFiles}
         />
         <input
           type="button"
-          className="btn btn-info"
-          value="Subir archivo GPX"
-          onClick={uploadGPXFile}
+          className="btn btn-danger"
+          value="Eliminar capas GPX"
+          onClick={removeGPXLayers}
         />
 
       </div>

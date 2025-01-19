@@ -5,12 +5,15 @@ import Header from './components/Header'
 import HomeComponent from './components/HomeComponent';
 import NaturalParksComponent from './components/NaturalParks';
 import AddNaturalParkComponent from './components/AddNaturalParkComponent';
-import ListNaturalParksComponent from './components/ListNaturalParksComponent'
+import ListNaturalParks from './components/ListNaturalParks'
 import CreateTrack from './components/CreateTrack';
 import MapComponent from './components/MapComponent'
 import Footer from './components/Footer'
 import SierraHuetor from './assets/endpoints-naturalparks/sierra_huetor';
 import SierraNevada from './assets/endpoints-naturalparks/sierra_nevada';
+import RestriccionesGlobales from './assets/endpoints-naturalparks/RestriccionesGlobales';
+import ListRoutes from './components/ListRoutes'
+import AddRoute from './components/AddRoute'
 
 function App () {
   return (
@@ -25,9 +28,12 @@ function App () {
                 <Route path='/parques-naturales' element={<NaturalParksComponent />} />
                 <Route path='/add-parque' element={<AddNaturalParkComponent />} />
                 <Route path='/edit-parque/:id' element={<AddNaturalParkComponent />} />
-                <Route path='/gestion' element={<ListNaturalParksComponent />} />
+                <Route path='/gestion' element={<ListNaturalParks />} />
+                <Route path= '/rutas' element={<ListRoutes />} />
+                <Route path='/add-ruta' element={<AddRoute />} />
+                <Route path='/edit-ruta/:id' element={<AddRoute />} />
 
-                <Route path='/parques-naturales/sierra_nevada' element={<SierraNevada />} />
+                <Route path='/parques-naturales/restricciones_globales' element={<RestriccionesGlobales />} />
                 <Route path='/parques-naturales/sierra_huetor' element={<SierraHuetor />} />
               </Routes>
             </main>
