@@ -27,6 +27,9 @@ const NavigationMenu = () => (
             <li className="nav-item">
                 <Link to="/gestion" className="nav-link text-white" aria-label="Gestión de datos">Gestión</Link>
             </li>
+            <li className="nav-item">
+                <Link to="/rutas" className="nav-link text-white" aria-label="Rutas">Rutas</Link>
+            </li>
         </ul>
     </nav>
 );
