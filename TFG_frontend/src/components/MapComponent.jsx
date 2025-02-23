@@ -9,10 +9,54 @@ import geojsonDataA from '../assets/coordinates/reserva_A/geojsonImportsA.js';
 function Map() {
   const [map, setMap] = useState(null);
   const [loadingScript, setLoadingScript] = useState(false);
-  const [scriptOutput, setScriptOutput] = useState("");
   const [gpxLayers, setGpxLayers] = useState([]);
   const [selectedGPXFile, setSelectedGPXFile] = useState(null);
+  const [parksList, setParksList] = useState([]); // Estado para la lista de parques
+  const [restrictions, setRestrictions] = useState({}); // Estado para las restricciones
 
+  useEffect(() => {
+    if (parksList && parksList.length > 0) {
+      const cleanedParkList = parksList.map((park) => park.replace(/"/g, ''));
+      loadRestrictions(cleanedParkList);
+    }
+  }, [parksList]);
+
+  // Función para cargar dinámicamente las restricciones
+  const loadRestrictions = async (parks) => {
+    const restrictionsMap = {};
+
+    // Usar require.context para cargar los archivos de restricciones
+    const restrictionsContext = require.context(
+      '../assets/restrictions',
+      false,
+      /_restrictions\.jsx$/ // archivos que terminen en _restrictions.jsx
+    );
+
+    for (const park of parks) {
+      // Verifica si el parque no es null, undefined, vacío o inválido
+      if (park && park.trim() !== "") {
+        try {
+          const parkFileName = `${park}_restrictions`;
+          console.log(`Cargando restricciones para el parque: ${parkFileName}`);
+          
+          const restrictionComponent = restrictionsContext(`./${parkFileName}.jsx`).default;
+    
+          restrictionsMap[park] = restrictionComponent;
+        } catch (error) {
+          console.error(`No se encontraron restricciones para el parque: ${park}`);
+          restrictionsMap[park] = () => <div>No hay restricciones disponibles para este parque.</div>;
+        }
+      } else {
+        console.warn(`Parque inválido o vacío detectado: ${park}`);
+      }
+    }
+    
+    
+
+    setRestrictions(restrictionsMap);
+  };
+
+  // Inicializar el mapa
   useEffect(() => {
     const initializedMap = L.map('map').setView([37.5, -4.5], 6.5);
 
@@ -48,7 +92,6 @@ function Map() {
       "Zonas de Reserva A": perimetersALayerGroup,
     }).addTo(initializedMap);
 
-    // Add scale control
     L.control.scale().addTo(initializedMap);
 
     setMap(initializedMap);
@@ -57,7 +100,6 @@ function Map() {
       initializedMap.remove();
     };
   }, []);
-
 
   // Function to convert GPX to GeoJSON and add to map
   const addGPXToMap = (event) => {
@@ -123,33 +165,35 @@ function Map() {
     }
   };
 
-
   // Function to execute Python script
   const executeScriptPython = async () => {
     if (!selectedGPXFile) {
       alert("Por favor selecciona un archivo GPX antes de ejecutar el script.");
       return;
     }
-    setLoadingScript(true); // Estado de carga
-    setScriptOutput(""); // Reset salida del script
-
+    setLoadingScript(true);
+  
     try {
-      const response = await fetch('http://localhost:8080/ejecutar-script');
-
+      const response = await fetch('http://localhost:8080/api/ejecutar-script');
+  
       if (!response.ok) {
         throw new Error(`Error HTTP: ${response.status}`);
       }
-
-      const data = await response.text();
-      setScriptOutput(data);
+  
+      const data = await response.json(); // Obtener la respuesta como JSON
+      console.log('Respuesta del backend:', data);
+  
+      setParksList(data);
       alert('Script ejecutado correctamente.');
     } catch (error) {
       console.error('Error al ejecutar el script:', error);
-      setScriptOutput(`Hubo un error al ejecutar el script: ${error.message}`);
+      setParksList([])
+      alert(`Hubo un error al ejecutar el script: ${error.message}`);
     } finally {
       setLoadingScript(false);
     }
   };
+  
 
   const fetchAndAddGPXFiles = () => {
     if (!selectedGPXFile) {
@@ -193,59 +237,69 @@ function Map() {
   };
 
   return (
-    <div className="container mt-3">
-      <h5>Subir un archivo de ruta (.GPX)</h5>
-      <div className="mb-3 d-flex align-items-end">
-        <input
-          type="file"
-          className="form-control"
-          id="fileInput"
-          accept=".gpx"
-          onChange={addGPXToMap}
-        />
-      </div>
-
-      <div className="map-container">
-        <div id="map" />
-      </div>
-
-      <div className="buttons-container">
-        <input
-          type="button"
-          className="btn btn-success"
-          value="Cargar archivo GPX en backend"
-          onClick={uploadGPXFile}
-        />
-        <input
-          type="button"
-          className="btn btn-primary"
-          value={loadingScript ? "Ejecutando..." : "Ejecutar Script Python"}
-          onClick={executeScriptPython}
-          disabled={loadingScript}
-        />
-        <input
-          type="button"
-          className="btn btn-info"
-          value="Generar intersecciones"
-          onClick={fetchAndAddGPXFiles}
-        />
-        <input
-          type="button"
-          className="btn btn-danger"
-          value="Eliminar capas GPX"
-          onClick={removeGPXLayers}
-        />
-
-      </div>
-
-      {scriptOutput && (
-        <div className="mt-3">
-          <h6>Resultado del Script:</h6>
-          <pre>{scriptOutput}</pre>
-        </div>
-      )}
+  <div className="container mt-3">
+    <h5>Subir un archivo de ruta (.GPX)</h5>
+    <div className="mb-3 d-flex align-items-end">
+      <input
+        type="file"
+        className="form-control"
+        id="fileInput"
+        accept=".gpx"
+        onChange={addGPXToMap}
+      />
     </div>
-  );
+
+    <div className="map-container">
+      <div id="map" />
+    </div>
+
+    <div className="buttons-container">
+      <input
+        type="button"
+        className="btn btn-success"
+        value="Cargar archivo GPX en backend"
+        onClick={uploadGPXFile}
+      />
+      <input
+        type="button"
+        className="btn btn-primary"
+        value={loadingScript ? "Ejecutando..." : "Ejecutar Script Python"}
+        onClick={executeScriptPython}
+        disabled={loadingScript}
+      />
+      <input
+        type="button"
+        className="btn btn-info"
+        value="Generar intersecciones"
+        onClick={fetchAndAddGPXFiles}
+      />
+      <input
+        type="button"
+        className="btn btn-danger"
+        value="Eliminar capas GPX"
+        onClick={removeGPXLayers}
+      />
+    </div>
+
+    {Array.isArray(parksList) && parksList.length > 0 && (
+      <div className="mt-3">
+        <h6>Parques encontrados:</h6>
+        <ul>
+          {parksList.map((park, index) => {
+            const ParkRestrictions = restrictions[park];
+            return (
+              <li key={index}>
+                {/* {<strong>{park.replace(/_/g, ' ')}</strong>} */}
+                {ParkRestrictions && <ParkRestrictions />}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    )}
+
+  </div>
+);
 }
 
 export default Map;
