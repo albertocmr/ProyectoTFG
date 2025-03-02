@@ -15,14 +15,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RequestMapping("/api")
 public class ScriptController {
 
-    @GetMapping("/ejecutar-script")
+@GetMapping("/ejecutar-script")
 public List<String> ejecutarScript() {
     String pythonPath = "python";  // O "python3" dependiendo de tu configuración
-    String scriptPath = "src/scripts/CheckRoute.py";
+    String scriptPath = "D:\\Escritorio\\TrabajoFinDeGrado\\Proyecto_TFG\\TFG_backend\\src\\scripts\\CheckRoute.py";
+
 
     try {
         // Ejecuta el script de Python
-        Process process = Runtime.getRuntime().exec(pythonPath + " " + scriptPath);
+        ProcessBuilder processBuilder = new ProcessBuilder(pythonPath, scriptPath);
+        processBuilder.redirectErrorStream(true);  // Combina la salida estándar y de error
+        Process process = processBuilder.start();
 
         // Lee la salida del script
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -31,6 +34,15 @@ public List<String> ejecutarScript() {
         while ((line = reader.readLine()) != null) {
             output.append(line);
         }
+
+        // // Lee los errores del script en caso de que los tenga
+        BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+        StringBuilder errorOutput = new StringBuilder();
+        String errorLine;
+        while ((errorLine = errorReader.readLine()) != null) {
+            errorOutput.append(errorLine);
+        }
+        System.out.println("Errores del script Python: " + errorOutput.toString());
 
         // Obtiene la salida como un string
         String jsonOutput = output.toString().trim();

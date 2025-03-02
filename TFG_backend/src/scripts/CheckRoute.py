@@ -29,11 +29,8 @@ df_points = pd.DataFrame(points, columns=['latitude', 'longitude'])
 gdf_points = gpd.GeoDataFrame(df_points, geometry=gpd.points_from_xy(df_points.longitude, df_points.latitude))
 gdf_points.crs = 'EPSG:4326'  # Ensure that the CRS is correctly defined
 
-# geojson_dir = "C:/Users/HP/Desktop/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/coordinates"
-# routes_dir = "C:/Users/HP/Desktop/TrabajoFinDeGrado/Proyecto_TFG/TFG_frontend/src/assets/routes"
-
-geojson_dir = os.path.join(current_dir, "../TFG_frontend/src/assets/coordinates/")
-routes_dir = os.path.join(current_dir, "../TFG_frontend/src/assets/routes/")
+geojson_dir = os.path.join(current_dir, "TFG_frontend", "src", "assets", "coordinates")
+routes_dir = os.path.join(current_dir, "TFG_frontend", "src", "assets", "routes")
 
 
 for file in os.listdir(routes_dir):
