@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class GpxUploadController {
 
     // Ruta donde se guardarán los archivos subidos
-    private static final String UPLOAD_DIR = "uploads/";
+    private static final String UPLOAD_DIR = "/app/uploads/";
 
     @PostMapping("/api/gpx/upload")
     public ResponseEntity<String> uploadGpxfile(@RequestParam("route") MultipartFile file) {

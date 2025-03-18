@@ -17,14 +17,14 @@ public class ScriptController {
 
 @GetMapping("/ejecutar-script")
 public List<String> ejecutarScript() {
-    String pythonPath = "python";  // O "python3" dependiendo de tu configuración
-    String scriptPath = "D:\\Escritorio\\TrabajoFinDeGrado\\Proyecto_TFG\\TFG_backend\\src\\scripts\\CheckRoute.py";
+    String pythonPath = "python";
+    String scriptPath = "/app/scripts/CheckRoute.py";
+
 
 
     try {
         // Ejecuta el script de Python
         ProcessBuilder processBuilder = new ProcessBuilder(pythonPath, scriptPath);
-        processBuilder.redirectErrorStream(true);  // Combina la salida estándar y de error
         Process process = processBuilder.start();
 
         // Lee la salida del script
@@ -35,20 +35,10 @@ public List<String> ejecutarScript() {
             output.append(line);
         }
 
-        // // Lee los errores del script en caso de que los tenga
-        BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-        StringBuilder errorOutput = new StringBuilder();
-        String errorLine;
-        while ((errorLine = errorReader.readLine()) != null) {
-            errorOutput.append(errorLine);
-        }
-        System.out.println("Errores del script Python: " + errorOutput.toString());
-
         // Obtiene la salida como un string
         String jsonOutput = output.toString().trim();
-        System.out.println("Salida del script Python: " + jsonOutput);  // Imprime la salida del script para depuración
+        System.out.println("Salida del script Python: " + jsonOutput);
 
-        // Verifica si la salida es vacía
         if (jsonOutput.isEmpty()) {
             System.out.println("La salida del script está vacía.");
             return List.of("No se encontraron parques.");
@@ -60,7 +50,7 @@ public List<String> ejecutarScript() {
 
         // Limpia las comillas adicionales alrededor de los nombres de los parques
         List<String> cleanedParks = parksResponse.getParks().stream()
-                                                  .map(park -> park.replace("\"", ""))  // Eliminar las comillas
+                                                  .map(park -> park.replace("\"", ""))
                                                   .collect(Collectors.toList());
 
         return cleanedParks;
