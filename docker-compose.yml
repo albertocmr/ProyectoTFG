@@ -1,0 +1,49 @@
+version: '3.7'
+
+services:
+
+  backend:
+    build:
+      context: ./TFG_backend  # Ruta a la carpeta donde está el Dockerfile del backend
+    volumes:
+      - shared-data:/app/shared-data
+    ports:
+      - "8080:8080"  # Exponer el puerto 8080
+    networks:
+      - app-network
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/parktrackerdb  # Conexión a MySQL
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    depends_on:
+      - frontend
+
+  frontend:
+    build:
+      context: ./TFG_frontend
+    volumes:
+      - shared-data:/app/shared-data
+    ports:
+      - "8001:8001"
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: parktrackerdb
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db_data: 
+  shared-data:
