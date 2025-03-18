@@ -28,37 +28,23 @@ function Map() {
 
   // Función para cargar dinámicamente las restricciones
   const loadRestrictions = async (parks) => {
-
-    // Usar require.context para cargar los archivos de restricciones
-    const restrictionsContext = require.context(
-      '../assets/restrictions',
-      false,
-      /_restrictions\.jsx$/ // archivos que terminen en _restrictions.jsx
-    );
-    
     const restrictionsMap = {};
-
+  
     for (const park of parks) {
-      if (!park && park.trim() === "") continue;
-
+      if (!park.trim()) continue;
+  
       try {
-        const parkFileName = `./${park}_restrictions.jsx`;
-        //console.log(`Cargando restricciones para el parque: ${parkFileName}`);
-        if(!restrictionsContext.keys().includes(parkFileName)) {
-          throw new Error(`Archivo no encontrado: ${parkFileName}`);
-        }
-
-        const restrictionComponent = restrictionsContext(parkFileName).default;
-
-        restrictionsMap[park] = restrictionComponent;
+        const module = await import(`../assets/restrictions/${park}_restrictions.jsx`);
+        restrictionsMap[park] = module.default;
       } catch (error) {
         console.error(`No se encontraron restricciones para el parque: ${park}`);
         restrictionsMap[park] = () => <div>No hay restricciones disponibles para este parque.</div>;
       }
     }
-
+  
     setRestrictions(restrictionsMap);
   };
+  
 
   // Inicializar el mapa
   useEffect(() => {
@@ -117,6 +103,7 @@ function Map() {
       const parser = new DOMParser();
       const xml = parser.parseFromString(e.target.result, 'application/xml');
       const geojson = toGeoJSON.gpx(xml);
+      gpxLayers.forEach((layer) => map.removeLayer(layer));
 
       try {
         const gpxLayer = L.geoJSON(geojson, {
@@ -188,7 +175,7 @@ function Map() {
 
       const data = await response.json(); // Obtener la respuesta como JSON
 
-      if(!Array.isArray(data) ||data.legth === 0) {
+      if(!Array.isArray(data) ||data.length === 0) {
         throw new Error("La API no devolvió una lista válida de parques");
       }
 
