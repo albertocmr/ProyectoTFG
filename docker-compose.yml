@@ -1,8 +1,7 @@
-version: '3.7'
-
 services:
 
   backend:
+    container_name: v1-backend
     build:
       context: ./TFG_backend  # Ruta a la carpeta donde está el Dockerfile del backend
     volumes:
@@ -14,11 +13,12 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/parktrackerdb  # Conexión a MySQL
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     depends_on:
       - frontend
 
   frontend:
+    container_name: v1-frontend
     build:
       context: ./TFG_frontend
     volumes:
@@ -29,6 +29,7 @@ services:
       - app-network
 
   mysql:
+    container_name: v1-mysql
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}

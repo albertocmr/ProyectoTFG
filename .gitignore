@@ -30,3 +30,5 @@ TFG_backend/src/main/resources/application.properties
 TFG_backend/mvnw.cmd
 TFG_backend/mvnw
 TFG_backend/.gitignore
+
+.astro

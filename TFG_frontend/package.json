@@ -4,10 +4,10 @@
   "description": "Trabajo Fin de Grado 2024/25",
   "private": true,
   "dependencies": {
+    "@astrojs/react": "^4.2.1",
+    "@astrojs/tailwind": "^6.0.0",
     "@mapbox/togeojson": "^0.16.2",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
+    "astro": "^5.5.3",
     "axios": "^1.7.4",
     "leaflet": "^1.9.4",
     "leaflet-css": "^0.1.0",
@@ -16,18 +16,15 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.26.0",
-    "react-scripts": "^5.0.1",
     "serialize-javascript": "^6.0.2",
     "svgo": "^3.3.2",
-    "tfg_frontend": "file:",
-    "TFG_frontend": "file:",
+    "tailwindcss": "^3.4.7",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
   },
   "eslintConfig": {
     "extends": [
