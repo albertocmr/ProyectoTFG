@@ -2,7 +2,7 @@ import React from 'react';
 
 const HomeComponent = () => {
     return (
-        <div className="container">
+        <div className="container m-5">
             <div className="row">
                 <div className="col-12 col-md-6 col-lg-7 rounded border border-black">
                     <h1 className="display-6">
