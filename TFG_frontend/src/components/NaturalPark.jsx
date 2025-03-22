@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import '../styles/NaturalPark.css';
 
 
@@ -17,7 +16,9 @@ const NaturalParkComponent = (props) => {
                 <p>
                     Su archivo de perimetro es {props.perimeterfile}
                 </p>
-                <Link className="btn btn-primary" to={`${props.perimeterfile}`}>Restricciones del parque </Link>
+                <a className="btn btn-primary" href={props.perimeterfile} target="_blank" rel="noopener noreferrer">
+                    Restricciones del parque
+                </a>
 
 
             </article>

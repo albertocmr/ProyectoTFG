@@ -1,0 +1,22 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import AddNaturalParkComponent from "../../components/AddNaturalParkComponent.jsx";
+
+// Función para definir las rutas estáticas en Astro
+export async function getStaticPaths() {
+  // Aquí puedes hacer una llamada a tu backend para obtener los IDs de los parques
+  const parks = await fetch("http://localhost:8080/api/natural_parks").then(res => res.json());
+
+  return parks.map(park => ({
+    params: { id: park.id.toString() }, // Asegurar que el ID es string
+  }));
+}
+
+// Extraer el ID de la URL usando Astro.params
+const { id } = Astro.params;
+---
+
+<Layout title="Editar Parque Natural">
+  {console.log(`ID recibido: ${id}`)}
+  <AddNaturalParkComponent id={id} client:only="react"/>
+</Layout>

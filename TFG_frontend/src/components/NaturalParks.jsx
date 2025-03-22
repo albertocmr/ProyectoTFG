@@ -15,8 +15,7 @@ const NaturalParks = () => {
       .catch(error => {
         console.error('Error when obtaining natural parks: ', error);
       })
-  })
-
+  }, [])
 
   const toggle = (index) => {
     setSelected(selected === index ? null : index);
@@ -38,17 +37,20 @@ const NaturalParks = () => {
 
         {Object.keys(groupedNaturalParks).map((province, index) => (
           <div className="dropdown mb-3" key={index}>
-            <div className="dropdown-item justify-between items-center p-2 rounded-lg shadow-sm cursor-pointer transition-colors duration-300 hover:bg-gray-200" onClick={() => toggle(index)}>
+            <div 
+              className="dropdown-item justify-between items-center p-2 rounded-lg shadow-sm cursor-pointer transition-colors duration-300 hover:bg-gray-200" 
+              onClick={() => toggle(index)}>
               <h3 className='font-bold'>{province} </h3>
               <span>{selected === index ? '-' : '+'}</span>
             </div>
-            {selected === index && (
-              <div className="dropdown-content">
-                {groupedNaturalParks[province].map((naturalPark, idx) => (
-                  <NaturalPark key={idx} name={naturalPark.name} province={naturalPark.province} perimeterfile={naturalPark.perimeterfile} />
-                ))}
-              </div>
-            )}
+            <div 
+              className={`dropdown-content ${selected === index ? 'expanded' : ''}`} 
+              style={{ maxHeight: selected === index ? '1000px' : '0', transition: 'max-height 1.0s ease-in-out' }}
+            >
+              {selected === index && groupedNaturalParks[province].map((naturalPark, idx) => (
+                <NaturalPark key={idx} name={naturalPark.name} province={naturalPark.province} perimeterfile={naturalPark.perimeterfile} />
+              ))}
+            </div>
           </div>
         ))}
       </section>
