@@ -16,7 +16,7 @@ const NaturalParkComponent = (props) => {
                 <p>
                     Su archivo de perimetro es {props.perimeterfile}
                 </p>
-                <a className="btn btn-primary" href={props.perimeterfile} target="_blank" rel="noopener noreferrer">
+                <a className="btn btn-primary" href={"parques-naturales/" + props.perimeterfile} target="_blank" rel="noopener noreferrer">
                     Restricciones del parque
                 </a>
 
