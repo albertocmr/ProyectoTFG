@@ -1,6 +1,7 @@
 package com.gestion.backend.controller;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,10 +55,9 @@ public List<String> ejecutarScript() {
                                                   .collect(Collectors.toList());
 
         return cleanedParks;
-    } catch (Exception e) {
+    } catch (IOException e) {
         // Manejo de excepciones
         System.out.println("Error al ejecutar el script: " + e.getMessage());
-        e.printStackTrace();
         return List.of("Error al ejecutar el script");
     }
 }

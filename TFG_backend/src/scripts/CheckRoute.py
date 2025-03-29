@@ -5,23 +5,23 @@ import pandas as pd
 import os
 import json
 
-for file in os.listdir("uploads"):
-    if file.endswith(".gpx"):
-        gpx_file = os.path.join("uploads", file)
-    else:
-        raise FileNotFoundError("Error: No se ha encontrado ningun archivo GPX en la carpeta uploads") 
+gpx_files = [f for f in os.listdir("uploads") if f.endswith(".gpx")]
+if not gpx_files:
+    raise FileNotFoundError("Error: No se ha encontrado ningún archivo GPX en la carpeta uploads")
+gpx_file = os.path.join("uploads", gpx_files[0])
 
 try:
-    gpx = gpxpy.parse(open(gpx_file, 'r'))
+    with open(gpx_file, 'r') as f:
+        gpx = gpxpy.parse(f)
 except Exception as e:
     raise Exception(f"Error al parsear el archivo GPX: {e}")
 
+
 # Extract the points from the GPX route file
-points = []
-for track in gpx.tracks:
-    for segment in track.segments:
-        for point in segment.points:
-            points.append((point.latitude, point.longitude))
+points = [(point.latitude, point.longitude) 
+          for track in gpx.tracks 
+          for segment in track.segments 
+          for point in segment.points]
 
 df_points = pd.DataFrame(points, columns=['latitude', 'longitude'])
 gdf_points = gpd.GeoDataFrame(df_points, geometry=gpd.points_from_xy(df_points.longitude, df_points.latitude))
@@ -51,7 +51,7 @@ for geojson_file in geojson_files:
 
         gdf_park.crs = 'EPSG:4326'
 
-        gdf_points['within_perimeter'] = gdf_points.geometry.apply(lambda x: park_polygon.contains(x))
+        gdf_points['within_perimeter'] = gdf_points.within(park_polygon)
 
         park_name = os.path.splitext(geojson_file)[0]
 
@@ -97,9 +97,7 @@ for geojson_file in geojson_files:
         print(f"Error al procesar el archivo {geojson_file}: {e}")
 
 # Provisional: Remove the uploaded GPX file
-for file in os.listdir("uploads"):
-    if file.endswith(".gpx"):
-        os.remove(os.path.join("uploads", file))
+os.remove(gpx_file)
 
 print(json.dumps({"parks": parks}))
  
