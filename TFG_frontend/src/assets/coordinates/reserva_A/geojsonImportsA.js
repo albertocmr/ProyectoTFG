@@ -5,6 +5,7 @@ import sierraNevadaA from './sierra_nevada_A.json';
 import sierraGrazalemaA from './sierra_grazalema_A.json';
 import despeniaperrosA from './despeniaperros_A.json';
 import sierraCardeniaMontoroA from './sierra_cardenia_montoro_A.json';
+import naturalDonianaA from './natural_doniana_A.json';
 
 const geojsonDataA = {
     sierraHuetorA,
@@ -13,7 +14,8 @@ const geojsonDataA = {
     sierraNevadaA,
     sierraGrazalemaA,
     despeniaperrosA,
-    sierraCardeniaMontoroA
+    sierraCardeniaMontoroA,
+    naturalDonianaA
 };
 
 export default geojsonDataA;
