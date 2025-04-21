@@ -16,7 +16,7 @@ function Map() {
 
   // REVISAR USEMEMO
   const cleanedParkList = useMemo(() => {
-    return parksList.map((park) => park.replace(/"/g, ''));
+    return parksList.map((park) => park.replace(/"/g, '').trim());
   }, [parksList])
 
 
@@ -45,16 +45,16 @@ function Map() {
     setRestrictions(restrictionsMap);
   };
   
-
-  // Inicializar el mapa
   useEffect(() => {
+    if (map) return;
+  
     const initializedMap = L.map('map').setView([37.5, -4.5], 6.5);
-
+    
     L.tileLayer('https://c.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(initializedMap);
-
+  
     const perimetersLayerGroup = L.layerGroup(
       Object.values(geojsonData).map((data) =>
         L.geoJSON(data, {
@@ -65,7 +65,7 @@ function Map() {
         }),
       ),
     );
-
+  
     const perimetersALayerGroup = L.layerGroup(
       Object.values(geojsonDataA).map((data) =>
         L.geoJSON(data, {
@@ -76,20 +76,17 @@ function Map() {
         }),
       ),
     );
-
+  
     L.control.layers(null, {
       "Perímetros Parques Naturales": perimetersLayerGroup,
       "Zonas de Reserva A": perimetersALayerGroup,
     }).addTo(initializedMap);
-
+  
     L.control.scale().addTo(initializedMap);
-
+  
     setMap(initializedMap);
-
-    return () => {
-      initializedMap.remove();
-    };
-  }, []);
+  }, [map]);
+  
 
   // Function to convert GPX to GeoJSON and add to map
   const addGPXToMap = (event) => {
@@ -160,36 +157,38 @@ function Map() {
   // Function to execute Python script
   const executeScriptPython = async () => {
     if (!selectedGPXFile) {
-      alert("Por favor selecciona un archivo GPX antes de ejecutar el script.");
-      return;
+        alert("Selecciona un archivo GPX antes de ejecutar el script.");
+        return;
     }
 
     setLoadingScript(true);
+    //console.log("Enviando petición para ejecutar script Python...");
 
     try {
-      const response = await fetch('http://localhost:8080/api/ejecutar-script');
+        const response = await fetch('http://localhost:8080/api/ejecutar-script');
+        //console.log("Respuesta recibida del backend:", response);
 
-      if (!response.ok) {
-        throw new Error(`Error HTTP: ${response.status}`);
-      }
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
 
-      const data = await response.json(); // Obtener la respuesta como JSON
+        const data = await response.json();
+        //console.log("Datos recibidos del backend:", data);
 
-      if(!Array.isArray(data) ||data.length === 0) {
-        throw new Error("La API no devolvió una lista válida de parques");
-      }
+        if (!Array.isArray(data) || data.length === 0) {
+            throw new Error("La API no devolvió una lista válida de parques.");
+        }
 
-      setParksList(data);
-      alert('Script ejecutado correctamente.');
+        setParksList(data);
+        alert('Script ejecutado correctamente.');
 
     } catch (error) {
-      console.error('Error al ejecutar el script:', error);
-      setParksList([]);
-      alert(`Hubo un error al ejecutar el script: ${error.message}`);
+        //console.error('Error al ejecutar el script:', error);
+        alert(`Error al ejecutar el script: ${error.message}`);
     } finally {
-      setLoadingScript(false);
+        setLoadingScript(false);
     }
-  };
+};
 
 
   const fetchAndAddGPXFiles = () => {
@@ -198,32 +197,37 @@ function Map() {
       return;
     }
 
-    const routesPath = require.context('../assets/routes', false, /\.gpx$/);
+    if (!map) {
+      alert("El mapa no está inicializado.");
+      return;
+    }
+    const gpxFiles = import.meta.glob('../../shared-data/routes/*.gpx', { as: 'url' });
 
-    routesPath.keys().forEach((file) => {
-      const fileContent = routesPath(file);
-      fetch(fileContent)
-        .then((res) => res.text())
-        .then((gpxContent) => {
-          const parser = new DOMParser();
-          const xml = parser.parseFromString(gpxContent, 'application/xml');
-          const geojson = toGeoJSON.gpx(xml);
+    for (const path in gpxFiles) {
+      gpxFiles[path]().then((fileUrl) => {
+        fetch(fileUrl)
+          .then((res) => res.text())
+          .then((gpxContent) => {
+            const parser = new DOMParser();
+            const xml = parser.parseFromString(gpxContent, 'application/xml');
+            const geojson = toGeoJSON.gpx(xml);
 
-          const gpxLayer = L.geoJSON(geojson, {
-            style: {
-              color: '#ff2200',
-              weight: 5,
-              opacity: 1,
-            },
-          });
+            const gpxLayer = L.geoJSON(geojson, {
+              style: {
+                color: '#ff2200',
+                weight: 5,
+                opacity: 1,
+              },
+            });
 
-          gpxLayer.addTo(map);
-          setGpxLayers((prevLayers) => [...prevLayers, gpxLayer]);
-          alert(`Archivo GPX ${file} cargado correctamente.`);
-        })
-        .catch((error) => console.error(`Error al cargar el archivo GPX ${file}:`, error));
-    });
-  };
+            gpxLayer.addTo(map);
+            setGpxLayers((prevLayers) => [...prevLayers, gpxLayer]);
+            alert(`Archivo GPX ${path} cargado correctamente.`);
+          })
+          .catch((error) => console.error(`Error al cargar el archivo GPX ${path}:`, error));
+      })
+    };
+  }
 
   const removeGPXLayers = () => {
     gpxLayers.forEach((layer) => {
@@ -251,31 +255,44 @@ function Map() {
       </div>
 
       <div className="buttons-container">
-        <input
+        <button
           type="button"
           className="btn btn-success"
-          value="Cargar archivo GPX en backend"
           onClick={uploadGPXFile}
-        />
-        <input
+        >
+          Cargar archivo GPX en backend
+        </button>
+
+        <button
           type="button"
           className="btn btn-primary"
-          value={loadingScript ? "Ejecutando..." : "Ejecutar Script Python"}
-          onClick={executeScriptPython}
+          onClick={() => {
+            executeScriptPython();
+          }}
           disabled={loadingScript}
-        />
-        <input
+        >
+          {loadingScript ? "Ejecutando..." : "Ejecutar Script Python"}
+        </button>
+
+        <button
           type="button"
           className="btn btn-info"
-          value="Generar intersecciones"
-          onClick={fetchAndAddGPXFiles}
-        />
-        <input
+          onClick={() => {
+            fetchAndAddGPXFiles();
+          }}
+        >
+          Generar intersecciones
+        </button>
+
+        <button
           type="button"
           className="btn btn-danger"
-          value="Eliminar capas GPX"
-          onClick={removeGPXLayers}
-        />
+          onClick={() => {
+            removeGPXLayers();
+          }}
+        >
+          Eliminar capas GPX
+        </button>
       </div>
 
       {Array.isArray(parksList) && parksList.length > 0 && (

@@ -11,11 +11,12 @@ services:
     networks:
       - app-network
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/parktrackerdb  # Conexión a MySQL
+      SPRING_DATASOURCE_URL: jdbc:mysql://v1-mysql:3306/parktrackerdb  # Conexión a MySQL
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     depends_on:
-      - frontend
+      mysql:
+        condition: service_healthy
 
   frontend:
     container_name: v1-frontend
@@ -40,6 +41,11 @@ services:
       - db_data:/var/lib/mysql
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
 networks:
   app-network:
