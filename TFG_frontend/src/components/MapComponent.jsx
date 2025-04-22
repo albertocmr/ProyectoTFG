@@ -5,6 +5,7 @@ import '../styles/Map.css';
 import * as toGeoJSON from '@mapbox/togeojson';
 import geojsonData from '../assets/coordinates/geojsonImports.js';
 import geojsonDataA from '../assets/coordinates/reserva_A/geojsonImportsA.js';
+import { Modal } from 'bootstrap';
 
 function Map() {
   const [map, setMap] = useState(null);
@@ -175,12 +176,18 @@ function Map() {
         const data = await response.json();
         //console.log("Datos recibidos del backend:", data);
 
-        if (!Array.isArray(data) || data.length === 0) {
+        if (!Array.isArray(data)) {
             throw new Error("La API no devolvió una lista válida de parques.");
         }
 
         setParksList(data);
         alert('Script ejecutado correctamente.');
+
+        const modalElement = document.getElementById('parksModal');
+        modalElement.style.display = 'block'; // Asegúrate de que el modal esté visible
+        const modal = new Modal(modalElement);
+        modal.show();
+
 
     } catch (error) {
         //console.error('Error al ejecutar el script:', error);
@@ -295,24 +302,48 @@ function Map() {
         </button>
       </div>
 
-      {Array.isArray(parksList) && parksList.length > 0 && (
-        <div className="mt-3">
-          <h6>Parques encontrados:</h6>
-
-          <ul>
-            {parksList.map((park, index) => {
-              const ParkRestrictions = restrictions[park];
-              return (
-                <li key={index}>
-                  {/* {<strong>{park.replace(/_/g, ' ')}</strong>} */}
-                  {ParkRestrictions && <ParkRestrictions />}
-                </li>
-              );
-            })}
-          </ul>
+      <div
+        className="modal fade"
+        id="parksModal"
+        tabIndex="-1"
+        aria-labelledby="parksModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-lg">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="parksModalLabel">Parques Naturales y sus restricciones.</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+            <div className="modal-body">
+              {Array.isArray(parksList) && parksList.length > 0 ? (
+                <div>
+                  <ul>
+                    {parksList.map((park, index) => (
+                      <li key={index}>Parque Natural - {park.replace(/_/g, ' ')}</li>
+                    ))}
+                  </ul>
+                  <ul>
+                      {parksList.map((park, index) => {
+                        const ParkRestrictions = restrictions[park];
+                        return (
+                          <li key={index}>
+                            {ParkRestrictions && <ParkRestrictions />}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+              ) : (
+                <p>La ruta proporcionada no pasa por ningún Parque Natural Andaluz.</p>
+              )}
+            </div>
+            <div className="modal-footer">
+            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>   
         </div>
-      )}
-
+      </div>
     </div>
   );
 }

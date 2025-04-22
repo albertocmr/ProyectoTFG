@@ -9,6 +9,7 @@
     "@mapbox/togeojson": "^0.16.2",
     "astro": "^5.5.3",
     "axios": "^1.7.4",
+    "bootstrap": "^5.3.5",
     "leaflet": "^1.9.4",
     "leaflet-css": "^0.1.0",
     "nth-check": "~>2.0.1",
