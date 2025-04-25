@@ -78,3 +78,47 @@ export const uploadGPXFile = async (selectedGPXFile) => {
         alert(`Error al subir el archivo: ${error.message}`);
     }
 };
+
+export const fetchAndAddGPXFiles = async (map, selectedGPXFile, setGpxLayers) => {
+    if (!selectedGPXFile) {
+        alert("Por favor ejecuta el script para generar las intersecciones.");
+        return;
+    }
+
+    if (!map) {
+        alert("El mapa no está inicializado.");
+        return;
+    }
+
+    try {
+        const res = await fetch('http://localhost:8080/api/gpx/list');
+        const fileList = await res.json();
+
+        for (const file of fileList) {
+            const url = `http://localhost:8080/shared-data/routes/${file}`;
+            const response = await fetch(url);
+            const gpxText = await response.text();
+
+            const parser = new DOMParser();
+            const xml = parser.parseFromString(gpxText, 'application/xml');
+            const geojson = toGeoJSON.gpx(xml);
+
+            const gpxLayer = L.geoJSON(geojson, {
+                style: {
+                    color: '#ff2200',
+                    weight: 5,
+                    opacity: 1,
+                },
+            });
+
+            gpxLayer.addTo(map);
+            setGpxLayers((prev) => [...prev, gpxLayer]);
+
+            //console.log(`Cargado: ${file}`);
+        }
+
+        alert("GPX cargados correctamente.");
+    } catch (err) {
+        alert("Ocurrió un error al cargar los archivos GPX.");
+    }
+};
