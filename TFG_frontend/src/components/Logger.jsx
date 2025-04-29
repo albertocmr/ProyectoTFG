@@ -36,11 +36,11 @@ const Logger = () => {
 
 const LoginButton = () => {
   const { loginWithRedirect } = useAuth0();
-  
+
   return (
-      <button className="btn btn-primary" onClick={() => loginWithRedirect()}>
+    <button className="btn btn-primary" onClick={() => loginWithRedirect()}>
       Iniciar sesión
-      </button>
+    </button>
   );
 }
 

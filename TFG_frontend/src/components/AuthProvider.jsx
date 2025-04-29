@@ -2,18 +2,19 @@
 import { Auth0Provider } from "@auth0/auth0-react";
 
 const AuthProvider = ({ children }) => {
-  const domain = "dev-01ujkdlvuv2fm5gp.eu.auth0.com";
-  const clientId = "DC77HTyNqu70Mm0pi2n63H6QquZ6aCUJ";
-  const audience = "http://parkTracker-api";
+  const domain = import.meta.env.PUBLIC_AUTH0_DOMAIN;
+  const clientId = import.meta.env.PUBLIC_AUTH0_CLIENTID;
+  const audience = import.meta.env.PUBLIC_AUTH0_AUDIENCE;
+  const redirect_uri = import.meta.env.PUBLIC_AUTH0_REDIRECT_URI;
 
   return (
     <Auth0Provider
-        domain={domain}
-        clientId={clientId}
-        authorizationParams={{
-            redirect_uri: window.location.origin,
-            audience: audience,
-        }}
+      domain={domain}
+      clientId={clientId}
+      authorizationParams={{
+        redirect_uri: redirect_uri, // window.location.origin
+        audience: audience,
+      }}
     >
       {children}
     </Auth0Provider>

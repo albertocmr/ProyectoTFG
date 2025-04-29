@@ -1,5 +1,5 @@
 import AuthLayout from "../layouts/AuthLayout.jsx";
-import Logger from "./Logger.jsx";
+import Logger from "../components/Logger.jsx";
 
 const AuthWrapper = () => {
   return (
