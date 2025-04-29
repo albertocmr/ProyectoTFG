@@ -1,6 +1,9 @@
 package com.gestion.backend.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.gestion.backend.model.NaturalPark;
@@ -8,5 +11,7 @@ import com.gestion.backend.model.NaturalPark;
 
 @Repository
 public interface NaturalParkRepository extends JpaRepository<NaturalPark, Long>{
+    @Query("SELECT p.perimeterfile FROM NaturalPark p")
+    List<String> getAllPerimeterFiles();
     
 }
