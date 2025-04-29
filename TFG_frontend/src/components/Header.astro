@@ -1,4 +1,6 @@
 ---
+import AuthWrapper from './AuthWrapper';
+import LoggerComponent from './Logger';
 ---
 
 <header class="mb-10 h-16 max-w-[10vw] lg:h-24">
@@ -8,7 +10,7 @@
         ParkTracker
       </a>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-expanded="false" aria-controls="navbarNav" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
@@ -21,16 +23,21 @@
             <a href="/createTrack" class="nav-link">Crea tu ruta</a>
           </li>
           <li class="nav-item">
-            <a href="/map" class="nav-link">Carga una ruta</a>
+            <a href="/map" class="nav-link">Comprueba tu ruta</a>
           </li>
           <li class="nav-item">
             <a href="/naturalParks" class="nav-link">Parques Naturales</a>
           </li>
           <li class="nav-item">
-            <a href="/managementdb" class="nav-link">Gestión</a>
+            <a href="/managementdb" class="nav-link">Gestión DDBB</a>
           </li>
+          
         </ul>
-      </div>
+        <div class="ms-auto">
+          <AuthWrapper client:only="react">
+            <LoggerComponent />
+          </AuthWrapper>
+        </div>
     </div>
   </nav>
 </header>
