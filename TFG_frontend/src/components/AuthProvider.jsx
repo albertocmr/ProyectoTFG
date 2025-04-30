@@ -1,4 +1,3 @@
-// src/components/AuthProvider.jsx
 import { Auth0Provider } from "@auth0/auth0-react";
 
 const AuthProvider = ({ children }) => {
