@@ -1,12 +1,13 @@
-import AuthLayout from "../layouts/AuthLayout.jsx";
-import Logger from "../components/Logger.jsx";
+import React from "react";
+import AuthProvider from "./AuthProvider.jsx";
+import Logger from "./Logger.jsx";
+import AxiosInterceptor from "./AxiosInterceptor.jsx";
 
-const AuthWrapper = () => {
+export default function AuthWrapper() {
   return (
-    <AuthLayout>
+    <AuthProvider>
+      <AxiosInterceptor />
       <Logger />
-    </AuthLayout>
+    </AuthProvider>
   );
-};
-
-export default AuthWrapper;
+}

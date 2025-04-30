@@ -1,51 +1,31 @@
 ---
 import AuthWrapper from './AuthWrapper';
-import LoggerComponent from './Logger';
 ---
 
-<header class="mb-10 h-16 max-w-[10vw] lg:h-24">
-  <nav class="flex h-full w-full navbar navbar-expand-md navbar-dark bg-dark p-4">
-    <div class="container">
-      <a href="/" class="navbar-brand fs-3 fw-bold">
-        ParkTracker
-      </a>
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-expanded="false" aria-controls="navbarNav" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-4">
-          <li class="nav-item">
-            <a href="/" class="nav-link">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a href="/createTrack" class="nav-link">Crea tu ruta</a>
-          </li>
-          <li class="nav-item">
-            <a href="/map" class="nav-link">Comprueba tu ruta</a>
-          </li>
-          <li class="nav-item">
-            <a href="/naturalParks" class="nav-link">Parques Naturales</a>
-          </li>
-          <li class="nav-item">
-            <a href="/managementdb" class="nav-link">Gestión DDBB</a>
-          </li>
-          
-        </ul>
-        <div class="ms-auto">
-          <AuthWrapper client:only="react">
-            <LoggerComponent />
-          </AuthWrapper>
-        </div>
+<header class="mb-10 h-16 lg:h-24 navbar navbar-expand-md navbar-dark bg-dark shadow-xl">
+  <div class="container">
+    <a href="/" class="navbar-brand fs-3 fw-bold">ParkTracker</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a href="/" class="nav-link">Inicio</a></li>
+        <li class="nav-item"><a href="/createTrack" class="nav-link">Crea tu ruta</a></li>
+        <li class="nav-item"><a href="/map" class="nav-link">Comprueba tu ruta</a></li>
+        <li class="nav-item"><a href="/naturalParks" class="nav-link">Parques Naturales</a></li>
+        <li class="nav-item"><a href="/managementdb" class="nav-link">Gestión DDBB</a></li>
+      </ul>
+      <div class="ms-auto">
+        <AuthWrapper client:only="react"/>
+      </div>
     </div>
-  </nav>
+  </div>
 </header>
 
 <style>
   .container {
   max-width: 1200px;
   margin: 0 auto;
-  background-color: transparent;
 }
 </style>

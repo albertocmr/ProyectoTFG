@@ -10,7 +10,7 @@ const Logger = () => {
 
   return isAuthenticated ? (
     <div className="d-flex align-items-center gap-2">
-      <img src={user.picture} alt={user.name} className="rounded-circle" style={{ width: "32px" }} />
+      <img src={user.picture} alt={user.name} className="rounded-circle" style={{ width: "36px", height: "36px" }} />
       <span className="text-white">{user.name}</span>
       <button className="btn btn-sm btn-outline-danger" onClick={() => logout({ returnTo: window.location.origin })}>
         Cerrar sesión

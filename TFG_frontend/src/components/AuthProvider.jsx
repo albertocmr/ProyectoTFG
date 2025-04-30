@@ -11,7 +11,7 @@ const AuthProvider = ({ children }) => {
       domain={domain}
       clientId={clientId}
       authorizationParams={{
-        redirect_uri: redirect_uri, // window.location.origin
+        redirect_uri: redirect_uri,
         audience: audience,
       }}
     >
