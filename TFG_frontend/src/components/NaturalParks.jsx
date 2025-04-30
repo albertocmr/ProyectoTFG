@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import NaturalPark from './NaturalPark';
-import '../styles/NaturalParks.css';
 import NaturalParkService from '../service/NaturalParkService'
 
 const NaturalParks = () => {
@@ -31,18 +30,18 @@ const NaturalParks = () => {
   }, {});
 
   return (
-    <div className="container">
-      <section className="mx-auto max-w-full lg:max-w-4xl p-4 lg:p-6">
-        <h2 className="font-bold mb-4">Parques Naturales</h2>
+    <div className="container p-4">
+      <section className="bg-white shadow-xl rounded-2xl border mx-auto max-w-full lg:max-w-4xl lg:p-6 p-2">
+        <h1 className="font-bold fs-3 mb-4">Parques Naturales</h1>
 
         {Object.keys(groupedNaturalParks).map((province, index) => (
           <div className="dropdown mb-3" key={index}>
-            <div 
+            <button 
               className="dropdown-item justify-between items-center p-2 rounded-lg shadow-sm cursor-pointer transition-colors duration-300 hover:bg-gray-200" 
               onClick={() => toggle(index)}>
               <h3 className='font-bold'>{province} </h3>
-              <span>{selected === index ? '-' : '+'}</span>
-            </div>
+              <span className='icon'>{selected === index ? '-' : '+'}</span>
+            </button>
             <div 
               className={`dropdown-content ${selected === index ? 'expanded' : ''}`} 
               style={{ maxHeight: selected === index ? '1000px' : '0', transition: 'max-height 1.0s ease-in-out' }}

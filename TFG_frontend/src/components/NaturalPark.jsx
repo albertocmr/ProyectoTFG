@@ -1,5 +1,4 @@
 import React from 'react';
-import '../styles/NaturalPark.css';
 
 
 const NaturalParkComponent = (props) => {
