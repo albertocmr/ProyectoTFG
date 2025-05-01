@@ -1,73 +1,64 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 const AddNaturalParkComponent = ({ id }) => {
-  const [name, setName] = useState("");
-  const [province, setProvince] = useState("");
-  const [perimeterfile, setPerimeterfile] = useState("");
+  const [park, setPark] = useState({ name: "", province: "", perimeterfile: "" });
 
   useEffect(() => {
-    if (id) {
-      axios.get(`http://localhost:8080/api/natural_parks/${id}`)
-        .then((response) => {
-          const park = response.data;
-          setName(park.name);
-          setProvince(park.province);
-          setPerimeterfile(park.perimeterfile);
-        })
-        .catch((error) => console.error("Error al cargar el parque:", error));
-    }
+    if (!id) return;
+
+    axios.get(`http://localhost:8080/api/natural_parks/${id}`)
+      .then(res => setPark(res.data))
+      .catch(error => console.error("Error al cargar parque:", error));
   }, [id]);
 
-  const saveOrUpdateNaturalPark = async (e) => {
+  const handleChange = e => {
+    setPark({ ...park, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = e => {
     e.preventDefault();
-    
-    const naturalPark = { name, province, perimeterfile };
+    const req = id
+      ? axios.put(`http://localhost:8080/api/natural_parks/${id}`, park)
+      : axios.post("http://localhost:8080/api/natural_parks", park);
 
-    try {
-      if (id) {
-        await axios.put(`http://localhost:8080/api/natural_parks/${id}`, naturalPark);
-        console.log("Parque actualizado");
-      } else {
-        await axios.post("http://localhost:8080/api/natural_parks", naturalPark);
-        console.log("Parque guardado");
-      }
-
-      window.location.href = "/managementdb";
-    } catch (error) {
-      console.error("Error al guardar el parque:", error);
-    }
+    req
+      .then(res => {
+        console.log(id ? "Actualizado:" : "Creado:", res.data);
+        window.location.href = "/managementdb";
+      })
+      .catch(err => console.error("Error guardando:", err));
   };
 
   return (
-    <div className="container border rounded pt-2 pb-4 shadow p-3 mt-5 rounded">
-      <h1 className="fs-3">{id ? "Editar Parque Natural" : "Registro de Parque Natural"}</h1>
-      <form onSubmit={saveOrUpdateNaturalPark}>
-        <div className="form-group mb-2 mt-2">
-          <div className="form-floating mb-3">
-            <input type="text" id="name" placeholder="" className="form-control" value={name} onChange={(e) => setName(e.target.value)} />
-            <label htmlFor="floatingInput">Nombre del parque natural</label>
-          </div>
-        </div>
-
-        <div className="form-group mb-2">
-          <div className="form-floating mb-3">
-            <input type="text" id="province" placeholder="" className="form-control" value={province} onChange={(e) => setProvince(e.target.value)} />
-            <label htmlFor="floatingInput">Provincia</label>
-          </div>
-        </div>
-
-        <div className="form-group mb-2">
-          <div className="form-floating mb-3">
-            <input type="text" id="perimeterfile" placeholder="" className="form-control" value={perimeterfile} onChange={(e) => setPerimeterfile(e.target.value)} />
-            <label htmlFor="perimeterfile">Archivo Perímetro</label>
-          </div>
-        </div>
-
-        <button type="submit" className="btn btn-success">{id ? "Actualizar" : "Guardar"}</button>
-        &nbsp;&nbsp;
-        <a href="/managementdb" className="btn btn-danger">Cancelar</a>
-      </form>
+    <div className="container p-4">
+      <div className="bg-white shadow-xl rounded-2xl border p-4">
+        <h1 className="fs-4 text-center mb-1"><strong>{id ? "Editar Parque Natural" : "Registro de Parque Natural"}</strong></h1>
+        <form className="p-3" onSubmit={handleSubmit}>
+          {["name","province","perimeterfile"].map(field => (
+            <div key={field} className="form-floating mb-3">
+              <input
+                type="text"
+                id={field}
+                className="form-control"
+                value={park[field]}
+                onChange={handleChange}
+                placeholder=""
+              />
+              <label htmlFor={field}>
+                { field === "name" ? "Nombre" :
+                  field === "province" ? "Provincia" :
+                  "Archivo perímetro" }
+              </label>
+            </div>
+          ))}
+          <button type="submit" className="btn btn-success">
+            {id ? "Actualizar" : "Guardar"}
+          </button>
+          &nbsp;
+          <a href="/managementdb" className="btn btn-danger">Cancelar</a>
+        </form>
+      </div>
     </div>
   );
 };
