@@ -2,17 +2,19 @@
 const createUrl = 'https://map.project-osrm.org/?z=8&center=37.175637%2C-4.493408&hl=es&alt=0&srv=0';
 ---
 
-<div class="container d-flex flex-wrap justify-content-center p-5">
-  <p>
-    En esta sección podrás crear tu propia ruta y exportarla a formato GPX para así, poder cargarla en el apartado de 'Carga una ruta'. <strong>Utilizamos un mapa de la página web OSRM</strong>. Lo primero que debes de hacer
-    es indicar en la parte superior izquierda del mapa, en el desplegable azul, cuál será tu medio de transporte durante la ruta (coche, bicicleta o peatón). Una vez seleccionado, el motor que controla al mapa
-    podrá calcular la ruta de manera efectiva. Para ello, debes marcar tanto el punto de inicio como el punto final de la ruta. Una vez hecho esto, debes exportar tu ruta a un archivo .GPX, cuentas con un botón
-    para ello en el menú que se encuentra en la parte inferior izquierda del mapa. Una vez hecho esto, se exportará tu 'track' a un archivo .GPX que podrás cargar en <strong>'Carga una ruta'</strong>.
-  </p>
-  <iframe
-    src={createUrl}
-    style="width: 80%; height: 50vh; max-width: 900px; border: 2px solid black;"
-    title="Mapa con OSRM"
-    allowfullscreen
-  ></iframe>
+<div class="p-4 d-flex flex-wrap justify-content-center">
+  <div class="bg-white shadow-xl p-3 rounded-2xl border mb-5">
+    <p class="text-gray-700 mb-2">
+      En esta sección podrás crear tu propia ruta y exportarla a formato GPX para así, poder cargarla en el apartado de 'Carga una ruta'. <strong>Utilizamos un mapa de la página web OSRM</strong>. Lo primero que debes de hacer
+      es indicar en la parte superior izquierda del mapa, en el desplegable azul, cuál será tu medio de transporte durante la ruta (coche, bicicleta o peatón). Una vez seleccionado, el motor que controla al mapa
+      podrá calcular la ruta de manera efectiva. Para ello, debes marcar tanto el punto de inicio como el punto final de la ruta. Una vez hecho esto, debes exportar tu ruta a un archivo .GPX, cuentas con un botón
+      para ello en el menú que se encuentra en la parte inferior izquierda del mapa. Una vez hecho esto, se exportará tu 'track' a un archivo .GPX que podrás cargar en <strong>'Carga una ruta'</strong>.
+    </p>
+  </div>
+    <iframe
+      src={createUrl}
+      style="width: 80%; height: 50vh; max-width: 900px; border: 2px solid black;"
+      title="Mapa con OSRM"
+      allowfullscreen
+    ></iframe>
 </div>
