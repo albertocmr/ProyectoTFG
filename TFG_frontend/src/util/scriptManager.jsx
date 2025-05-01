@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Modal } from 'bootstrap';
 
 export const executeScriptPython = async (selectedGPXFile, setLoadingScript, setParksList) => {
@@ -9,28 +10,31 @@ export const executeScriptPython = async (selectedGPXFile, setLoadingScript, set
     setLoadingScript(true);
 
     try {
-        const response = await fetch('http://localhost:8080/api/ejecutar-script');
+        const response = await axios.get('http://localhost:8080/api/ejecutar-script');
 
-        if (!response.ok) {
+        if (response.status === 200) {
+            const data = response.data;
+
+            if (Array.isArray(data)) {
+                setParksList(data);
+                alert('Script ejecutado correctamente.');
+
+                const modalElement = document.getElementById('parksModal');
+                modalElement.style.display = 'block';
+                const modal = new Modal(modalElement);
+                modal.show();
+            } else {
+                throw new Error("La API no devolvió una lista válida de parques.");
+            }
+        } else {
             throw new Error(`Error HTTP: ${response.status}`);
         }
 
-        const data = await response.json();
-
-        if (!Array.isArray(data)) {
-            throw new Error("La API no devolvió una lista válida de parques.");
-        }
-
-        setParksList(data);
-        alert('Script ejecutado correctamente.');
-
-        const modalElement = document.getElementById('parksModal');
-        modalElement.style.display = 'block';
-        const modal = new Modal(modalElement);
-        modal.show();
-
-
     } catch (error) {
+        if (error.response && error.response.status === 401) {
+            alert("Necesitas loguearte para poder ejecutar el script.");
+            return;
+        }
         alert(`Error al ejecutar el script: ${error.message}`);
     } finally {
         setLoadingScript(false);

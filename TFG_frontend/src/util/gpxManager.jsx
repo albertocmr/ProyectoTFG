@@ -2,7 +2,7 @@
 import * as toGeoJSON from '@mapbox/togeojson';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-
+import axios from 'axios';
 
 
 export const addGPXToMap = (event, map, setSelectedGPXFile, gpxLayers, setGpxLayers) => {
@@ -62,20 +62,23 @@ export const uploadGPXFile = async (selectedGPXFile) => {
     formData.append("route", selectedGPXFile);
 
     try {
-        const response = await fetch('http://localhost:8080/api/gpx/upload', {
-            method: 'POST',
-            body: formData,
+        const response = await axios.post('http://localhost:8080/api/gpx/upload', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
         });
 
-        if (!response.ok) {
-            throw new Error(`Error al subir el archivo: ${response.status}`);
-        }
+        console.log(response.data);
 
-        const data = await response.text();
-        alert(`${data}`);
+        alert(`Archivo GPX ${selectedGPXFile.name} subido correctamente.`);
     } catch (error) {
         console.error('Error al subir el archivo:', error);
-        alert(`Error al subir el archivo: ${error.message}`);
+        if (error.response && error.response.status === 401) {
+            alert("Necesitas loguearte para poder subir archivos GPX.");
+            return;
+        } else {
+            alert(`Error al subir el archivo: ${error.message}`);
+        }
     }
 };
 
@@ -91,18 +94,34 @@ export const fetchAndAddGPXFiles = async (map, selectedGPXFile, setGpxLayers) =>
     }
 
     try {
-        const res = await fetch('http://localhost:8080/api/gpx/list');
-        const fileList = await res.json();
+        const res = await axios.get('http://localhost:8080/api/gpx/list');
+
+        if (res.status === 401) {
+            alert("Necesitas loguearte para poder generar archivos GPX.");
+            return;
+        }
+
+        const fileList = res.data;
+        console.log("Archivos GPX recibidos:", fileList);
+
+        if (!fileList || fileList.length === 0) {
+            alert("No se encontraron archivos GPX con intersecciones en el servidor.");
+            return;
+        }
 
         for (const file of fileList) {
             const url = `http://localhost:8080/shared-data/routes/${file}`;
             const response = await fetch(url);
+
+            if (!response.ok) {
+                console.error(`Error al cargar el archivo ${file}:`, file);
+                continue;
+            }
             const gpxText = await response.text();
 
             const parser = new DOMParser();
             const xml = parser.parseFromString(gpxText, 'application/xml');
             const geojson = toGeoJSON.gpx(xml);
-
             const gpxLayer = L.geoJSON(geojson, {
                 style: {
                     color: '#ff2200',
@@ -114,11 +133,16 @@ export const fetchAndAddGPXFiles = async (map, selectedGPXFile, setGpxLayers) =>
             gpxLayer.addTo(map);
             setGpxLayers((prev) => [...prev, gpxLayer]);
 
-            //console.log(`Cargado: ${file}`);
+            console.log(`Cargado: ${file}`);
         }
 
         alert("GPX cargados correctamente.");
     } catch (err) {
+        if (err.response && err.response.status === 401) {
+            alert("Necesitas loguearte para poder generar archivos GPX.");
+            return;
+        }
+
         alert("Ocurrió un error al cargar los archivos GPX.");
     }
 };
