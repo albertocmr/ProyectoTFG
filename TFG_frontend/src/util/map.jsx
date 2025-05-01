@@ -44,23 +44,26 @@ export const initializeMap = async (setMap) => {
     setMap(initializedMap);
 }
 
-// src/utils/loadGeoJsonData.js
 export async function loadGeojsonDataFromBackend() {
     const response = await fetch("http://localhost:8080/api/perimeters");
-    const data = await response.json(); // [{ perimeterfile: "sierra_huetor" }, ...]
-  
-    const geojsonData = {};
-  
-    for (const { perimeterfile } of data) {
-      try {
-        // Asume que todos los archivos siguen este patrón
-        const module = await import(`../assets/coordinates/${perimeterfile}.json`);
-        geojsonData[perimeterfile] = module.default;
-      } catch (err) {
-        console.warn(`No se pudo cargar el archivo para: ${perimeterfile}`, err);
-      }
+
+    if (!response.ok) {
+        console.warn("Error al obtener perímetros:", response.status, response.statusText);
+        return {};
     }
-  
+
+    const data = await response.json();
+
+    const geojsonData = {};
+
+    for (const { perimeterfile } of data) {
+        try {
+            const module = await import(`../assets/coordinates/${perimeterfile}.json`);
+            geojsonData[perimeterfile] = module.default;
+        } catch (err) {
+            console.warn(`No se pudo cargar el archivo para: ${perimeterfile}`, err);
+        }
+    }
+
     return geojsonData;
-  }
-  
+}

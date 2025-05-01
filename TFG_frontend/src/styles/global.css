@@ -125,3 +125,10 @@ p {
   max-height: 500px;
   transition: max-height 0.5s ease-in-out;
 }
+
+/* Modal Estilos */
+.custom-modal-body {
+  max-height: 700px;
+  overflow-y: auto;
+}
+
