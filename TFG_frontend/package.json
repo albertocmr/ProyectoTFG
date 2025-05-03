@@ -8,6 +8,7 @@
     "@astrojs/tailwind": "^6.0.0",
     "@auth0/auth0-react": "^2.3.0",
     "@mapbox/togeojson": "^0.16.2",
+    "@popperjs/core": "^2.11.8",
     "astro": "^5.5.3",
     "axios": "^1.7.4",
     "bootstrap": "^5.3.5",
