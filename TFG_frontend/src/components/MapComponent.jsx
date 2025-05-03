@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useRef, use } from 'react';
 
 import { initializeMap } from '../util/map';
 import { loadRestrictions } from '../util/loadRestrictions';
 import { removeGPXLayers, addGPXToMap, uploadGPXFile, fetchAndAddGPXFiles } from '../util/gpxManager';
 import { executeScriptPython } from '../util/scriptManager';
+import Loading from '../assets/Loading';
 
 
 function Map() {
@@ -13,6 +14,14 @@ function Map() {
   const [selectedGPXFile, setSelectedGPXFile] = useState(null);
   const [parksList, setParksList] = useState([]);
   const [restrictions, setRestrictions] = useState({});
+
+  const [selectedMethod, setSelectedMethod] = useState("");
+  const [message, setMessage] = useState("");
+
+  const loadingModalRef = useRef(null);
+  const modalInstanceRef = useRef(null);
+
+
 
   const cleanedParkList = useMemo(() => {
     return parksList.map((park) => park.replace(/"/g, '').trim());
@@ -95,10 +104,29 @@ function Map() {
 
         <div
           className="modal fade"
+          id="loadingModal"
+          tabIndex="-1"
+          aria-labelledby="loadingModalLabel"
+          ref={loadingModalRef}
+        >
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content rounded-3 shadow-lg">
+              <div className="modal-body">
+                <div className="d-flex justify-content-center align-items-center">
+                  <Loading />
+                  <p className="text-center mt-3">Ejecutando script Python...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div
+          className="modal fade"
           id="parksModal"
           tabIndex="-1"
           aria-labelledby="parksModalLabel"
-          aria-hidden="true"
         >
           <div className="modal-dialog modal-xl">
             <div className="modal-content rounded-3 shadow-lg">

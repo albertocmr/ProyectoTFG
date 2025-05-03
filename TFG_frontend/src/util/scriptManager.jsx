@@ -17,7 +17,7 @@ export const executeScriptPython = async (selectedGPXFile, setLoadingScript, set
 
             if (Array.isArray(data)) {
                 setParksList(data);
-                alert('Script ejecutado correctamente.');
+                //alert('Script ejecutado correctamente.');
 
                 const modalElement = document.getElementById('parksModal');
                 modalElement.style.display = 'block';
