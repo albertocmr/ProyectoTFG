@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .card-container {
+    @apply bg-white shadow-xl rounded-2xl border border-black mt-4 p-3;
+  }
+}
 
 /* Estilos Mapa */
 #map {

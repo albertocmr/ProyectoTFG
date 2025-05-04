@@ -13,7 +13,7 @@ const NaturalParkComponent = (props) => {
                     Se encuentra en {props.province}
                 </p>
                 <p>
-                    Su archivo de perimetro es {props.perimeterfile}
+                    Consulta las restricciones de este parque natural.
                 </p>
                 <a className="btn btn-primary" href={"parques-naturales/" + props.perimeterfile} target="_blank" rel="noopener noreferrer">
                     Restricciones del parque

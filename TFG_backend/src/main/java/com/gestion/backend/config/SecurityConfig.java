@@ -26,8 +26,8 @@ public class SecurityConfig {
                   "/api/natural_parks/*",
                   "/api/perimeters",
                   "/api/perimeters/**",
-                  "shared-data/",
-                  "shared-data/**")
+                  "/shared-data/",
+                  "/shared-data/**")
                 .permitAll()
 
               // Solo ADMIN puede crear, editar o borrar
