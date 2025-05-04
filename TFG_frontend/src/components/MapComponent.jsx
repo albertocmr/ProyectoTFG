@@ -30,7 +30,7 @@ function Map() {
 
   useEffect(() => {
     if (cleanedParkList.length > 0) {
-      loadRestrictions(cleanedParkList, setRestrictions);
+      loadRestrictions(cleanedParkList, setRestrictions, selectedMethod);
     }
   }, [cleanedParkList]);
 
@@ -39,19 +39,92 @@ function Map() {
     initializeMap(setMap);
   }, [map]);
 
+  useEffect(() => {
+    if (!loadingModalRef.current ||modalInstanceRef.current) return;
+
+    modalInstanceRef.current = new window.bootstrap.Modal(loadingModalRef.current);
+  }, []);
+
+      
+
+  useEffect(() => {
+    const modal = modalInstanceRef.current;
+    if (!modal) return;
+
+    loadingScript ? modal.show() : modal.hide();
+
+  }, [loadingScript]);
+
+
+  // Controlador de eventos para el botón de cargar archivo GPX
+  const handleSelectMethod = (event) => {
+    const selectedValue = event.target.value;
+    setSelectedMethod(selectedValue);
+  }
+
+  useEffect(() => {
+    if (selectedMethod) {
+      switch (selectedMethod) {
+        case "1":
+          setMessage("Has seleccionado realizar la ruta en un vehículo a motor.");
+          break;
+        case "2":
+          setMessage("Has seleccionado realizar la ruta en bicicleta.");
+          break;
+        case "3":
+          setMessage("Has seleccionado realizar la ruta a pie.");
+          break;
+        default:
+          setMessage("");
+      }
+    }
+  }, [selectedMethod]);
+
+
+
+  
+
   return (
-    <div className="container p-5">
-      <div className='bg-white shadow-xl p-6 rounded-2xl border'>
-        <div className='ml-5 mb-3'>
-          <h5>Subir un archivo de ruta (.GPX)</h5>
-          <div className="mb-3 d-flex align-items-end">
-            <input
-              type="file"
-              className="form-control"
-              id="fileInput"
-              accept=".gpx"
-              onChange={(event) => addGPXToMap(event, map, setSelectedGPXFile, gpxLayers, setGpxLayers)}
-            />
+    <div className="container bg-white p-4 rounded-xl">
+      <div className='bg-white shadow-xl p-4 rounded-2xl border'>
+        <h1 className="fs-3 text-center mb-3"><strong>Comprueba tu ruta</strong></h1>
+        <div className="border border-dark rounded shadow row py-3">
+          <div className="col-md-6">
+            
+
+            <div className="ml-5 mb-3">
+              <h1 className='mb-2'>Selecciona el medio en el que realizarás la ruta</h1>
+              <div className="input-group">
+                <select 
+                  className="form-select" 
+                  id="inputGroupSelect01" 
+                  aria-label="Elige tu método para realizar la ruta"
+                  value={selectedMethod}
+                  onChange={handleSelectMethod}
+                >
+                  <option value="" disabled>Elige tu método para realizar la ruta</option>
+                  <option value="1">Vehículo a motor</option>
+                  <option value="2">Bicicleta</option>
+                  <option value="3">Senderismo</option>
+                </select>
+              </div>
+            {message && <p>{message}</p>}
+            </div>
+          </div>
+
+          <div className="col-md-6">
+            <div className='ml-5 mb-3'>
+              <h1 className='mb-2'>Subir un archivo de ruta (.GPX)</h1>
+              <div className="mb-3 d-flex align-items-end">
+                <input
+                  type="file"
+                  className="form-control"
+                  id="fileInput"
+                  accept=".gpx"
+                  onChange={(event) => addGPXToMap(event, map, setSelectedGPXFile, gpxLayers, setGpxLayers, selectedMethod)}
+                />
+              </div>
+            </div>
           </div>
         </div>
 
@@ -67,7 +140,7 @@ function Map() {
               uploadGPXFile(selectedGPXFile);
             }}
           >
-            Cargar archivo GPX en backend
+            Cargar el archivo de ruta
           </button>
 
           <button
@@ -78,7 +151,7 @@ function Map() {
             }}
             disabled={loadingScript}
           >
-            {loadingScript ? "Ejecutando..." : "Ejecutar Script Python"}
+            {loadingScript ? "Ejecutando..." : "Comprueba tu ruta"}
           </button>
 
           <button
@@ -98,7 +171,7 @@ function Map() {
               removeGPXLayers(map, gpxLayers, setGpxLayers);
             }}
           >
-            Eliminar capas GPX
+            Eliminar capas del mapa
           </button>
         </div>
 
@@ -120,6 +193,7 @@ function Map() {
             </div>
           </div>
         </div>
+        
 
 
         <div

@@ -5,7 +5,13 @@ import 'leaflet/dist/leaflet.css';
 import axios from 'axios';
 
 
-export const addGPXToMap = (event, map, setSelectedGPXFile, gpxLayers, setGpxLayers) => {
+export const addGPXToMap = (event, map, setSelectedGPXFile, gpxLayers, setGpxLayers, selectedMethod) => {
+
+    if(!selectedMethod || selectedMethod === ""){
+        alert(`Antes de subir la ruta, debes seleccionar el transporte en el que se va a realizar.`)
+        return;
+    }
+
     const file = event.target.files[0];
 
 
@@ -102,7 +108,7 @@ export const fetchAndAddGPXFiles = async (map, selectedGPXFile, setGpxLayers) =>
         }
 
         const fileList = res.data;
-        console.log("Archivos GPX recibidos:", fileList);
+        //console.log("Archivos GPX recibidos:", fileList);
 
         if (!fileList || fileList.length === 0) {
             alert("No se encontraron archivos GPX con intersecciones en el servidor.");
@@ -133,7 +139,7 @@ export const fetchAndAddGPXFiles = async (map, selectedGPXFile, setGpxLayers) =>
             gpxLayer.addTo(map);
             setGpxLayers((prev) => [...prev, gpxLayer]);
 
-            console.log(`Cargado: ${file}`);
+            //console.log(`Cargado: ${file}`);
         }
 
         alert("GPX cargados correctamente.");
