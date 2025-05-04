@@ -230,6 +230,14 @@ function Map() {
                         );
                       })}
                     </ul>
+                  <div class="alert alert-info mx-2">
+                    <p>
+                      <strong>Nota:</strong> Las restricciones aquí mostradas están basadas en la normativa correspondiente al apartado <strong>Uso público, Turismo activo, Ecoturismo y Educación ambiental</strong> recogida en los <a href="https://www.juntadeandalucia.es/medioambiente/portal/areas-tematicas/espacios-protegidos/gestion-espacios-protegidos/porn-prug-planes-de-gestion/documentos-aprobados" target="_blank" rel="noopener noreferrer"><u>planes Plan de Ordenación de los Recursos Naturales (PORN) y Plan Rector de Uso y Gestión (PRUG)</u></a>.
+                    </p>
+                    <p>
+                        Para realizar actividades que requieren autorización, como filmaciones, acampadas organizadas o eventos deportivos, se debe solicitar permiso a la Delegación Territorial de la Consejería competente en medio ambiente. Consulta el procedimiento y requisitos actualizados en la <a href="https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/727.html" target="_blank" rel="noopener noreferrer"><u>web oficial de la Junta de Andalucía</u></a>.
+                    </p>
+                  </div>
                   </div>
                 ) : (
                   <p className="text-center text-muted">La ruta proporcionada no pasa por ningún Parque Natural Andaluz.</p>
