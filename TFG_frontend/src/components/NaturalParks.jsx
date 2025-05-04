@@ -30,9 +30,9 @@ const NaturalParks = () => {
   }, {});
 
   return (
-    <div className="container p-4">
-      <section className="bg-white shadow-xl rounded-2xl border mx-auto max-w-full lg:max-w-4xl lg:p-6 p-2">
-        <h1 className="font-bold fs-3 mb-4">Parques Naturales</h1>
+    <div className="container bg-white p-4 rounded-xl">
+      <section className="shadow-xl rounded-2xl border mx-auto max-w-full lg:max-w-4xl lg:p-4 p-2">
+        <h1 className="font-bold text-center fs-2 mb-4">Parques Naturales</h1>
 
         {Object.keys(groupedNaturalParks).map((province, index) => (
           <div className="dropdown mb-3" key={index}>
