@@ -22,6 +22,7 @@ TFG_frontend/node_modules
 # VS Code
 .vscode
 
+target
 
 npm-debug.log*
 yarn-debug.log*

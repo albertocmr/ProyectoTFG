@@ -13,7 +13,7 @@ COPY . .
 
 # Copia los archivos del frontend a la carpeta compartida (volumen)
 COPY ./src/assets/coordinates /app/shared-data/coordinates
-COPY ./src/assets/routes /app/shared-data/routes
+RUN mkdir -p /app/shared-data/routes
 
 # Expone el puerto donde corre el frontend (puedes cambiarlo si es necesario)
 EXPOSE 8001
