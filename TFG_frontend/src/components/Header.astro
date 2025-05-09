@@ -1,12 +1,12 @@
 ---
-import AuthWrapper from "./AuthWrapper";
+import NavLinksWrapper from "./NavLinksWrapper.jsx";
 ---
 
 <header class="px-5 h-16 lg:h-24 mb-10 navbar navbar-expand-md navbar-dark bg-dark shadow-xl">
   <div class="container-fluid p-2">
     <div class="p-2">
       <a href="/">
-        <img src="/logo-parktracker.png " style="width: 36px"/>
+        <img src="/logo-parktracker.png" style="width: 36px" />
       </a>
     </div>
     <a href="/" class="navbar-brand fs-3 fw-bold">ParkTracker</a>
@@ -18,25 +18,9 @@ import AuthWrapper from "./AuthWrapper";
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a href="/" class="nav-link">Inicio</a></li>
-        <li class="nav-item">
-          <a href="/createTrack" class="nav-link">Crea tu ruta</a>
-        </li>
-        <li class="nav-item">
-          <a href="/map" class="nav-link">Comprueba tu ruta</a>
-        </li>
-        <li class="nav-item">
-          <a href="/naturalParks" class="nav-link">Parques Naturales</a>
-        </li>
-        <li class="nav-item">
-          <a href="/managementdb" class="nav-link">Gestión DDBB</a>
-        </li>
-      </ul>
-      <div class="ms-auto">
-        <AuthWrapper client:only="react" />
-      </div>
+      <NavLinksWrapper client:only="react" />
     </div>
   </div>
 </header>
