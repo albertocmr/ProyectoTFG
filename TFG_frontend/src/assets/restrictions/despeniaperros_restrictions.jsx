@@ -5,64 +5,44 @@ const generalRules = [
   "La práctica y el desarrollo de las actividades de uso público y educación ambiental se realizará asegurando la conservación del patrimonio natural y cultural."
 ];
 
-const forbiddenActivities = [
-  "La circulación de vehículos terrestres a motor por caminos rurales de anchura inferior a 2 metros, ni por servidumbres de los dominios públicos hidráulicos, cortafuegos y fajas auxiliares, vías forestales de extracción de madera y cauces secos e inundados.",
-  "La circulación campo a través o fuera de los caminos permitidos de bicicleta y vehículos a motor.",
+const rulesByMethod = {
+  motor: [
+    "La circulación de vehículos terrestres a motor por caminos rurales de anchura inferior a 2 metros, ni por servidumbres de los dominios públicos hidráulicos, cortafuegos y fajas auxiliares, vías forestales de extracción de madera y cauces secos e inundados.",
+    "La circulación campo a través o fuera de los caminos permitidos de vehículos a motor.",
+    "La circulación en quads vinculada a actividades de uso público.",
+    "La circulación de vehículos a motor en Zonas de reserva (A). (requiere autorización)",
+    "Las caravanas con 4 o más vehículos. (requiere autorización)",
+  ],
+  bike: [
+    "La circulación campo a través o fuera de los caminos permitidos de bicicleta.",
+    "Bicicleta de montaña en Zonas de reserva (A). (requiere autorización)",
+  ],
+  hike: [
+    "Senderismo: en Zonas de reserva (A). (requiere autorización)",
+    "Vivaqueo, entendiendo por tal la actividad de pasar la noche al aire libre utilizando el material específico para estos menesteres, como el saco de dormir, la funda de vivac o tiendas de campaña de pequeña envergadura. (requiere autorización)",
+    "Travesía, montañismo: en Zonas de reserva (A). (requiere autorización)",
+    "Escalada: en Zonas de reserva (A) y, del 1 de diciembre al 31 de agosto, en zonas donde se produzca nidificación y crías de aves rapaces. (requiere autorización)",
+  ],
+};
+
+const additionalRules = [
   "El paracaidismo.",
   "Las actividades relacionadas con actividades recreativas que empleen helicópteros, ultraligeros, aviones, avionetas y cualquier vehículo aéreo con motor.",
-  "La circulación en quads vinculada a actividades de uso público."
+  "Actividades aeronáuticas: globo aerostático. (requiere autorización)",
+  "Salto desde el puente y salto con elástico: en Zonas de reserva (A). (requiere autorización)",
+  "Cualquier actividad permitida que se realice fuera de los equipamientos básicos y complementarios que requiera la instalación de dotaciones, incluso cuando éstas sean provisionales. (requiere autorización)",
+  "La realización de cualquier tipo de competición deportiva, prueba o exhibición organizada. (requiere autorización)",
+  "Las acampadas o campamentos juveniles que se organicen de acuerdo con el Decreto 45/2000, de 31 de enero, sobre la organización de acampadas y campamentos juveniles de Andalucía. (requiere autorización)",
+  "La apertura de nuevas vías o escuelas de escalada y el reequipamiento y el desequipamiento de las existentes. (requiere autorización)",
+  "El establecimiento de áreas de despegue o aterrizaje, así como la señalización de las mismas, para actividades aeronáuticas sin motor. (requiere autorización)",
+  "La creación de camping y áreas de acampada. (requiere autorización)",
+  "La puesta en valor de nuevos senderos peatonales y su señalización. (requiere autorización)",
 ];
 
-const authorizationActivities = [
-  "Bicicleta de montaña en Zonas de reserva (A).",
-  "Actividades aeronáuticas: globo aerostático.",
-  "Escalada: en Zonas de reserva (A) y, del 1 de diciembre al 31 de agosto, en zonas donde se produzca nidificación y crías de aves rapaces.",
-  "Turismo ecuestre en Zonas de reserva (A).",
-  "Travesía, montañismo: en Zonas de reserva (A).",
-  "Senderismo: en Zonas de reserva (A).",
-  "Vivaqueo, entendiendo por tal la actividad de pasar la noche al aire libre utilizando el material específico para estos menesteres, como el saco de dormir, la funda de vivac o tiendas de campaña de pequeña envergadura.",
-  "La circulación de vehículos a motor en Zonas de reserva (A)",
-  "Las caravanas con 4 o más vehículos.",
-  "Salto desde el puente y salto con elástico: en Zonas de reserva (A).",
-  "Cualquier actividad permitida que se realice fuera de los equipamientos básicos y complementarios que requiera la instalación de dotaciones, incluso cuando éstas sean provisionales.",
-  "La realización de cualquier tipo de competición deportiva, prueba o exhibición organizada.",
-  "Las acampadas o campamentos juveniles que se organicen de acuerdo con el Decreto 45/2000, de 31 de enero, sobre la organización de acampadas y campamentos juveniles de Andalucía.",
-  "La apertura de nuevas vías o escuelas de escalada y el reequipamiento y el desequipamiento de las existentes.",
-  "El establecimiento de áreas de despegue o aterrizaje, así como la señalización de las mismas, para actividades aeronáuticas sin motor.",
-  "La creación de camping y áreas de acampada.",
-  "La puesta en valor de nuevos senderos peatonales y su señalización."
-];
-
-const prugActivities = [
-  "Con carácter general, el acceso y tránsito de visitantes será libre por los viales de la red pública de caminos según la normativa vigente, exceptuando los que presenten señalización que indique una restricción o limitación de paso.",
-  "La Consejería de Medio Ambiente podrá limitar o restringir, a los visitantes en general o a cierto tipo de transporte, de forma eventual o permanentemente, el acceso por cualquier camino público cuando exista causa justificada por impacto ambiental, incompatibilidad del uso con la conservación, con los trabajos forestales o de aprovechamiento de los recursos y por motivos de riesgo a las personas."
-];
-
-const VehiclesActivities = () => (
-  <div>
-    <h5>Vehículos a motor:</h5>
-    <ul className="list-group mb-4 border border-dark">
-      <li className="list-group-item list-group-item-dark">En caminos de tierra, la velocidad máxima será de 40 km/h salvo indicación expresa.</li>
-      <li className="list-group-item list-group-item-dark">Los vehículos no podrán salirse de los caminos, excepto en los lugares previstos para ello.</li>
-      <li className="list-group-item list-group-item-light">
-        Cuando se empleen vehículos todoterreno para la observación de la fauna, se seguirán las siguientes condiciones:
-        <ul>
-          <li className="list-group-item">La distancia mínima a los animales será de 100m.</li>
-          <li className="list-group-item">No se producirán ruidos o sonidos estridentes.</li>
-          <li className="list-group-item">No se arrojarán alimentos ni se realizarán cebados.</li>
-          <li className="list-group-item">No se interceptará el movimiento de los animales observados.</li>
-          <li className="list-group-item">No se circulará a más de 20 km/h en las inmediaciones de los animales.</li>
-          <li className="list-group-item">No se utilizará iluminación artificial alguna.</li>
-          <li className="list-group-item">No se usará ningún sistema de atracción, captura o repulsión de animales.</li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-);
 
 const Sections = ({ title, items }) => (
   <section className="mb-4 mt-4 border border-dark p-2">
-    <h4 className="ms-4">{title}</h4>
+    <h2 className="ms-4 mb-2"><u>{title}</u></h2>
     <ul className="list-group mb-4 border border-dark">
       {items.map((item, index) => (
         <li key={index} className={`list-group-item ${index % 2 === 0 ? "list-group-item-dark" : ""}`}>
@@ -73,17 +53,37 @@ const Sections = ({ title, items }) => (
   </section>
 );
 
-const DespeniaperrosRestrictions = () => {
+const DespeniaperrosRestrictions = ({ selectedMethod }) => {
+  const methodKey =
+    selectedMethod === "1" ? "motor" :
+    selectedMethod === "2" ? "bike" :
+    selectedMethod === "3" ? "hike" : "all";
+
+  const methodNames = {
+    motor: "Vehículo a motor.",
+    bike: "Bicicleta.",
+    hike: "Senderismo.",
+    all: "Todas las restricciones (vehículos a motor, ciclismo y senderismo)"
+  };
+
+  const combinedRules =
+    methodKey === "all"
+      ? Array.from(new Set([
+        ...rulesByMethod.motor, 
+        ...rulesByMethod.bike, 
+        ...rulesByMethod.hike,
+        ...additionalRules
+      ]))
+      : rulesByMethod[methodKey] || [];
 
   return (
-    <div className="container mt-4 border border-warning p-4">
-      <h3 className="mb-4">Restricciones del parque natural del Despeñaperros</h3>
-      <Sections title="Normas Generales" items={generalRules} />
-      <Sections title="Actividades no permitidas" items={forbiddenActivities} />
-      <Sections title="Actividades sujetas a la obtención de autorización" items={authorizationActivities} />
-      <Sections title="PRUG:" items={prugActivities} />
-      <VehiclesActivities />
-
+    <div className="container shadow p-3">
+      <div className="card-container">
+        <h3 className="mb-4">Restricciones del Parque Natural del Despeñaperros </h3>
+        <h4>Método seleccionado: {methodNames[methodKey]}</h4>
+        {methodKey === "all" && <Sections title="Normas Generales" items={generalRules} />}
+        <Sections title="Prohibiciones específicas" items={combinedRules} />
+      </div>
     </div>
   );
 };

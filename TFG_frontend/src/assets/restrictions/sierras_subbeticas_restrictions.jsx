@@ -4,38 +4,55 @@ const generalRules = [
   "La Consejería de Medio Ambiente podrá limitar, condicionar o someter a autorización, de forma cautelar e inmediata, por un tiempo determinado o de manera permanente, el desarrollo de cualquier tipo de actividad en un determinado lugar, cuando existan razones justificadas."
 ];
 
-const forbiddenActivities = [
-  "La circulación de vehículos terrestres a motor por caminos rurales de uso restringido, por servidumbres de los dominios públicos hidráulicos, cortafuegos y fajas auxiliares, vías forestales de extracción de madera y cauces secos o inundados.",
-  "La circulación de vehículos campo a través.",
-  "Las bicicletas de montaña, turismo ecuestre y vehúcilos terrestres a motor en los senderos peatonales de uso público clasificados como tal por la Consejería de Medio Ambiente.",
+const rulesByMethod = {
+  motor: [
+    "La circulación de vehículos terrestres a motor por caminos rurales de uso restringido, por servidumbres de los dominios públicos hidráulicos, cortafuegos y fajas auxiliares, vías forestales de extracción de madera y cauces secos o inundados.",
+    "La circulación de vehículos campo a través.",
+    "Las bicicletas de montaña, turismo ecuestre y vehículos terrestres a motor en los senderos peatonales de uso público clasificados como tal por la Consejería de Medio Ambiente.",
+    "La circulación de quads vinculada a actividades de uso público.",
+    "Las caravanas con 4 o más vehículos.",
+    "Cualquier actividad permitida que se realice fuera de los equipamientos básicos y complementarios que requiera la instalación de dotaciones, incluso cuando éstas sean provisionales.",
+    "La realización de cualquier tipo de competición deportiva, prueba o exhibición organizada."
+  ],
+  bike: [
+    "Las bicicletas de montaña, turismo ecuestre y vehículos terrestres a motor en los senderos peatonales de uso público clasificados como tal por la Consejería de Medio Ambiente.",
+    "Bicicleta de montaña en Zonas de reserva (A).",
+    "Cualquier actividad permitida que se realice fuera de los equipamientos básicos y complementarios que requiera la instalación de dotaciones, incluso cuando éstas sean provisionales.",
+    "La puesta en valor de nuevos senderos peatonales y su señalización.",
+    "La realización de cualquier tipo de competición deportiva, prueba o exhibición organizada."
+  ],
+  hike: [
+    "Senderismo en Zonas de Reserva (A).",
+    "Turismo ecuestre en Zonas de Reserva (A).",
+    "Las bicicletas de montaña, turismo ecuestre y vehículos terrestres a motor en los senderos peatonales de uso público clasificados como tal por la Consejería de Medio Ambiente.",
+    "Cualquier actividad permitida que se realice fuera de los equipamientos básicos y complementarios que requiera la instalación de dotaciones, incluso cuando éstas sean provisionales.",
+    "La puesta en valor de nuevos senderos peatonales y su señalización.",
+    "El tránsito, para la realización de actividades de educación ambiental, por caminos de acceso restringido por motivos de conservación.",
+    "La realización de cualquier tipo de competición deportiva, prueba o exhibición organizada."
+  ]
+};
+
+const additionalRules = [
   "El paracaidismo.",
   "Las actividades relacionadas con actividades recreativas que empleen helicópteros, ultraligeros, aviones, avionetas y cualquier vehículo aéreo con motor.",
-  "La circulación de quads vinculada a actividades de uso público."
-];
-
-const authorizationActivities = [
   "Actividades aeronáuticas: globo aerostático.",
-  "Bicicleta de montaña en Zonas de reserva (A).",
-  "Las caravanas con 4 o más vehículos.",
-  "Turismo ecuestre en Zonas de Reserva (A).",
-  "Senderismo en Zonas de Reserva (A).",
-  "Cualquier actividad permitida que se realice fuera de los equipamientos básicos y complementarios que requiera la instalación de dotaciones, incluso cuando éstas sean provisionales.",
-  "La realización de cualquier tipo de competición deportiva, prueba o exhibición organizada.",
   "Vivaqueo, entendiendo por tal la actividad de pasar la noche al aire libre utilizando el material específico para estos menesteres, como el saco de dormir o la funda de vivac.",
-  "Las acampadas o campamentos juveniles que se organicen de acuerdo con el Decreto 45/2000, de 31 de enero, sobre la organización de acampadas y campamentos juveniles de Andalucía.",
-  "El tránsito, para la realización de actividades de educación ambiental, por caminos de acceso restringido por motivos de conservación",
+  "Las acampadas o campamentos juveniles que se organicen de acuerdo con el Decreto 45/2000.",
   "El establecimiento de áreas de despegue o aterrizaje, así como la señalización de las mismas, para actividades aeronáuticas sin motor.",
-  "La puesta en valor de nuevos senderos peatonales y su señalización.",
   "Aquellas romerías o concentraciones de carácter popular que hayan iniciado su actividad durante los últimos 10 años o la vayan a iniciar en la actualidad."
 ];
 
-const prugActivities = [
 
-];
+const methodNames = {
+  motor: "Vehículo a motor.",
+  bike: "Bicicleta.",
+  hike: "Senderismo.",
+  all: "Todas las restricciones (vehículos a motor, ciclismo y senderismo)"
+};
 
 const Sections = ({ title, items }) => (
   <section className="mb-4 mt-4 border border-dark p-2">
-    <h4 className="ms-4">{title}</h4>
+    <h2 className="ms-4">{title}</h2>
     <ul className="list-group mb-4 border border-dark">
       {items.map((item, index) => (
         <li key={index} className={`list-group-item ${index % 2 === 0 ? "list-group-item-dark" : ""}`}>
@@ -47,16 +64,34 @@ const Sections = ({ title, items }) => (
 );
 
 
-const SierrasSubbeticasRestrictions = () => {
+const SierrasSubbeticasRestrictions = ({ selectedMethod }) => {
+  const methodKey =
+    selectedMethod === "1" ? "motor" :
+    selectedMethod === "2" ? "bike" :
+    selectedMethod === "3" ? "hike" :
+    "all";
+
+  const combinedRules = methodKey === "all"
+    ? Array.from(new Set([
+        ...rulesByMethod.motor,
+        ...rulesByMethod.bike,
+        ...rulesByMethod.hike,
+        ...additionalRules
+      ]))
+    : rulesByMethod[methodKey] || [];
+
   return (
-    <div className="container mt-4 border border-dark p-4">
-      <h3 className="mb-4">Restricciones del Parque Natural Sierras Subbéticas</h3>
-      <Sections title="Normas Generales" items={generalRules} />
-      <Sections title="Actividades no permitidas" items={forbiddenActivities} />
-      <Sections title="Actividades sujetas a autorización" items={authorizationActivities} />
-      <Sections title="PRUG:" items={prugActivities} />
+    <div className="container shadow p-3">
+      <div className="card-container">
+        <h3 className="mb-4">Restricciones del Parque Natural Sierras Subbéticas</h3>
+        <h4>Método seleccionado: {methodNames[methodKey]}</h4>
+        {methodKey === "all" && (
+          <Sections title="Normas Generales" items={generalRules} />
+        )}
+        <Sections title="Prohibiciones en el parque natural" items={combinedRules} />
+      </div>
     </div>
   );
 };
-  
-  export default SierrasSubbeticasRestrictions;
+
+export default SierrasSubbeticasRestrictions;

@@ -7,38 +7,42 @@ const generalRules = [
   "El Equipo de Gestión del Espacio Natural podrá autorizar excepciones para eventos turísticos o culturales relacionados con las actividades mencionadas."
 ];
 
-const forbiddenActivities = [
-  "La circulación de vehículos por caminos y pistas forestales a velocidades superiores a 40 km/h, salvo indicación expresa que indique un límite diferente.",
-  "El globo aerostático en Zonas de Reserva y el paracaidismo en todo el Parque Natural.",
-  "La circulación “campo a través” o fuera de los caminos permitidos, con bicicletas, vehículos a motor y en equino.",
-  "La celebración de pruebas deportivas de vehículos terrestres a motor en cualquier camino del Parque Natural, excepto en las carreteras comarcales.",
-  "La actividad motonáutica, salvo en las playas urbanas en las zonas balizadas a tal efecto.",
-  "La acampada y el aparcamiento permanente o temporal fuera de los campamentos de turismo y áreas de acampada, entre el ocaso entre el ocaso y la salida del sol, de vehículos habilitados como viviendas, y la construcción de habitáculos con cualquier tipo de materiales.",
-  "Las actividades relacionadas con actividades recreativas que empleen helicópteros, ultraligeros, aviones, avionetas y cualquier vehículo aéreo con motor.",
-  "La circulación de quads en actividades vinculadas al uso público."
-];
+const rulesByMethod = {
+  motor: [
+    "La circulación de vehículos por caminos y pistas forestales a velocidades superiores a 40 km/h, salvo indicación expresa que indique un límite diferente.",
+    "La circulación campo a través o fuera de los caminos permitidos, con bicicletas, vehículos a motor y en equino.",
+    "La celebración de pruebas deportivas de vehículos terrestres a motor en cualquier camino del Parque Natural, excepto en las carreteras comarcales.",
+    "La actividad motonáutica, salvo en las playas urbanas en las zonas balizadas a tal efecto.",
+    "La circulación de quads en actividades vinculadas al uso público.",
+    "La realización de cualquier tipo de competición deportiva, prueba o exhibición organizada.",
+    "El tránsito, para la realización de actividades de educación ambiental, por caminos de acceso restringido por motivos de conservación."
+  ],
+  bike: [
+    "La circulación campo a través o fuera de los caminos permitidos, con bicicletas, vehículos a motor y en equino.",
+    "La puesta en valor de nuevos senderos peatonales y su señalización."
+  ],
+  hike: [
+    "La puesta en valor de nuevos senderos peatonales y su señalización.",
+    "El tránsito, para la realización de actividades de educación ambiental, por caminos de acceso restringido por motivos de conservación."
+  ]
+};
 
-const authorizationActivities = [
+const additionalRules = [
+  "El globo aerostático en Zonas de Reserva y el paracaidismo en todo el Parque Natural.",
+  "La acampada y el aparcamiento permanente o temporal fuera de los campamentos de turismo y áreas de acampada, entre el ocaso y la salida del sol, de vehículos habilitados como viviendas, y la construcción de habitáculos con cualquier tipo de materiales.",
+  "Las actividades relacionadas con actividades recreativas que empleen helicópteros, ultraligeros, aviones, avionetas y cualquier vehículo aéreo con motor.",
   "Cualquier actividad permitida que se realice fuera de la red de senderos y equipamientos que requiera la instalación de dotaciones, incluso cuando éstas sean provisionales.",
   "Los establecimientos de restauración no permanentes al igual que todo tipo de quiosco o puesto de venta.",
-  "La realización de cualquier tipo de competición deportiva, prueba o exhibición organizada.",
-  "El tránsito, para la realización de actividades de educación ambiental, por caminos de acceso restringido por motivos de conservación.",
   "Las actividades aeronáuticas siguientes: parapente, ala delta, paramotor y globo aerostático, este último estará prohibido en Zonas de Reserva, Zonas A.",
   "El establecimiento de áreas de despegue o aterrizaje, así como la señalización de las mismas, para actividades aeronáuticas sin motor.",
   "La práctica del buceo con equipo autónomo, en aquellos lugares designados para dicha actividad (Zonas B5).",
-  "La puesta en valor de nuevos senderos peatonales y su señalización.",
   "Las instalaciones relacionadas con los deportes náuticos, ya sean fijas o temporales.",
   "La creación de campamentos de turismo y áreas de acampada."
 ];
 
-const prugActivities = [
-  "Son libres las actividades de turismo activo y ecoturismo en espacios de uso público sin restricciones específicas.",
-  "Las limitaciones se establecerán mediante resolución del Director del Parque Nacional y podrán modificarse si afectan la conservación del entorno."
-];
-
 const Section = ({ title, items }) => (
   <section className="mb-4 mt-4 border border-dark p-2">
-    <h4 className="ms-4">{title}</h4>
+    <h4 className="ms-4 mb-2"><u>{title}</u></h4>
     <ul className="list-group mb-4 border border-dark">
       {items.map((item, index) => (
         <li key={index} className={`list-group-item ${index % 2 === 0 ? "list-group-item-dark" : ""}`}>
@@ -49,15 +53,37 @@ const Section = ({ title, items }) => (
   </section>
 );
 
+const CaboDeGataRestrictions = ({ selectedMethod }) => {
+  const methodKey =
+    selectedMethod === "1" ? "motor" :
+      selectedMethod === "2" ? "bike" :
+        selectedMethod === "3" ? "hike" : "all";
 
-const CaboDeGataRestrictions = () => {
+  const methodNames = {
+    motor: "Vehículo a motor.",
+    bike: "Bicicleta.",
+    hike: "Senderismo.",
+    all: "Todas las restricciones (vehículos a motor, ciclismo y senderismo)"
+  };
+
+  const combinedRules =
+    methodKey === "all"
+      ? Array.from(new Set([
+        ...rulesByMethod.motor,
+        ...rulesByMethod.bike,
+        ...rulesByMethod.hike,
+        ...additionalRules
+      ]))
+      : rulesByMethod[methodKey] || [];
+
   return (
-    <div className="container mt-4 border border-warning p-4">
-      <h3 className="mb-4">Restricciones del parque natural de Cabo de Gata-Níjar</h3>
-      <Section title="Normas Generales" items={generalRules} />
-      <Section title="Actividades no permitidas" items={forbiddenActivities} />
-      <Section title="Actividades sujetas a la obtención de autorización" items={authorizationActivities} />
-      <Section title="PRUG:" items={prugActivities} />
+    <div className="container shadow p-3">
+      <div className="card-container">
+        <h3 className="mb-4">Restricciones del parque natural de Cabo de Gata-Níjar</h3>
+        <h4>Método seleccionado: {methodNames[methodKey]}</h4>
+        {methodKey === "all" && <Section title="Normas Generales" items={generalRules} />}
+        <Section title="Prohibiciones específicas" items={combinedRules} />
+      </div>
     </div>
   );
 };

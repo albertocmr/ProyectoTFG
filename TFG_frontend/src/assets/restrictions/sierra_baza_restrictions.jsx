@@ -1,4 +1,7 @@
-import React from 'react';
+const generalRules = [
+  "El desarrollo de actividades de turismo en el medio rural, de turismo activo y de ecoturismo por parte de empresas se regirá por la normativa vigente, en particular por lo establecido en el Decreto 20/2002, de 29 de enero, y en la Orden de 20 de marzo de 2003, conjunta de las Consejerías de Turismo y Deporte y de Medio Ambiente, y las disposiciones establecidas en el Plan de Ordenación de los Recursos Naturales y en el Plan Rector de Uso y Gestión.",
+  "La Consejería de Medio Ambiente podrá regular mediante Orden conjunta con la Consejería de Turismo y Deporte las condiciones medioambientales para el desarrollo de las nuevas actividades deportivas, de turismo activo o de ecoturismo que se declaren."
+];
 
 const rulesByMethod = {
   motor: [
@@ -30,13 +33,8 @@ const rulesByMethod = {
     "La realización de cualquier tipo de competición deportiva, prueba o exhibición organizada.",
     "La apertura de nuevas vías o escuelas de escalada en paredes y el equipamiento o el desequipamiento de las existentes.",
     "El vivaqueo, entendiendo por tal la actividad de pasar la noche al aire libre utilizando el material específico para ello (saco de dormir, funda de vivac o tiendas de campaña de pequeño tamaño).",
-    ]
+  ]
 };
-
-const generalRules = [
-  "El desarrollo de actividades de turismo en el medio rural, de turismo activo y de ecoturismo por parte de empresas se regirá por la normativa vigente, en particular por lo establecido en el Decreto 20/2002, de 29 de enero, y en la Orden de 20 de marzo de 2003, conjunta de las Consejerías de Turismo y Deporte y de Medio Ambiente, y las disposiciones establecidas en el Plan de Ordenación de los Recursos Naturales y en el Plan Rector de Uso y Gestión.",
-  "La Consejería de Medio Ambiente podrá regular mediante Orden conjunta con la Consejería de Turismo y Deporte las condiciones medioambientales para el desarrollo de las nuevas actividades deportivas, de turismo activo o de ecoturismo que se declaren."
-];
 
 const additionalRules = [
   "Las actividades recreativas, o relacionadas con ellas, que empleen helicópteros, ultraligeros, aviones, avionetas y cualquier vehículo aéreo con motor",
@@ -68,10 +66,10 @@ const SierraBazaRestrictions = ({ selectedMethod }) => {
   const methodKey = String(selectedMethod) === "1"
     ? "motor"
     : String(selectedMethod) === "2"
-    ? "bike"
-    : String(selectedMethod) === "3"
-    ? "hike"
-    : "all";
+      ? "bike"
+      : String(selectedMethod) === "3"
+        ? "hike"
+        : "all";
 
   const methodNames = {
     motor: "Vehículo a motor",
@@ -83,22 +81,22 @@ const SierraBazaRestrictions = ({ selectedMethod }) => {
   const combinedRules =
     methodKey === "all"
       ? Array.from(new Set([
-          ...rulesByMethod.motor,
-          ...rulesByMethod.bike,
-          ...rulesByMethod.hike,
-          ...additionalRules
-        ]))
+        ...rulesByMethod.motor,
+        ...rulesByMethod.bike,
+        ...rulesByMethod.hike,
+        ...additionalRules
+      ]))
       : rulesByMethod[methodKey] || [];
 
   return (
     <div className="container shadow p-3">
       <div className='card-container'>
-        <h3 className="mb-4">Restricciones del parque natural de Sierra de Baza</h3>
+        <h3 className="mb-4">Restricciones del Parque Natural Sierra de Baza</h3>
         <h4>Método seleccionado: {methodNames[methodKey]}</h4>
         {methodKey === "all" && (
-          <Sections title="Normas Generales de los planes PORN y PRUG." items={generalRules} />
+          <Sections title="Normas generales." items={generalRules} />
         )}
-        <Sections title="Prohibiciones del parque natural Sierra de Baza." items={combinedRules} />
+        <Sections title="Prohibiciones en el parque natural." items={combinedRules} />
       </div>
     </div>
   );

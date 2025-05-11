@@ -5,19 +5,18 @@ const generalRules = [
 ];
 const rulesByMethod = {
   motor: [
-    "Los vehículos no podrán salirse de los caminos, excepto en los lugares previstos para ello.",
     "Circulación campo a través o fuera de los caminos permitidos de vehículos a motor.",
     "Circulación de vehículos terrestres a motor por caminos rurales de anchura inferior a 2 metros, ni por servidumbres de los dominios públicos hidráulicos, cortafuegos y fajas auxiliares, vías forestales de extracción de madera y cauces secos e inundados.",
+    "Los vehículos no podrán salirse de los caminos, excepto en los lugares previstos para ello.",
     "En caminos de tierra, la velocidad máxima será de 40 km/h, salvo indicación expresa que establezca un límite diferente.",
     "No se circulará a más de 20 km/h en las inmediaciones de los animales.",
-    "Caravanas organizadas de 4 o más vehículos a motor.",
-    "La circulación de quads vinculada a actividades de uso público o turismo activo.",
-  
     "No se interceptará el movimiento de los grupos de animales.",
     "No se producirán ruidos o sonidos que puedan perturbar a la fauna.",
+    "No se utilizará iluminación artificial alguna.",
     "No se arrojarán alimentos ni se realizarán cebados en lugares de tránsito habitual de animales.",
     "No se utilizarán sistemas de atracción, captura o repulsión de animales.",
-    "No se utilizará iluminación artificial alguna."
+    "Caravanas organizadas de 4 o más vehículos a motor.",
+    "La circulación de quads vinculada a actividades de uso público o turismo activo.",
   ],
   bike: [
     "El acceso y tránsito será libre por los viales de la red pública de caminos, exceptuando los que presenten señalización que indique expresamente una restricción o limitación de paso.",
@@ -42,22 +41,15 @@ const rulesByMethod = {
 
 const additionalRules = [
   "Cualquier actividad que se realice en las Zonas de Reserva (A).",
+  "Cualquier actividad permitida que se realice fuera de los equipamientos básicos y complementarios que requieran la instalación de dotaciones, incluso cuando éstas sean provisionales.",
+  "La realización de cualquier tipo de competición deportiva, prueba o exhibición organizada.",
   "Las actividades recreativas, o relacionadas con ellas, que empleen helicópteros ultraligeros, aviones, avionetas y cualquier vehículo aéreo con motor",
   "El paracaidismo.",
   "Las actividades aeronáuticas siguientes: parapente, ala delta, vuelo sin motor y globo aerostático.",
   "El establecimento de áreas de despegue o aterrizaje, así como la señalización de las mismas, para actividades aeronáuticas sin motor.",
-  
   "La instalación de infraestructuras y equipamientos permanentes para el uso público, el turismo o la educación ambiental.",
-  
   "El descenso de cursos de agua en cualquier tipo de embarcación o artefacto flotante.",
-
-
-
-
   "Aquellas romerías o concentraciones de carácter popular que hayan comenzado a tener lugar durante los últimos 10 años o se vayan a iniciar en el futuro.",
-
-  
-
 ];
 
 const Sections = ({ title, items }) => (
@@ -88,7 +80,9 @@ const SierraHuetorRestrictions = ({ selectedMethod }) => {
     ? Array.from(new Set([
       ...rulesByMethod.motor,
       ...rulesByMethod.bike,
-      ...rulesByMethod.hike]))
+      ...rulesByMethod.hike],
+      ...additionalRules
+    ))
     : rulesByMethod[methodKey] || [];
 
   return (

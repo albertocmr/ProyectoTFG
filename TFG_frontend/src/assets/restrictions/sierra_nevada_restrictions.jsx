@@ -67,6 +67,7 @@ const SierraNevadaRestrictions = ({ selectedMethod }) => {
       ...rulesByMethod.motor,
       ...rulesByMethod.bike,
       ...rulesByMethod.hike,
+      ...additionalRules
     ]))
     : rulesByMethod[methodKey] || [];
 

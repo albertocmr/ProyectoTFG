@@ -1,4 +1,8 @@
-import React from 'react';
+const generalRules = [
+  "El desarrollo de actividades de turismo en el medio rural, de turismo activo y de ecoturismo por parte de empresas se regirá por la normativa vigente, en particular por lo establecido en el Decreto 20/2002, de 29 de enero, y en la Orden de 20 de marzo de 2003, conjunta de las Consejerías de Turismo y Deporte y de Medio Ambiente, y las disposiciones establecidas en el Plan de Ordenación de los Recursos Naturales y en el Plan Rector de Uso y Gestión del Parque Natural Sierras de Tejeda, Almijara y Alhama.",
+  "La Consejería de Turismo, Comercio y Deporte y de Medio Ambiente podrán regular mediante Orden conjunta las obligaciones y condiciones medioambientales para la práctica de aquellas actividades que en el futuro sean declaradas como actividades de turismo activo o ecoturismo.",
+  "La práctica y el desarrollo de las actividades de uso público y educación ambiental se realizará asegurando la conservación del patrimonio natural y cultural."
+];
 
 const rulesByMethod = {
   motor: [
@@ -25,11 +29,9 @@ const rulesByMethod = {
   ]
 };
 
-const generalRules = [
-  "El desarrollo de actividades de turismo en el medio rural, de turismo activo y de ecoturismo por parte de empresas se regirá por la normativa vigente, en particular por lo establecido en el Decreto 20/2002, de 29 de enero, y en la Orden de 20 de marzo de 2003, conjunta de las Consejerías de Turismo y Deporte y de Medio Ambiente, y las disposiciones establecidas en el Plan de Ordenación de los Recursos Naturales y en el Plan Rector de Uso y Gestión del Parque Natural Sierras de Tejeda, Almijara y Alhama.",
-  "La Consejería de Turismo, Comercio y Deporte y de Medio Ambiente podrán regular mediante Orden conjunta las obligaciones y condiciones medioambientales para la práctica de aquellas actividades que en el futuro sean declaradas como actividades de turismo activo o ecoturismo.",
-  "La práctica y el desarrollo de las actividades de uso público y educación ambiental se realizará asegurando la conservación del patrimonio natural y cultural."
-];
+const additionalRules = [
+
+]
 
 const methodNames = {
   motor: "Vehículo a motor.",
@@ -62,7 +64,8 @@ const SierraTejedaRestrictions = ({ selectedMethod }) => {
     ? Array.from(new Set([
         ...rulesByMethod.motor,
         ...rulesByMethod.bike,
-        ...rulesByMethod.hike
+        ...rulesByMethod.hike,
+        ...aditionalRules
       ]))
     : rulesByMethod[methodKey] || [];
 
