@@ -76,7 +76,7 @@ export const uploadGPXFile = async (selectedGPXFile) => {
 
         console.log(response.data);
 
-        alert(`Archivo GPX ${selectedGPXFile.name} subido correctamente.`);
+        //alert(`Archivo GPX ${selectedGPXFile.name} subido correctamente.`);
     } catch (error) {
         console.error('Error al subir el archivo:', error);
         if (error.response && error.response.status === 401) {

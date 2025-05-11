@@ -3,7 +3,7 @@ import { Modal } from 'bootstrap';
 
 export const executeScriptPython = async (selectedGPXFile, setLoadingScript, setParksList) => {
     if (!selectedGPXFile) {
-        alert("Selecciona un archivo GPX antes de ejecutar el script.");
+        //alert("Selecciona un archivo GPX antes de ejecutar el script.");
         return;
     }
 
