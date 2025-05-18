@@ -136,9 +136,9 @@ function Map() {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={() => {
-              uploadGPXFile(selectedGPXFile);
-              executeScriptPython(selectedGPXFile, setLoadingScript, setParksList);
+            onClick={async () => {
+              await uploadGPXFile(selectedGPXFile);
+              await executeScriptPython(selectedGPXFile, setLoadingScript, setParksList);
             }}
             disabled={loadingScript}
           >
