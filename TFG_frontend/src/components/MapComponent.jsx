@@ -138,8 +138,9 @@ function Map() {
               if (!selectedGPXFile) {
                 alert("Por favor, seleccionar una archivo GPX.")
               } else {
-                await uploadGPXFile(selectedGPXFile);
-                await executeScriptPython(selectedGPXFile, setLoadingScript, setParksList);
+                const success = await uploadGPXFile(selectedGPXFile);
+                if (success) 
+                  await executeScriptPython(selectedGPXFile, setLoadingScript, setParksList);
               }
             }}
             disabled={loadingScript}

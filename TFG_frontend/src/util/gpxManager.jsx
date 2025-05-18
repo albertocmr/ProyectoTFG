@@ -60,7 +60,7 @@ export const removeGPXLayers = (map, gpxLayers, setGpxLayers) => {
 
 export const uploadGPXFile = async (selectedGPXFile) => {
     if (!selectedGPXFile) {
-        return;
+        return false;
     }
 
     const formData = new FormData();
@@ -74,6 +74,7 @@ export const uploadGPXFile = async (selectedGPXFile) => {
         });
 
         console.log(response.data);
+        return true;
 
         //alert(`Archivo GPX ${selectedGPXFile.name} subido correctamente.`);
     } catch (error) {
@@ -84,6 +85,7 @@ export const uploadGPXFile = async (selectedGPXFile) => {
         } else {
             alert(`Error al subir el archivo: ${error.message}`);
         }
+        return false;
     }
 };
 
