@@ -33,3 +33,7 @@ TFG_backend/mvnw
 TFG_backend/.gitignore
 
 .astro
+
+# Vercel
+.vercel
+dist
