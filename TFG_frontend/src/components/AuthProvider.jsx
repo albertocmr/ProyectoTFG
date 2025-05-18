@@ -14,6 +14,8 @@ const AuthProvider = ({ children }) => {
         redirect_uri: redirect_uri,
         audience: audience,
       }}
+      cacheLocation="localstorage"
+      useRefreshTokens={true}
     >
       {children}
     </Auth0Provider>
