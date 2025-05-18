@@ -60,7 +60,6 @@ export const removeGPXLayers = (map, gpxLayers, setGpxLayers) => {
 
 export const uploadGPXFile = async (selectedGPXFile) => {
     if (!selectedGPXFile) {
-        alert("Por favor selecciona un archivo GPX antes de subirlo.");
         return;
     }
 

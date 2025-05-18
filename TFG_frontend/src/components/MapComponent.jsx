@@ -40,12 +40,12 @@ function Map() {
   }, [map]);
 
   useEffect(() => {
-    if (!loadingModalRef.current ||modalInstanceRef.current) return;
+    if (!loadingModalRef.current || modalInstanceRef.current) return;
 
     modalInstanceRef.current = new window.bootstrap.Modal(loadingModalRef.current);
   }, []);
 
-      
+
 
   useEffect(() => {
     const modal = modalInstanceRef.current;
@@ -55,8 +55,6 @@ function Map() {
 
   }, [loadingScript]);
 
-
-  // Controlador de eventos para el botón de cargar archivo GPX
   const handleSelectMethod = (event) => {
     const selectedValue = event.target.value;
     setSelectedMethod(selectedValue);
@@ -82,7 +80,7 @@ function Map() {
 
 
 
-  
+
 
   return (
     <div className="container bg-white p-4 rounded-xl">
@@ -90,14 +88,14 @@ function Map() {
         <h1 className="fs-3 text-center mb-3"><strong>Comprueba tu ruta</strong></h1>
         <div className="border border-dark rounded shadow row py-3">
           <div className="col-md-6">
-            
+
 
             <div className="ml-5 mb-3">
               <h1 className='mb-2'>Selecciona el medio en el que realizarás la ruta</h1>
               <div className="input-group">
-                <select 
-                  className="form-select" 
-                  id="inputGroupSelect01" 
+                <select
+                  className="form-select"
+                  id="inputGroupSelect01"
                   aria-label="Elige tu método para realizar la ruta"
                   value={selectedMethod}
                   onChange={handleSelectMethod}
@@ -108,7 +106,7 @@ function Map() {
                   <option value="3">Senderismo</option>
                 </select>
               </div>
-            {message && <p>{message}</p>}
+              {message && <p>{message}</p>}
             </div>
           </div>
 
@@ -135,10 +133,14 @@ function Map() {
         <div className="buttons-container space-x-2 space-y-1 mt-3">
           <button
             type="button"
-            className="btn btn-primary"
+            className="btn btn-primary ml-2 ms-1"
             onClick={async () => {
-              await uploadGPXFile(selectedGPXFile);
-              await executeScriptPython(selectedGPXFile, setLoadingScript, setParksList);
+              if (!selectedGPXFile) {
+                alert("Por favor, seleccionar una archivo GPX.")
+              } else {
+                await uploadGPXFile(selectedGPXFile);
+                await executeScriptPython(selectedGPXFile, setLoadingScript, setParksList);
+              }
             }}
             disabled={loadingScript}
           >
@@ -184,7 +186,7 @@ function Map() {
             </div>
           </div>
         </div>
-        
+
 
 
         <div
@@ -221,14 +223,14 @@ function Map() {
                         );
                       })}
                     </ul>
-                  <div className="alert alert-info mx-2">
-                    <p>
-                      <strong>Nota:</strong> Las restricciones aquí mostradas están basadas en la normativa correspondiente al apartado <strong>Uso público, Turismo activo, Ecoturismo y Educación ambiental</strong> recogida en los <a href="https://www.juntadeandalucia.es/medioambiente/portal/areas-tematicas/espacios-protegidos/gestion-espacios-protegidos/porn-prug-planes-de-gestion/documentos-aprobados" target="_blank" rel="noopener noreferrer"><u>planes Plan de Ordenación de los Recursos Naturales (PORN) y Plan Rector de Uso y Gestión (PRUG)</u></a>.
-                    </p>
-                    <p>
+                    <div className="alert alert-info mx-2">
+                      <p>
+                        <strong>Nota:</strong> Las restricciones aquí mostradas están basadas en la normativa correspondiente al apartado <strong>Uso público, Turismo activo, Ecoturismo y Educación ambiental</strong> recogida en los <a href="https://www.juntadeandalucia.es/medioambiente/portal/areas-tematicas/espacios-protegidos/gestion-espacios-protegidos/porn-prug-planes-de-gestion/documentos-aprobados" target="_blank" rel="noopener noreferrer"><u>planes Plan de Ordenación de los Recursos Naturales (PORN) y Plan Rector de Uso y Gestión (PRUG)</u></a>.
+                      </p>
+                      <p>
                         Para realizar actividades que requieren autorización, como filmaciones, acampadas organizadas o eventos deportivos, se debe solicitar permiso a la Delegación Territorial de la Consejería competente en medio ambiente. Consulta el procedimiento y requisitos actualizados en la <a href="https://www.juntadeandalucia.es/servicios/sede/tramites/procedimientos/detalle/727.html" target="_blank" rel="noopener noreferrer"><u>web oficial de la Junta de Andalucía</u></a>.
-                    </p>
-                  </div>
+                      </p>
+                    </div>
                   </div>
                 ) : (
                   <p className="text-center text-muted">La ruta proporcionada no pasa por ningún Parque Natural Andaluz.</p>
