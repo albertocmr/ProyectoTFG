@@ -13,6 +13,7 @@
     "astro": "^5.7.12",
     "axios": "^1.7.4",
     "bootstrap": "^5.3.5",
+    "esbuild": "^0.25.4",
     "leaflet": "^1.9.4",
     "leaflet-css": "^0.1.0",
     "nth-check": "~>2.0.1",
