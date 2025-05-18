@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const NATURALPARK_BASE_REST_API_URL = `${PUBLIC_API_URL}/api/natural_parks`;
+const NATURALPARK_BASE_REST_API_URL = `https://parktracker.onrender.com/api/natural_parks`;
 
 class NaturalParkService{
 

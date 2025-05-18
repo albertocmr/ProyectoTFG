@@ -68,7 +68,7 @@ export const uploadGPXFile = async (selectedGPXFile) => {
     formData.append("route", selectedGPXFile);
 
     try {
-        const response = await axios.post(`${PUBLIC_API_URL}/api/gpx/upload`, formData, {
+        const response = await axios.post(`https://parktracker.onrender.com/api/gpx/upload`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
@@ -100,7 +100,7 @@ export const fetchAndAddGPXFiles = async (map, selectedGPXFile, setGpxLayers) =>
     }
 
     try {
-        const res = await axios.get(`${PUBLIC_API_URL}/api/gpx/list`);
+        const res = await axios.get(`https://parktracker.onrender.com/api/gpx/list`);
 
         if (res.status === 401) {
             alert("Necesitas loguearte para poder generar archivos GPX.");
@@ -116,7 +116,7 @@ export const fetchAndAddGPXFiles = async (map, selectedGPXFile, setGpxLayers) =>
         }
 
         for (const file of fileList) {
-            const url = `${PUBLIC_API_URL}/shared-data/routes/${file}`;
+            const url = `https://parktracker.onrender.com/shared-data/routes/${file}`;
             const response = await fetch(url);
 
             if (!response.ok) {
