@@ -7,7 +7,7 @@ const AddNaturalParkComponent = ({ id }) => {
   useEffect(() => {
     if (!id) return;
 
-    axios.get(`http://localhost:8080/api/natural_parks/${id}`)
+    axios.get(`${PUBLIC_API_URL}/api/natural_parks/${id}`)
       .then(res => setPark(res.data))
       .catch(error => console.error("Error al cargar parque:", error));
   }, [id]);
@@ -19,8 +19,8 @@ const AddNaturalParkComponent = ({ id }) => {
   const handleSubmit = e => {
     e.preventDefault();
     const req = id
-      ? axios.put(`http://localhost:8080/api/natural_parks/${id}`, park)
-      : axios.post("http://localhost:8080/api/natural_parks", park);
+      ? axios.put(`${PUBLIC_API_URL}/api/natural_parks/${id}`, park)
+      : axios.post(`${PUBLIC_API_URL}/api/natural_parks`, park);
 
     req
       .then(res => {

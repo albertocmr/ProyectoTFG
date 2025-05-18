@@ -12,12 +12,12 @@ const rulesByMethod = {
     "El estacionamiento para pernoctar de caravanas, autocaravanas y vehículos de características similares, fuera de los lugares expresamente habilitados a tal fin.",
     "Las actividades que impliquen el uso de aparatos de megafonía exterior con alteración de las condiciones de sosiego y silencio.",
     "En zonas de Reserva A, será incompatible la circulación de vehículos a motor, salvo los ligados a la gestión del espacio, a las actividades de investigación, el uso público, el turismo activo y ecoturismo y a los aprovechamientos forestales, ganaderos y cinegéticos."
-  
+
   ],
   bike: [
-    "El cicloturismo campo a través y en los senderos de uso exclusivamente peatonal.", 
+    "El cicloturismo campo a través y en los senderos de uso exclusivamente peatonal.",
     "Las actividades que impliquen el uso de aparatos de megafonía exterior con alteración de las condiciones de sosiego y silencio.",
-  
+
   ],
   hike: [
     "Las rutas ecuestres en senderos de uso público establezca exclusivamente peatonal.",
@@ -30,7 +30,7 @@ const rulesByMethod = {
 };
 
 const additionalRules = [
-
+  "Las actividades de filmación, rodaje, grabación sonora y fotografía que impliquen el uso de equipos auxiliares, tales como focos, pantallas reflectoras, generadores eléctricos u otros.",
 ]
 
 const methodNames = {
@@ -56,17 +56,17 @@ const Sections = ({ title, items }) => (
 const SierraTejedaRestrictions = ({ selectedMethod }) => {
   const methodKey =
     selectedMethod === "1" ? "motor" :
-    selectedMethod === "2" ? "bike" :
-    selectedMethod === "3" ? "hike" :
-    "all";
+      selectedMethod === "2" ? "bike" :
+        selectedMethod === "3" ? "hike" :
+          "all";
 
   const combinedRules = methodKey === "all"
     ? Array.from(new Set([
-        ...rulesByMethod.motor,
-        ...rulesByMethod.bike,
-        ...rulesByMethod.hike,
-        ...aditionalRules
-      ]))
+      ...rulesByMethod.motor,
+      ...rulesByMethod.bike,
+      ...rulesByMethod.hike,
+      ...additionalRules
+    ]))
     : rulesByMethod[methodKey] || [];
 
   return (
