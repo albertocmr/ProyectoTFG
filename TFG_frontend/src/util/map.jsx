@@ -45,7 +45,7 @@ export const initializeMap = async (setMap) => {
 }
 
 export async function loadGeojsonDataFromBackend() {
-    const response = await fetch("http://localhost:8080/api/perimeters");
+    const response = await fetch(`${PUBLIC_API_URL}/api/perimeters`);
 
     if (!response.ok) {
         console.warn("Error al obtener perímetros:", response.status, response.statusText);

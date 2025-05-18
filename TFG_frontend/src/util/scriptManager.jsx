@@ -10,7 +10,7 @@ export const executeScriptPython = async (selectedGPXFile, setLoadingScript, set
     setLoadingScript(true);
 
     try {
-        const response = await axios.get('http://localhost:8080/api/ejecutar-script');
+        const response = await axios.get(`${PUBLIC_API_URL}/api/ejecutar-script`);
 
         if (response.status === 200) {
             const data = response.data;
