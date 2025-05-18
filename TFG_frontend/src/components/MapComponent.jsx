@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useRef, use } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
 
 import { initializeMap } from '../util/map';
 import { loadRestrictions } from '../util/loadRestrictions';

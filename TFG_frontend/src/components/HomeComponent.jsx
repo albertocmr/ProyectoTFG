@@ -17,7 +17,7 @@ const HomeComponent = () => {
                     <img
                         alt="Paisaje del Parque Natural Sierra de Huétor en otoño, hecha por Pilar Flores"
                         className="rounded-2xl shadow-lg max-w-full w-96"
-                        src="/src/assets/images/SierraHuetor_Otonio_Pilarflores.jpg"
+                        src="/SierraHuetor_Otonio_Pilarflores.jpg"
                     />
                 </div>
             </div>
