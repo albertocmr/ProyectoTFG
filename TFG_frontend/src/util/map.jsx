@@ -5,9 +5,10 @@ import geojsonDataA from '../assets/coordinates/reserva_A/geojsonImportsA.js';
 export const initializeMap = async (setMap) => {
     const initializedMap = L.map('map').setView([37.5, -4.5], 6.5);
 
-    L.tileLayer('https://c.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, SRTM | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a>'
+
     }).addTo(initializedMap);
 
     const geojsonData = await loadGeojsonDataFromBackend();
