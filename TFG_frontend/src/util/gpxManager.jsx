@@ -58,7 +58,7 @@ export const removeGPXLayers = (map, gpxLayers, setGpxLayers) => {
     setGpxLayers([]);
 }
 
-export const uploadGPXFile = async (selectedGPXFile) => {
+export const uploadGPXFile = async (selectedGPXFile, setLoadingScript) => {
     if (!selectedGPXFile) {
         return false;
     }
@@ -67,6 +67,7 @@ export const uploadGPXFile = async (selectedGPXFile) => {
     formData.append("route", selectedGPXFile);
 
     try {
+        setLoadingScript(true);
         const response = await axios.post(`https://parktracker.onrender.com/api/gpx/upload`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -85,6 +86,7 @@ export const uploadGPXFile = async (selectedGPXFile) => {
         } else {
             alert(`Error al subir el archivo: ${error.message}`);
         }
+        setLoadingScript(false);
         return false;
     }
 };

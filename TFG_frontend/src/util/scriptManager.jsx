@@ -9,7 +9,7 @@ export const executeScriptPython = async (selectedGPXFile, setLoadingScript, set
 
 
     try {
-        setLoadingScript(true);
+        //setLoadingScript(true);
         const response = await axios.get(`https://parktracker.onrender.com/api/ejecutar-script`);
 
         if (response.status === 200) {

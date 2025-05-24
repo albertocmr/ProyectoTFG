@@ -138,7 +138,7 @@ function Map() {
               if (!selectedGPXFile) {
                 alert("Por favor, seleccionar una archivo GPX.")
               } else {
-                const success = await uploadGPXFile(selectedGPXFile);
+                const success = await uploadGPXFile(selectedGPXFile, setLoadingScript);
                 if (success) 
                   await executeScriptPython(selectedGPXFile, setLoadingScript, setParksList);
               }
@@ -181,7 +181,7 @@ function Map() {
               <div className="modal-body">
                 <div className="d-flex justify-content-center align-items-center">
                   <Loading />
-                  <p className="text-center mt-3">Ejecutando script Python...</p>
+                  <p className="text-center mt-3">Cargando y comprobando tu ruta...</p>
                 </div>
               </div>
             </div>
