@@ -67,14 +67,14 @@ export const uploadGPXFile = async (selectedGPXFile, setLoadingScript) => {
     formData.append("route", selectedGPXFile);
 
     try {
-        setLoadingScript(true);
         const response = await axios.post(`https://parktracker.onrender.com/api/gpx/upload`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
         });
+        setLoadingScript(true);
 
-        console.log(response.data);
+        //console.log(response.data);
         return true;
 
         //alert(`Archivo GPX ${selectedGPXFile.name} subido correctamente.`);

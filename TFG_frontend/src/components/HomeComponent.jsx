@@ -10,7 +10,7 @@ const HomeComponent = () => {
                     </h1>
                     <p className="text-gray-700">
                         <strong className=''>Explorar la naturaleza es un privilegio, protegerla es una responsabilidad.</strong><br></br>
-                        Aquí encontrarás información sobre los parques naturales de Andalucía y la normativa que debes tener en cuenta para disfrutar de ellos de manera responsable.
+                        En esta página web encontrarás información sobre la normativa que debes tener en cuenta para disfrutar de manera responsable en los parques naturales de Andalucía.
                     </p>                    
                 </div>
                 <div className="flex justify-center">
@@ -27,7 +27,7 @@ const HomeComponent = () => {
                 <p className="text-gray-700 mb-4">
                     Comprueba si la ruta que planeas realizar atraviesa alguno de los parques naturales de Andalucía y accede a la normativa vigente en cada zona protegida.
                     Esta información te ayudará a planificar tu recorrido de forma responsable, evitando sanciones y contribuyendo a la conservación del entorno natural.
-                    Como usuario no registrado, podrás visualizar las rutas en el mapa. Sin embargo, para analizarlas y detectar intersecciones con parques naturales, necesitas iniciar sesión.
+                    Como usuario no registrado, podrás visualizar las rutas en el mapa. Sin embargo, para analizarlas y detectar intersecciones con los parques naturales, necesitas iniciar sesión.
                 </p>
 
                 <h3 className="text-xl font-semibold text-gray-800 mb-3">Pasos para comprobar tu ruta:</h3>
@@ -35,10 +35,9 @@ const HomeComponent = () => {
                     <li><strong>Selecciona el medio de transporte:</strong> Elige si harás la ruta en vehículo a motor, bicicleta o caminando.</li>
                     <li><strong>Selecciona tu archivo GPX:</strong> Asegúrate de que contiene la ruta deseada. Se visualizará en el mapa.</li>
                     <li><strong>Inicia sesión:</strong> Inicia sesión para poder acceder a las siguientes funcionalidades avanzadas.</li>
-                    <li><strong>Carga el archivo:</strong> El sistema lo almacenará para analizar posibles intersecciones.</li>
-                    <li><strong>Ejecuta el análisis:</strong> Compara tu ruta con los parques naturales y determina las restricciones.</li>
+                    <li><strong>Comprueba tu ruta:</strong> Compara tu ruta con los parques naturales y determina las restricciones.</li>
                     <li><strong>Consulta las restricciones:</strong> Visualiza qué limitaciones se aplican a la ruta.</li>
-                    <li><strong>Genera y visualiza intersecciones:</strong> Verás sobre el mapa los tramos de tu ruta que coinciden con los perímetros de los parques naturales.</li>
+                    <li><strong>Genera y visualiza intersecciones:</strong> Comprueba sobre el mapa los tramos de tu ruta que se encuentran dentro de los límites establecidos en los parques naturales.</li>
                 </ol>
             </div>
 
