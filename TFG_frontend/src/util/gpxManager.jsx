@@ -29,7 +29,7 @@ export const addGPXToMap = (event, map, setSelectedGPXFile, gpxLayers, setGpxLay
             const gpxLayer = L.geoJSON(geojson, {
                 style: {
                     color: '#00ffff',
-                    weight: 2,
+                    weight: 4,
                     opacity: 1,
                 },
                 onEachFeature: (feature, layer) => {
