@@ -41,7 +41,7 @@ const methodNames = {
 };
 
 const Sections = ({ title, items }) => (
-  <section className="mb-4 mt-4 border border-dark p-2">
+  <section className="mb-4 mt-4 p-2">
     <h2 className="ms-4">{title}</h2>
     <ul className="list-group mb-4 border border-dark">
       {items.map((item, index) => (
