@@ -25,7 +25,22 @@ export const parkNameMap = {
   "sierras subbeticas": "Parque Natural Sierras Subbéticas"
 };
 
+
 export function formatParkName(rawName) {
-  const clean = rawName?.toLowerCase().replace(/"/g, "").trim();
-  return parkNameMap[clean] || `Parque Natural ${clean.replace(/\b\w/g, l => l.toUpperCase())}`;
+  if (!rawName) return "";
+  const normalized = rawName
+    .toLowerCase()
+    .replace(/_/g, " ")
+    .trim();
+
+  if (parkNameMap[normalized]) {
+    return parkNameMap[normalized];
+  }
+
+  const capitalized = normalized
+    .split(" ")
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+
+  return `Parque Natural ${capitalized}`;
 }
