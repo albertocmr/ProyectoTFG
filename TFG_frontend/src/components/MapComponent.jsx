@@ -6,6 +6,8 @@ import { removeGPXLayers, addGPXToMap, uploadGPXFile, fetchAndAddGPXFiles } from
 import { executeScriptPython } from '../util/scriptManager';
 import Loading from '../assets/Loading';
 
+import { formatParkName } from '../util/ParkNameFormatter';
+
 
 function Map() {
   const [map, setMap] = useState(null);
@@ -209,7 +211,7 @@ function Map() {
                     <ul className="list-group list-group-flush mb-4">
                       {parksList.map((park, index) => (
                         <li key={index} className="list-group-item list-group-item-action">
-                          <i className="bi bi-tree text-success"></i> {park.replace(/_/g, ' ')}
+                          <i className="bi bi-tree text-success"></i> {formatParkName(park)}
                         </li>
                       ))}
                     </ul>
